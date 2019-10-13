@@ -1,0 +1,124 @@
+/* pages/order/checkout/checkout.wxss */
+page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f8f8f8;
+}
+
+.content {
+  flex: 1;
+  overflow: scroll;
+  margin-bottom: 40rpx;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.content-title {
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  background: white;
+  padding: 0 10rpx;
+}
+
+.content-comment {
+  padding: 10rpx 30rpx 20rpx;
+  background: white;
+  margin-top: 20rpx;
+}
+
+.content-comment > label {
+  font-size: 32rpx;
+  color: #a3a3a3;
+}
+
+.content-comment > textarea {
+  width: 95%;
+  font-size: 24rpx;
+  background: #f2f2f2;
+  padding: 20rpx;
+  height: 160rpx;
+  margin-top: 10rpx;
+}
+
+.order {
+  background: white;
+  margin-top: 20rpx;
+}
+
+.order-title {
+  font-size: 24rpx;
+  color: #a2a1a0;
+  padding: 24rpx;
+}
+
+.order-list {
+  padding: 0 30rpx;
+}
+
+.order-item {
+  background: #fff;
+  display: flex;
+  font-size: 32rpx;
+  padding: 25rpx 0;
+  border-top: 1rpx #e3e3e3 solid;
+}
+
+.order-item-l {
+  flex: 1;
+  display: flex;
+}
+
+.order-item-image {
+  width: 94rpx;
+  height: 94rpx;
+  margin-right: 25rpx;
+}
+
+.order-item-number {
+  color: #a3a3a3;
+  margin-top: 4rpx;
+  font-size: 28rpx;
+}
+
+.order-promotion-icon {
+  display: inline-block;
+  background: #ff4500;
+  padding: 2rpx 6rpx 6rpx;
+  color: #fff;
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.order-promotion-price {
+  color: #ff4500;
+}
+
+.order-total-price {
+  font-size: 40rpx;
+}
+
+.operate {
+  height: 110rpx;
+  display: flex;
+}
+
+.operate-info {
+  width: 74%;
+  background: #353535;
+  color: #fff;
+  line-height: 110rpx;
+  padding-left: 40rpx;
+}
+
+.operate-submit {
+  width: 26%;
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 110rpx;
+  background: #ff9c35;
+  color: #fff;
+}

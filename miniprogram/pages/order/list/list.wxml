@@ -1,0 +1,48 @@
+<!--pages/order/list/list.wxml-->
+
+<view class="list">
+  <view class="list-empty" wx:if="{{order.length === 0}}">您还没有下过订单</view>
+  <view class="list-item" wx:for="{{order}}" wx:key="id">
+    <view class="list-item-l">
+      <view class="list-item-t">下单时间：{{formatData(item.create_time)}}</view>
+      <view>
+        <view class="list-item-name">{{item.first_food_name}}</view>
+        <view>
+          <text>等{{item.number}}件商品</text>
+          <text class="list-item-price">{{priceFormat(item.price)}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="list-item-r">
+      <view>
+        <view class="list-item-detail" bindtap="detail" data-id="{{item.id}}">查看详情</view>
+        <view class="list-item-taken list-item-taken-yes" wx:if="{{item.is_taken}}">已取餐</view>
+        <view class="list-item-taken list-item-taken-no" wx:else>未取餐</view>
+      </view>
+    </view>
+  </view>
+  <view class="list-item list-item-last" wx:if="{{is_last}}">已经到底啦</view>
+  <view class="list-item list-item-last" wx:else>加载中...</view>
+</view>
+<wxs module="priceFormat">
+  module.exports = function(price) {
+    return '¥ ' + parseFloat(price)
+  }
+</wxs>
+<wxs module="formatData">
+  module.exports = function(time) {
+    var date = getDate(time)
+    var y = date.getFullYear()
+    var m = date.getMonth() + 1
+    var d = date.getDate()
+    var h = date.getHours()
+    var i = date.getMinutes()
+    var s = date.getSeconds()
+    return [y, m, d].map(formatNumber).join('-') + ' ' + [h, i, s].map(formatNumber).join(':')
+  }
+
+  function formatNumber(n) {
+    n = n.toString()
+    return n[1] ? n : '0' + n
+  }
+</wxs>

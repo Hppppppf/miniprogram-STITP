@@ -1,0 +1,69 @@
+/* pages/index/index.wxss */
+/* 轮播图样式 */
+
+.swiper {
+  height: 350rpx;
+}
+
+.swiper image {
+  width: 100%;
+  height: 100%;
+}
+
+/* 开启点餐之旅 */
+
+.menu-bar {
+  display: flex;
+  margin-top: 20rpx;
+}
+
+.menu-block {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.menu-start {
+  text-align: center;
+  font-size: 38rpx;
+  color: #fff;
+  padding: 16rpx 80rpx;
+  background: #00D8A0;
+  border-radius: 80rpx;
+}
+
+/* 中间部分广告 */
+
+.ad-box {
+  margin-top: 20rpx;
+  width: 100%;
+  text-align: center;
+}
+
+.ad-image {
+  width: 710rpx;
+  height: 336rpx;
+}
+
+/* 底部图片展示 */
+
+.bottom-box {
+  margin: 20rpx 0;
+  display: flex;
+  width: 100%;
+  padding: 0 20rpx;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.bottom-pic {
+  width: 49%;
+  display: inline-block;
+}
+
+.bottom-image {
+  width: 100%;
+  height: 170rpx;
+}

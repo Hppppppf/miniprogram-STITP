@@ -1,0 +1,68 @@
+<!--pages/order/detail/detail.wxml-->
+<view class="top">
+  <view class="card" wx:if="{{!is_taken}}">
+    <view class="card-title">取餐号</view>
+    <view class="card-content">
+      <view class="card-info">
+        <text class="card-code">{{code}}</text>
+        <text class="card-info-r">正在精心制作中…</text>
+      </view>
+      <view class="card-comment" wx:if="{{comment}}">备注：{{comment}}</view>
+      <view class="card-tips">美食制作中，尽快为您服务☺</view>
+    </view>
+  </view>
+</view>
+<view class="order">
+  <view class="order-title">订单详情</view>
+  <view class="order-list">
+    <view class="order-item" wx:for="{{order_food}}" wx:key="id">
+      <view class="order-item-l">
+        <image class="order-item-image" mode="widthFix" src="{{item.image_url}}" />
+        <view>
+          <view class="order-item-name">{{item.name}}</view>
+          <view class="order-item-number">x {{item.number}}</view>
+        </view>
+      </view>
+      <view class="order-item-price">{{priceFormat(item.price * item.number)}}</view>
+    </view>
+    <view class="order-item" wx:if="{{checkPromotion(promotion)}}">
+      <view class="order-item-l">
+        <i class="order-promotion-icon">减</i>满减优惠</view>
+      <view class="order-promotion-price">- {{priceFormat(promotion)}}</view>
+    </view>
+    <view class="order-item">
+      <view class="order-item-l">小计</view>
+      <view class="order-total-price">{{priceFormat(price)}}</view>
+    </view>
+  </view>
+</view>
+<view class="list">
+  <view>
+    <text>订单号码</text>
+    <view>{{sn}}</view>
+  </view>
+  <view>
+    <text>下单时间</text>
+    <view>{{create_time}}</view>
+  </view>
+  <view>
+    <text>付款时间</text>
+    <view>{{pay_time}}</view>
+  </view>
+  <view wx:if="{{is_taken}}">
+    <text>取餐时间</text>
+    <view>{{taken_time}}</view>
+  </view>
+</view>
+<view class="tips" wx:if="{{is_taken}}">取餐号{{code}} 您已取餐</view>
+<view class="tips" wx:else>请凭此页面至取餐柜台领取饮料</view>
+<wxs module="priceFormat">
+  module.exports = function(price) {
+    return '¥ ' + parseFloat(price)
+  }
+</wxs>
+<wxs module="checkPromotion">
+  module.exports = function(promotion) {
+    return parseFloat(promotion) > 0
+  }
+</wxs>

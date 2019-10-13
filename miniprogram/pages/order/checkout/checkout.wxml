@@ -1,0 +1,45 @@
+<view class="content">
+  <view class="content-title">请确认您的订单</view>
+  <view class="order">
+    <view class="order-title">订单详情</view>
+    <view class="order-list">
+      <view class="order-item" wx:for="{{order_food}}" wx:key="id">
+        <view class="order-item-l">
+          <image class="order-item-image" mode="widthFix" src="{{item.image_url}}" />
+          <view>
+            <view class="order-item-name">{{item.name}}</view>
+            <view class="order-item-number">x {{item.number}}</view>
+          </view>
+        </view>
+        <view class="order-item-price">{{priceFormat(item.price * item.number)}}</view>
+      </view>
+      <view class="order-item" wx:if="{{checkPromotion(promotion)}}">
+        <view class="order-item-l">
+          <i class="order-promotion-icon">减</i>满减优惠</view>
+        <view class="order-promotion-price">- {{priceFormat(promotion)}}</view>
+      </view>
+      <view class="order-item">
+        <view class="order-item-l">小计</view>
+        <view class="order-total-price">{{priceFormat(price)}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="content-comment">
+    <label>备注</label>
+    <textarea placeholder="如有其他要求，请输入备注" bindinput="comment"></textarea>
+  </view>
+</view>
+<view class="operate">
+  <view class="operate-info">合计：{{priceFormat(price)}}</view>
+  <view class="operate-submit" bindtap="pay">去支付</view>
+</view>
+<wxs module="priceFormat">
+  module.exports = function(price) {
+    return '¥ ' + parseFloat(price)
+  }
+</wxs>
+<wxs module="checkPromotion">
+  module.exports = function(promotion) {
+    return parseFloat(promotion) > 0
+  }
+</wxs>

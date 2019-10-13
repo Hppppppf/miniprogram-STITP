@@ -1,0 +1,23 @@
+<!--pages/record/record.wxml-->
+<view class="head">
+  <view class="avatar">
+ 	  <open-data type="userAvatarUrl"></open-data>
+  </view>
+</view>
+<view class="content">
+  <view class="list-title">消费记录</view>
+  <view class="list-item" wx:for="{{list}}" wx:key="id">
+    <view class="list-item-l">
+      <view>消费</view>
+      <view class="list-item-time">{{item.pay_time}}</view>
+    </view>
+    <view class="list-item-r">
+      <text>{{priceFormat(item.price)}}</text>
+    </view>
+  </view>
+</view>
+<wxs module="priceFormat">
+  module.exports = function(price) {
+    return '¥ ' + parseFloat(price)
+  }
+</wxs>
