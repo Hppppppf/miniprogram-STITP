@@ -36,7 +36,14 @@ Page({
         promotion: res.data[0].promotion,
         foodList:res.data[0].locations
       })
-    })
+    }),
+      db.collection('foods').where({
+        location: this.data.foodList[0]
+      }).get().then(res => {
+        this.setData({
+          foodList2: res.data
+        })
+      })
     /*
     for (var i in data.list) {
       this.setData({

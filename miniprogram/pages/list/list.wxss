@@ -80,8 +80,8 @@ page {
 
 .food-item-pic {
   margin-right: 20rpx;
-  width: 94rpx;
-  height: 94rpx;
+  width: 100rpx;
+  height: 100rpx;
 }
 
 .food-item-pic > image {
