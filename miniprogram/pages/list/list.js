@@ -61,6 +61,13 @@ Page({
       })
     })
   },
+
+  order:function(){
+
+    wx.navigateTo({
+      url: '../order/checkout/checkout',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
