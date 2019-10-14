@@ -53,13 +53,26 @@ Page({
       activeIndex: index,
       tapIndex:index
     })
-    db.collection('foods').where({
-      location:this.data.foodList[this.data.activeIndex]
-    }).get().then(res => {
-      this.setData({
-        foodList2:res.data
+    if(this.data.activeIndex == 3)
+    {
+      db.collection('express').where({
+        category: this.data.foodList[this.data.activeIndex]
+      }).get().then(res => {
+        this.setData({
+          foodList2: res.data
+        })
       })
-    })
+    }
+    else{
+      db.collection('foods').where({
+        location: this.data.foodList[this.data.activeIndex]
+      }).get().then(res => {
+        this.setData({
+          foodList2: res.data
+        })
+      })
+    }
+      
   },
 
   order:function(){
