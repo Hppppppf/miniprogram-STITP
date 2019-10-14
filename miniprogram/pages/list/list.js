@@ -10,6 +10,7 @@ Page({
     activeIndex: 0,
     tapIndex: 0,
     foodList: [],
+    foodList2:[],
     cartList: {},
     cartPrice: 0,
     cartNumber: 0,
@@ -18,7 +19,7 @@ Page({
       x: 0,
       y: 0
     },
-    listLength:0,
+    
     showCart: false,
     promotion:{}
   },
@@ -33,25 +34,32 @@ Page({
     }).get().then(res => {
       this.setData({
         promotion: res.data[0].promotion,
-        listLength:res.data[0].listLength
+        foodList:res.data[0].locations
       })
     })
+    /*
     for (var i in data.list) {
       this.setData({
         activeIndex: i
       })
       break
-    }
+    }*/
   },
-
-
-  order:function(){
-   // if(cartNumber!=0)
-   {
-      wx.navigateTo({
-        url: '../order/checkout/checkout',
+  // 点击左侧菜单项选择
+  selectMenu: function (e) {
+    let index = e.currentTarget.dataset.index
+    console.log(index)
+    this.setData({
+      activeIndex: index,
+      tapIndex:index
+    })
+    db.collection('foods').where({
+      location:this.data.foodList[this.data.activeIndex]
+    }).get().then(res => {
+      this.setData({
+        foodList2:res.data
       })
-    }
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
