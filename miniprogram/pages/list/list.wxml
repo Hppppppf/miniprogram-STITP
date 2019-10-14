@@ -13,7 +13,7 @@
   </scroll-view>
   <!-- 右侧菜单 -->
   <scroll-view class="food" scroll-y scroll-with-animation scroll-into-view="category_{{tapIndex}}" bindscroll="onFoodScroll" bindscrolltolower="scrolltolower">
-    <block >
+    <block>
       <view class="food-item" wx:for="{{foodList2}}" wx:for-item="food" wx:key="id">
         <view class="food-item-pic">
           <image mode="widthFix" src="{{food.image}}" />
@@ -23,7 +23,7 @@
           <view class="food-item-price">{{priceFormat(food.price)}}</view>
         </view>
         <view class="food-item-opt">
-          <i class="iconfont" data-category_id="{{category_id}}" data-id="{{food.id}}" bindtap="addToCart"></i>
+          <i class="iconfont"data-type="{{index}}" data-index="{{index}}" bindtap="addToCart"></i>
         </view>
       </view>
     </block>
@@ -34,14 +34,14 @@
   <label wx:if="{{promotion.k - cartPrice > 0}}">满{{promotion.k}}立减{{promotion.v}}元，还差{{promotion.k - cartPrice}}元</label>
   <label wx:else>已满{{promotion.k}}元可减{{promotion.v}}元</label>
 </view>
-<!-- 底部操作菜单 -->
+<!-- 底部操作菜单 --> 
 <view class="operate">
   <view class="operate-shopcart-ball" hidden="{{!cartBall.show}}" style="left: {{cartBall.x}}px; top: {{cartBall.y}}px;"></view>
   <view class="operate-shopcart" bindtap="showCartList">
     <i class="iconfont operate-shopcart-icon {{cartNumber !== 0 ? 'operate-shopcart-icon-activity' : '' }}">
       <span wx:if="{{cartNumber !== 0}}">{{cartNumber}}</span>
     </i>
-    <view class="operate-shopcart-empty" wx:if="{{cartNumber === 0}}">购物车是空的</view>
+    <view class="operate-shopcart-empty" wx:if="{{cartNumber == 0}}">购物车是空的</view>
     <view class="operate-shopcart-price" wx:else>
       <block wx:if="{{cartPrice >= promotion.k}}">
         <view>{{priceFormat(cartPrice - promotion.v)}}</view>
