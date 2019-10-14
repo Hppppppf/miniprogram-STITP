@@ -45,14 +45,14 @@ Page({
         promotion: res.data[0].promotion,
         foodList:res.data[0].locations
       })
-    })
-    /*
-    for (var i in data.list) {
-      this.setData({
-        activeIndex: i
+    }),
+      db.collection('foods').where({
+        location: this.data.foodList[0]
+      }).get().then(res => {
+        this.setData({
+          foodList2: res.data
+        })
       })
-      break
-    }*/
   },
   // 点击左侧菜单项选择
   selectMenu: function (e) {
