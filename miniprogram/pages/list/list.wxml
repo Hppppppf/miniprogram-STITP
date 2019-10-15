@@ -58,7 +58,7 @@
   <view class="shopcart-wrap">
     <view class="shopcart-head">
       <view class="shopcart-head-title">已选商品</view>
-      <view class="shopcart-head-clean" bindtap="cartClear">
+      <view class="shopcart-head-clean" bindtap="clearCartList">
         <i class="iconfont"></i>清空购物车</view>
     </view>
     <view class="shopcart-list">
@@ -78,6 +78,6 @@
 </view>
 <wxs module="priceFormat">
   module.exports = function(price) {
-    return '¥ ' + parseFloat(price)
+    return '¥ ' + parseFloat(price).toFixed(2)
   }
 </wxs>

@@ -11,7 +11,7 @@ Page({
     tapIndex: 0,
     foodList: [],
     foodList2:[],
-    cartList: [],
+    cartList: {},
     cartPrice: 0,
     cartNumber: 0,
     cartBall: {
@@ -22,7 +22,7 @@ Page({
 
     currentType: 0,
     currentIndex: 0,
-    sumMonney: 0, // 总价钱
+    sumMoney: 0, // 总价钱
     cupNumber: 0, // 购物车里商品的总数量
     showCart: false, // 是否展开购物车
     loading: false,
@@ -108,32 +108,49 @@ Page({
   },
 
   addToCart: function (e) {
-    console.log(e)
-   // var type = e.currentTarget.dataset.type;
-    var index = e.currentTarget.dataset.index; 
-    this.setData({
-     // currentType: type,
-      currentIndex: index, 
-    });
-    
-    var a = this.data
-    var addItem = {
-      "name": a.foodList2[a.currentIndex].name,
-      "price": a.foodList2[a.currentIndex].price,
-      "number": 1,   
+    var id = e.currentTarget.dataset.index
+    var category_id = e.currentTarget.dataset.type
+    var food = this.data.foodList2[id]
+    var cartList = this.data.cartList
+    if (cartList[id]) {
+      ++cartList[id].number
+    } else {
+      cartList[id] = {
+        id: food.id,
+        name: food.name,
+        price: parseFloat(food.price),
+        number: 1
+      }
     }
-    var sumMonney = /*a.sumMonney +*/ a.price
-    var cartList = this.data.cartList;
-    cartList.push(addItem);
+    //this.shopcartAnimate.show(e)
     this.setData({
       cartList: cartList,
-      showModalStatus: false,
-      sumMonney: sumMonney,
-      cupNumber: a.cupNumber + 1,
-      cartNumber:a.cartNumber + 1
-    });
+      cartPrice: this.data.cartPrice + cartList[id].price,
+      cartNumber: this.data.cartNumber + 1
+    })
   },
-
+  cartNumberDec: function (e) {
+    var id = e.currentTarget.dataset.id
+    var cartList = this.data.cartList
+    if (cartList[id]) {
+      var price = cartList[id].price
+      if (cartList[id].number > 1) {
+        --cartList[id].number
+      } else {
+        delete cartList[id]
+      }
+      this.setData({
+        cartList: cartList,
+        cartNumber: --this.data.cartNumber,
+        cartPrice: this.data.cartPrice - price
+      })
+      if (this.data.cartNumber <= 0) {
+        this.setData({
+          showCart: false
+        })
+      }
+    }
+  },
   // 展开购物车
   showCartList: function () {
     if (this.data.cartList.length != 0) {
@@ -142,17 +159,26 @@ Page({
       });
     }
   },
+  // 清空购物车
+  clearCartList: function() {
+    this.setData({
+      cartList: {},
+      showCart: false,
+      cartPrice: 0,
+      cartNumber: 0
+    });
+  },
 /*
   // 购物车添加商品数量
   addNumber: function (e) {
     var index = e.currentTarget.dataset.index;
     var cartList = this.data.cartList;
     cartList[index].number++;
-    var sum = this.data.sumMonney + cartList[index].price;
+    var sum = this.data.sumMoney + cartList[index].price;
     cartList[index].sum += cartList[index].price;
     this.setData({
       cartList: cartList,
-      sumMonney: sum,
+      sumMoney: sum,
       cupNumber: this.data.cupNumber + 1
     })
   },
@@ -160,25 +186,17 @@ Page({
   decNumber: function (e) {
     var index = e.currentTarget.dataset.index;
     var cartList = this.data.cartList;
-    var sum = this.data.sumMonney - cartList[index].price;
+    var sum = this.data.sumMoney - cartList[index].price;
     cartList[index].sum -= cartList[index].price;
     cartList[index].number == 1 ? cartList.splice(index, 1) : cartList[index].number--;
     this.setData({
       cartList: cartList,
-      sumMonney: sum,
+      sumMoney: sum,
       showCart: cartList.length == 0 ? false : true,
       cupNumber: this.data.cupNumber - 1
     });
   },
-  // 清空购物车
-  clearCartList: function () {
-    this.setData({
-      cartList: [],
-      showCart: false,
-      sumMonney: 0,
-      cupNumber: 0
-    });
-  },
+  // 
 
 */
 
