@@ -151,6 +151,23 @@ Page({
       }
     }
   },
+  cartNumberAdd: function (e) {
+    var id = e.currentTarget.dataset.id
+    var cartList = this.data.cartList
+    if (cartList[id]) {
+      var price = cartList[id].price
+      
+        ++cartList[id].number
+      
+      this.setData({
+        cartList: cartList,
+        cartNumber: ++this.data.cartNumber,
+        cartPrice: this.data.cartPrice + price
+      })
+      
+      }
+    },
+
   // 展开购物车
   showCartList: function () {
     if (this.data.cartList.length != 0) {
