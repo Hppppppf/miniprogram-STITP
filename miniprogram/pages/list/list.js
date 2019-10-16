@@ -47,7 +47,7 @@ Page({
       })
     }),
       db.collection('foods').where({
-        location: this.data.foodList[0]
+        location: '南一'
       }).get().then(res => {
         this.setData({
           foodList2: res.data
@@ -61,7 +61,7 @@ Page({
     this.setData({
       activeIndex: index
     })
-    if(index ==0)
+    if(index != 3)
    { db.collection('foods').where({
       location:this.data.foodList[this.data.activeIndex]
     }).get().then(res => {

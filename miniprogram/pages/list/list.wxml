@@ -31,8 +31,8 @@
 </view>
 <!-- 满减优惠 -->
 <view class="promotion">
-  <label wx:if="{{promotion.k - cartPrice > 0}}">满{{promotion.k}}立减{{promotion.v}}元，还差{{promotion.k - cartPrice}}元</label>
-  <label wx:else>已满{{promotion.k}}元可减{{promotion.v}}元</label>
+  <label wx:if="{{promotion[0] - cartPrice > 0}}">满{{promotion[0]}}立减{{promotion[1]}}元，还差{{priceFormat(promotion[0] - cartPrice)}}元</label>
+  <label wx:else>已满{{promotion[0]}}元可减{{promotion[1]}}元</label>
 </view>
 <!-- 底部操作菜单 --> 
 <view class="operate">
@@ -44,7 +44,7 @@
     <view class="operate-shopcart-empty" wx:if="{{cartNumber == 0}}">购物车是空的</view>
     <view class="operate-shopcart-price" wx:else>
       <block wx:if="{{cartPrice >= promotion.k}}">
-        <view>{{priceFormat(cartPrice - promotion.v)}}</view>
+        <view>{{priceFormat(cartPrice - promotion[1])}}</view>
         <text>{{priceFormat(cartPrice)}}</text>
       </block>
       <view wx:else>{{priceFormat(cartPrice)}}</view>
