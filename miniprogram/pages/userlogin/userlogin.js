@@ -1,20 +1,20 @@
-const app=getApp();
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
-    data: {
-      motto: 'Hello World',
-      userInfo: { },
-      openid:'',
-      hasUserInfo: false,
-      canIUse: wx.canIUse('button.open-type.getUserInfo')
+  data: {
+    motto: 'Hello World',
+    userInfo: {},
+    openid: '',
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
-  onLoad: function () {
+  onLoad: function() {
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
-        openid:wx.getStorageSync('_OPENID'),
+        openid: wx.getStorageSync('_OPENID'),
         hasUserInfo: true
       })
       wx.redirectTo({
@@ -38,6 +38,9 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
+        },
+        fail: res => {
+          console.log('res...', res)
         }
       })
     }
@@ -50,13 +53,14 @@ Page({
 
   getUserInfo: function (e) {
     console.log(e)
-    wx.redirectTo({
-      url: './register',
-    })
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  }
+    if (e.detail.errMsg == "getUserInfo:ok"){
+      wx.redirectTo({
+        url: './register',
+      })
+      app.globalData.userInfo = e.detail.userInfo
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      })
+  }}
 })

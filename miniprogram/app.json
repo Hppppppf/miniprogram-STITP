@@ -5,7 +5,9 @@
     "pages/order/checkout/checkout",
     "pages/order/detail/detail",
     "pages/order/list/list",
-    "pages/record/record"
+    "pages/record/record",
+    "pages/userlogin/register",
+    "pages/userlogin/userlogin"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
