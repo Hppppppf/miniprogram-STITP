@@ -1,0 +1,11 @@
+<!--miniprogram/pages/welcome/welcome.wxml-->
+<view class='container'>
+  <open-data class="avs" type="userAvatarUrl"></open-data>
+  <view class='username'>
+    <text>Hello </text>
+    <open-data type="userNickName"></open-data>
+  </view>
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" text class="moto">开启点餐之旅</button>
+  </view>
+</view>

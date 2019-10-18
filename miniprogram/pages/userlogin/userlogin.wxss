@@ -1,0 +1,63 @@
+
+.userinfo {
+line-height: normal;
+ border: 1px solid #450f80;
+ width: 200rpx;
+ height: 80rpx;
+ border-radius: 5px;
+ text-align: center;
+ margin-top: 200rpx;
+ padding: 0px;
+ outline: none;
+}
+
+
+.usermotto {
+  margin-top: 120px;
+}
+page {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  background-size: 400vw 100vh;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avs {
+  opacity: 0.9;
+  width: 200rpx;
+  height: 200rpx;
+  margin-top: 160rpx;
+}
+
+.username {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-top: 200rpx;
+}
+
+.moto-container {
+  line-height:normal;
+  border: 1px solid #450f80;
+  width: 200rpx;
+  height: 80rpx;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 200rpx;
+  padding: 0px;
+  outline: none
+}
+
+.moto {
+  font-size: 22rpx;
+  font-weight: bold;
+  line-height: 80rpx;
+  text-align: center;
+  color: #450f80;
+}

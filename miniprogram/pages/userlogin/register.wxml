@@ -1,0 +1,55 @@
+<!--pages/register/register.wxml-->
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">姓名</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入姓名" bindchange="changeName" />
+    </view>
+  </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">手机号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入手机号" bindchange="changeTel"/>
+    </view>
+  </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">学校</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入学校" bindchange="changeSchool"/>
+    </view>
+  </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">学号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入学号" bindchange="changeNum"/>
+    </view>
+  </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">入学年份</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请输入入学年份" bindchange="changeYear"/>
+    </view>
+  </view>
+</view>
+
+<view class="page__bd page__bd_spacing submit">
+  <button class="weui-btn" type="primary" bindtap="bindSubmit">提交注册</button>
+</view>

@@ -9,8 +9,8 @@
 <!--开启点餐之旅 -->
 <view class="menu-bar">
   <view class="menu-block" bindtap="start">
-    <view class="menu-start">开启点餐之旅→</view>
-  </view>
+ <view class="menu-start" open-type="getUserInfo" bindgetuserinfo="getUserInfo">开启点餐之旅→</view>
+ </view>
 </view>
 <!-- 中间部分 -->
 <view class="ad-box">
