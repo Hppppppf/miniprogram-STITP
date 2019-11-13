@@ -1,5 +1,5 @@
 // pages/list/list.js
-const db = wx.cloud.database();//初始化数据库
+const db = wx.cloud.database(); //初始化数据库
 var categoryHeight = [] // 右列表各分类高度数组
 Page({
 
@@ -10,7 +10,7 @@ Page({
     activeIndex: 0,
     tapIndex: 0,
     foodList: [],
-    foodList2:[],
+    foodList2: [],
     cartList: {},
     cartPrice: 0,
     cartNumber: 0,
@@ -28,24 +28,24 @@ Page({
     loading: false,
     containerH: '',
     heightArr: [], // 数组:查找到的所有单元的内容高度
-    
+
     showCart: false,
-    promotion:{}
+    promotion: {}
   },
   changingCategory: false, // 是否正在切换左侧激活的分类（防止滚动过快时切换迟缓）
   shopcartAnimate: null,
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     db.collection('programData').where({
-      _id: 'c0b4c39b-5e84-482f-bf27-57b8b8c900ab'
-    }).get().then(res => {
-      this.setData({
-        promotion: res.data[0].promotion,
-        foodList:res.data[0].locations
-      })
-    }),
+        _id: 'c0b4c39b-5e84-482f-bf27-57b8b8c900ab'
+      }).get().then(res => {
+        this.setData({
+          promotion: res.data[0].promotion,
+          foodList: res.data[0].locations
+        })
+      }),
       db.collection('foods').where({
         location: '南一'
       }).get().then(res => {
@@ -53,26 +53,50 @@ Page({
           foodList2: res.data
         })
       })
+
+    //从云端获取用户上次购物车中的数据，若无，刚新建一个当前Open_id 的Table
+    db.collection('CartList').where({
+      _openid: wx.getStorageSync('_OPENID')
+    }).get().then(res => {
+      for(var i=0;i<res.data.length;i++){
+        console.log('res=',res)
+        this.data.cartList[i]={
+          id:res.data.id,
+          name:res.data[i].name,
+          price:res.data[i].price,
+          number:res.data[i].number
+        }
+      }
+      console.log('cartList', this.data.cartList)
+      var price=0;
+      for(var i=0;i<res.data.length;i++){
+        price+=res.data[i].price;
+      }
+      this.setData({
+        cartList: this.data.cartList,
+        cartNumber: res.data.length,
+        cartPrice: price
+      })
+    })
   },
   // 点击左侧菜单项选择
-  selectMenu: function (e) {
+  selectMenu: function(e) {
     let index = e.currentTarget.dataset.index
     //console.log(index)
     this.setData({
       activeIndex: index
     })
-    if(index != 3)
-   { db.collection('foods').where({
-      location:this.data.foodList[this.data.activeIndex]
-    }).get().then(res => {
-      this.setData({
-        foodList2:res.data
+    if (index != 3) {
+      db.collection('foods').where({
+        location: this.data.foodList[this.data.activeIndex]
+      }).get().then(res => {
+        this.setData({
+          foodList2: res.data
+        })
       })
-    })
-   }
+    }
 
-    if(index == 3)
-    {
+    if (index == 3) {
       db.collection('express').where({
         category: this.data.foodList[this.data.activeIndex]
       }).get().then(res => {
@@ -81,10 +105,10 @@ Page({
         })
       })
 
-   }
+    }
   },
 
-  onFoodScroll: function (e) {
+  onFoodScroll: function(e) {
     var scrollTop = e.detail.scrollTop
     var activeIndex = 0
     categoryHeight.forEach((item, i) => {
@@ -101,13 +125,13 @@ Page({
       })
     }
   },
-  scrolltolower: function () {
+  scrolltolower: function() {
     this.setData({
       activeIndex: categoryHeight.length - 1
     })
   },
 
-  addToCart: function (e) {
+  addToCart: function(e) {
     var id = e.currentTarget.dataset.index
     var category_id = e.currentTarget.dataset.type
     var food = this.data.foodList2[id]
@@ -128,8 +152,18 @@ Page({
       cartPrice: this.data.cartPrice + cartList[id].price,
       cartNumber: this.data.cartNumber + 1
     })
+
+    //将选择的商品同时添加到云数据库中
+    db.collection('CartList').add({
+      data: {
+        id: cartList[id].id,
+        name: cartList[id].name,
+        price: parseFloat(cartList[id].price),
+        number: cartList[id].number,
+      }
+    })
   },
-  cartNumberDec: function (e) {
+  cartNumberDec: function(e) {
     var id = e.currentTarget.dataset.id
     var cartList = this.data.cartList
     if (cartList[id]) {
@@ -151,25 +185,24 @@ Page({
       }
     }
   },
-  cartNumberAdd: function (e) {
+  cartNumberAdd: function(e) {
     var id = e.currentTarget.dataset.id
     var cartList = this.data.cartList
     if (cartList[id]) {
       var price = cartList[id].price
-      
+
         ++cartList[id].number
-      
+
       this.setData({
         cartList: cartList,
         cartNumber: ++this.data.cartNumber,
         cartPrice: this.data.cartPrice + price
       })
-      
-      }
-    },
+    }
+  },
 
   // 展开购物车
-  showCartList: function () {
+  showCartList: function() {
     if (this.data.cartList.length != 0) {
       this.setData({
         showCart: !this.data.showCart,
@@ -185,43 +218,47 @@ Page({
       cartNumber: 0
     });
   },
-/*
-  // 购物车添加商品数量
-  addNumber: function (e) {
-    var index = e.currentTarget.dataset.index;
-    var cartList = this.data.cartList;
-    cartList[index].number++;
-    var sum = this.data.sumMoney + cartList[index].price;
-    cartList[index].sum += cartList[index].price;
-    this.setData({
-      cartList: cartList,
-      sumMoney: sum,
-      cupNumber: this.data.cupNumber + 1
-    })
-  },
-  // 购物车减少商品数量
-  decNumber: function (e) {
-    var index = e.currentTarget.dataset.index;
-    var cartList = this.data.cartList;
-    var sum = this.data.sumMoney - cartList[index].price;
-    cartList[index].sum -= cartList[index].price;
-    cartList[index].number == 1 ? cartList.splice(index, 1) : cartList[index].number--;
-    this.setData({
-      cartList: cartList,
-      sumMoney: sum,
-      showCart: cartList.length == 0 ? false : true,
-      cupNumber: this.data.cupNumber - 1
-    });
-  },
-  // 
-
-*/
-
-  order: function () {
-    {
-      wx.navigateTo({
-        url: '../order/checkout/checkout',
+  /*
+    // 购物车添加商品数量
+    addNumber: function (e) {
+      var index = e.currentTarget.dataset.index;
+      var cartList = this.data.cartList;
+      cartList[index].number++;
+      var sum = this.data.sumMoney + cartList[index].price;
+      cartList[index].sum += cartList[index].price;
+      this.setData({
+        cartList: cartList,
+        sumMoney: sum,
+        cupNumber: this.data.cupNumber + 1
       })
+    },
+    // 购物车减少商品数量
+    decNumber: function (e) {
+      var index = e.currentTarget.dataset.index;
+      var cartList = this.data.cartList;
+      var sum = this.data.sumMoney - cartList[index].price;
+      cartList[index].sum -= cartList[index].price;
+      cartList[index].number == 1 ? cartList.splice(index, 1) : cartList[index].number--;
+      this.setData({
+        cartList: cartList,
+        sumMoney: sum,
+        showCart: cartList.length == 0 ? false : true,
+        cupNumber: this.data.cupNumber - 1
+      });
+    },
+    // 
+
+  */
+
+  order: function() {
+    {
+      if (this.data.cartNumber != 0) {
+        wx.setStorageSync('CartList', this.data.cartList);
+        var queryBean = JSON.stringify(this.data.cartList)
+        wx.navigateTo({
+          url: '../order/checkout/checkout?queryBean=' + queryBean,
+        })
+      }
     }
   },
 
@@ -237,49 +274,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

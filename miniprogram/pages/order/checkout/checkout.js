@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    cartList:{},
     sumMonney: 0,
     cutMonney: 0,
     note: '',
@@ -26,8 +27,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function (options) {  
+    var that = this;
+    var queryBean = JSON.stringify(options.queryBean);
+    that.setData({
+      cartList: queryBean,
+    })
+    console.log(this.data.cartList);
+    
   },
 
   /**
