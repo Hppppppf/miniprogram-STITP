@@ -108,7 +108,7 @@ Page({
   },
 
   addToCart: function(e) {
-    var id = e.currentTarget.dataset.index
+    var id = this.data.foodList2[e.currentTarget.dataset.index].ID
     var category_id = e.currentTarget.dataset.type
     var food = this.data.foodList2[id]
     var cartList = this.data.cartList
