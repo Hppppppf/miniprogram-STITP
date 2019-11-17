@@ -54,30 +54,6 @@ Page({
         })
       })
 
-    //从云端获取用户上次购物车中的数据，若无，刚新建一个当前Open_id 的Table
-    db.collection('CartList').where({
-      _openid: wx.getStorageSync('_OPENID')
-    }).get().then(res => {
-      for(var i=0;i<res.data.length;i++){
-        console.log('res=',res)
-        this.data.cartList[i]={
-          id:res.data.id,
-          name:res.data[i].name,
-          price:res.data[i].price,
-          number:res.data[i].number
-        }
-      }
-      console.log('cartList', this.data.cartList)
-      var price=0;
-      for(var i=0;i<res.data.length;i++){
-        price+=res.data[i].price;
-      }
-      this.setData({
-        cartList: this.data.cartList,
-        cartNumber: res.data.length,
-        cartPrice: price
-      })
-    })
   },
   // 点击左侧菜单项选择
   selectMenu: function(e) {
@@ -151,16 +127,6 @@ Page({
       cartList: cartList,
       cartPrice: this.data.cartPrice + cartList[id].price,
       cartNumber: this.data.cartNumber + 1
-    })
-
-    //将选择的商品同时添加到云数据库中
-    db.collection('CartList').add({
-      data: {
-        id: cartList[id].id,
-        name: cartList[id].name,
-        price: parseFloat(cartList[id].price),
-        number: cartList[id].number,
-      }
     })
   },
   cartNumberDec: function(e) {
@@ -252,11 +218,10 @@ Page({
 
   order: function() {
     {
+
       if (this.data.cartNumber != 0) {
-        wx.setStorageSync('CartList', this.data.cartList);
-        var queryBean = JSON.stringify(this.data.cartList)
         wx.navigateTo({
-          url: '../order/checkout/checkout?queryBean=' + queryBean,
+          url: '../order/checkout/checkout?queryBean='
         })
       }
     }
@@ -282,21 +247,45 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    //页面显示时，从云端获取用户上次购物车中的数据
+    db.collection('CartList').where({
+      _openid: wx.getStorageSync('_OPENID')
+    }).get().then(res => {
+      console.log('res=', res)
+      this.setData({
+        cartList: res.data[0].cartList,
+        cartNumber: res.data[0].cartNumber,
+        cartPrice: res.data[0].cartPrice
+      })
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    //页面隐藏时将选择的商品同时添加到云数据库中以保存用户数据
+    db.collection('CartList').doc(wx.getStorageSync('_OPENID')).set({
+      data: {
+        cartList: this.data.cartList,
+        cartNumber: this.data.cartNumber,
+        cartPrice: this.data.cartPrice,
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    //返回时将选择的商品同时添加到云数据库中以保存用户数据
+    db.collection('CartList').doc(wx.getStorageSync('_OPENID')).set({
+      data: {
+        cartList:this.data.cartList,
+        cartNumber:this.data.cartNumber,
+        cartPrice:this.data.cartPrice,
+      }
+    })
   },
 
   /**
