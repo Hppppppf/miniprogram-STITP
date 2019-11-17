@@ -32,6 +32,7 @@ Page({
     wx.navigateTo({
       url: '/pages/order/detail/detail?order_id'+this.data.order_id,
     })
+    db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove()
   },
   /**
    * 生命周期函数--监听页面加载
