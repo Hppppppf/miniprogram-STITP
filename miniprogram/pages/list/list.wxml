@@ -22,8 +22,12 @@
           <view>{{food.name}}</view>
           <view class="food-item-price">{{priceFormat(food.price)}}</view>
         </view>
-        <view class="food-item-opt">
-          <i class="iconfont"data-type="{{index}}" data-index="{{index}}" bindtap="addToCart"></i>
+        <view class="food-item-opt" >
+          <view class="shopcart-item-number" wx:for="{{cartList}}" wx:key="id" wx:if="{{item.name == food.name}}"> 
+            <i class="iconfont shopcart-icon-dec" data-id="{{index}}" bindtap="cartNumberDec"></i>
+            <view class="food-item-opt-number">{{item.number}}</view> 
+          </view>
+          <i class="iconfont shopcart-icon-add"data-type="{{index}}" data-index="{{index}}" bindtap="addToCart"></i>
         </view>
       </view>
     </block>
