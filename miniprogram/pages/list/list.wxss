@@ -102,12 +102,21 @@ page {
 
 .food-item-opt {
   margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .food-item-opt > i:before {
   font-size: 44rpx;
   color: #ff9c35;
   content: "\e728";
+}
+.food-item-opt-number{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
 }
 
 /* 满减区域 */
