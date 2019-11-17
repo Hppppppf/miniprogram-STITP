@@ -218,10 +218,9 @@ Page({
 
   order: function() {
     {
-
       if (this.data.cartNumber != 0) {
         wx.navigateTo({
-          url: '../order/checkout/checkout?queryBean='
+          url: '../order/checkout/checkout',
         })
       }
     }
