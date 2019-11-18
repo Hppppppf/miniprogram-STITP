@@ -15,7 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.clickmyorder()
+
   },
 
   detail: function(e) {
@@ -48,8 +48,7 @@ Page({
     })
     db.collection('Order').get()
       .then(res => {
-        console.log(res)
-        if (res.data[res.data.length - 1].order_id == res.data.length) {
+        if (res.data.length<=0||res.data[res.data.length - 1].order_id == res.data.length) {
           this.data.is_last = true;
         }
         this.setData({
@@ -69,7 +68,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    
+    this.clickmyorder()
   },
   
   /**

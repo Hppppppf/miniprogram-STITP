@@ -53,6 +53,10 @@
     <text>取餐时间</text>
     <view>{{taken_time}}</view>
   </view>
+    <view>
+    <text>备注</text>
+    <view>{{comment}}</view>
+  </view>
 </view>
 <view class="tips" wx:if="{{is_taken}}">取餐号{{code}} 您已取餐</view>
 <view class="tips" wx:else>

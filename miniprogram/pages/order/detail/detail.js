@@ -11,19 +11,19 @@ Page({
     pay_time:'',
     is_taken:false,
     id:"",
+    taken_time:'',
+    note:'',
   }, 
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '订单详情'
     })
     var temppromotion=0
-    console.log('options.id=',options.order_id)
     this.data.id=JSON.parse(options.order_id)
     db.collection('Order').where({
       order_id:this.data.id
       }).get().then(data=> {
       db.collection('programData').get().then(res => {
-        console.log('data=    ',data)
         if (data.data[0].orderPrice > res.data[0].promotion[0]) {
           this.setData({
             promotion: res.data[0].promotion[1],
@@ -37,6 +37,8 @@ Page({
           create_time:data.data[0].create_time,
           pay_time:data.data[0].pay_time,
           is_taken:data.data[0].is_taken,
+          taken_time:data.data[0].taken_time,
+          note:data.data[0].note,
         })
       })
     })
@@ -53,7 +55,9 @@ Page({
       sn: this.data.id,
       create_time:this.data.create_time,
       pay_time:this.data.pay_time,
-      is_taken:this.data.is_taken
+      is_taken:this.data.is_taken,
+      taken_time:this.data.taken_time,
+      comment:this.data.note,
     })
   },
   onUnload: function () {
@@ -65,18 +69,20 @@ Page({
     })
   },
   getfood:function(){
-    var id1 = this.data.id
+    var time = util.formatTime(new Date());
     this.setData({
-      is_taken:true
+      is_taken:true,
+     taken_time:time
     })
-    wx.cloud.callFunction({
-      name:'gotfood',
-      data:{
-        ID: id1,
-      },
-      success: function (res) {
-        console.log(res)
-      },
+    db.collection('Order').where({
+      order_id:this.data.id
+    }).get().then(res=>{
+      db.collection('Order').doc(res.data[0]._id).update({
+         data:{
+           is_taken:true,
+           taken_time:time
+         }
+      })
     })
   }
 })
