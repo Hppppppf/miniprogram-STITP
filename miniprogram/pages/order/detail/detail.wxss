@@ -129,11 +129,19 @@ page {
 }
 
 .tips {
-  width: 80%;
+  width: 100%;
   text-align: center;
   margin: 20rpx auto 40rpx;
   padding: 12rpx 20rpx;
-  background: #ff9c35;
+  background: #00D8A0;
   color: #fff;
+  font-size: 36rpx;
+}
+.button-getfood{
+  width: 85%;
+  height: 80rpx;
+  text-align: center;
+  background: #fff;
+  color: #00D8A0;
   font-size: 36rpx;
 }
