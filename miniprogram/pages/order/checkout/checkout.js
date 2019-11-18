@@ -11,8 +11,10 @@ Page({
     orderPrice:0,
     note:'',
     create_time:'',
+    pay_time:'',
     number:0,
-    first_food_name:''
+    first_food_name:'',
+    is_taken:false
   },
 /*
   listenerTextarea: function (e) {
@@ -22,9 +24,11 @@ Page({
   },
 */
   pay: function () {
+    var time = util.formatTime(new Date());
     db.collection('Order').get().then(res=>{
       this.setData({
-        order_id:++res.data.length
+        order_id:++res.data.length,
+        pay_time:time
       })
       db.collection('Order').add({
         data: {
@@ -34,14 +38,16 @@ Page({
           note:this.data.note,
           create_time:this.data.create_time,
           number:this.data.number,
-          first_food_name:this.data.first_food_name
+          first_food_name:this.data.first_food_name,
+          pay_time:this.data.pay_time,
+          is_taken:false,
         }
       })
       wx.navigateTo({
         url: '/pages/order/detail/detail?order_id=' + this.data.order_id
       })
+      db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove()
     })
-    db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove()
   },
   /**
    * 生命周期函数--监听页面加载

@@ -247,15 +247,18 @@ Page({
    */
   onShow: function() {
     //页面显示时，从云端获取用户上次购物车中的数据
+    console.log('###########################')
     db.collection('CartList').where({
       _openid: wx.getStorageSync('_OPENID')
     }).get().then(res => {
       console.log('res=', res)
-      this.setData({
-        cartList: res.data[0].cartList,
-        cartNumber: res.data[0].cartNumber,
-        cartPrice: res.data[0].cartPrice
-      })
+      if (res.data.length > 0) {
+        this.setData({
+          cartList: res.data[0].cartList,
+          cartNumber: res.data[0].cartNumber,
+          cartPrice: res.data[0].cartPrice
+        })
+      }
     })
   },
 
@@ -280,10 +283,10 @@ Page({
     //返回时将选择的商品同时添加到云数据库中以保存用户数据
     db.collection('CartList').doc(wx.getStorageSync('_OPENID')).set({
       data: {
-        cartList:this.data.cartList,
-        cartNumber:this.data.cartNumber,
-        cartPrice:this.data.cartPrice,
-        
+        cartList: this.data.cartList,
+        cartNumber: this.data.cartNumber,
+        cartPrice: this.data.cartPrice,
+
       }
     })
   },

@@ -6,25 +6,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    order_id: {}
+    is_last:false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    db.collection('Order').where({
-      _openid: wx.getStorageSync('_OPENID')
-    }).get().then(res => {
-        this.setData({
-          order: res.data,
-        })
-    })
+
   },
 
   detail: function(e) {
+    console.log(e)
+    console.log('order_id=',e.target.dataset.order_id)
     wx.navigateTo({
-      url: '../detail/detail?order_id=' + this.data.order_id,
+      url: '../detail/detail?order_id=' + e.target.dataset.order_id,
     })
   },
 
@@ -39,7 +35,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    db.collection('Order').where({
+      _openid: wx.getStorageSync('_OPENID')
+    }).get().then(res => {
+      if (res.data[res.data.length - 1].order_id == res.data.length) {
+        this.data.is_last = true;
+      }
+      this.setData({
+        order: res.data,
+        is_last: this.data.is_last
+      })
+    })
   },
 
   /**

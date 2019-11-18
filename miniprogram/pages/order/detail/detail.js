@@ -7,10 +7,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    create_time:'',
+    pay_time:'',
+    is_taken:false,
   }, onLoad: function (options) {
-    // 取出缓存的note值
-    //var note = wx.getStorageSync('note')
     wx.setNavigationBarTitle({
       title: '订单详情'
     })
@@ -31,11 +31,12 @@ Page({
         this.setData({
           order_food: data.data[0].order,
           price: data.data[0].orderPrice - temppromotion,
+          create_time:data.data[0].create_time,
+          pay_time:data.data[0].pay_time,
+          is_taken:data.data[0].is_taken,
         })
       })
     })
-
-    var time = util.formatTime(new Date());
     var fetchCode
     if(id<10){
       fetchCode='A00'+id
@@ -47,8 +48,9 @@ Page({
     this.setData({
       code:fetchCode,
       sn:id,
-      create_time:time,
-      pay_time:time
+      create_time:this.data.create_time,
+      pay_time:this.data.pay_time,
+      is_taken:this.data.is_taken
     })
   },
   onUnload: function () {
