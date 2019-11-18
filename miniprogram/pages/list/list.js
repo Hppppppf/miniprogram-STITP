@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    firsttime: false, //记录是否是第一次加载页面
     activeIndex: 0,
     tapIndex: 0,
     foodList: [],
@@ -53,7 +54,7 @@ Page({
           foodList2: res.data
         })
       })
-
+    this.data.firsttime = true;
   },
   // 点击左侧菜单项选择
   selectMenu: function(e) {
@@ -228,15 +229,6 @@ Page({
     }
   },
 
-
-
-
-
-
-
-
-
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -249,7 +241,6 @@ Page({
    */
   onShow: function() {
     //页面显示时，从云端获取用户上次购物车中的数据
-    console.log('###########################')
     db.collection('CartList').where({
       _openid: wx.getStorageSync('_OPENID')
     }).get().then(res => {
@@ -269,13 +260,16 @@ Page({
    */
   onHide: function() {
     //页面隐藏时将选择的商品同时添加到云数据库中以保存用户数据
-    db.collection('CartList').doc(wx.getStorageSync('_OPENID')).set({
-      data: {
-        cartList: this.data.cartList,
-        cartNumber: this.data.cartNumber,
-        cartPrice: this.data.cartPrice,
-      }
-    })
+    if (this.data.firsttime) {
+      db.collection('CartList').doc(wx.getStorageSync('_OPENID')).set({
+        data: {
+          cartList: this.data.cartList,
+          cartNumber: this.data.cartNumber,
+          cartPrice: this.data.cartPrice,
+        }
+      })
+      this.data.firsttime=false
+    }
   },
 
   /**
@@ -283,6 +277,7 @@ Page({
    */
   onUnload: function() {
     //返回时将选择的商品同时添加到云数据库中以保存用户数据
+    if(this.data.firsttime){
     db.collection('CartList').doc(wx.getStorageSync('_OPENID')).set({
       data: {
         cartList: this.data.cartList,
@@ -291,6 +286,8 @@ Page({
 
       }
     })
+    this.data.firsttime=false
+    }
   },
 
   /**

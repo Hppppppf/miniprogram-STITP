@@ -31,6 +31,7 @@ Page({
           temppromotion = res.data[0].promotion[1]
         }
         this.setData({
+          comment:data.data[0].note,
           order_food: data.data[0].order,
           price: data.data[0].orderPrice - temppromotion,
           create_time:data.data[0].create_time,

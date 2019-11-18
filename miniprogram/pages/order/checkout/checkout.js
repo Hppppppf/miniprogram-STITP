@@ -24,6 +24,9 @@ Page({
   },
 */
   pay: function () {
+    db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove().then(res => {
+      console.log('remove  ', res)
+    })
     var time = util.formatTime(new Date());
     db.collection('Order').get().then(res=>{
       this.setData({
@@ -43,16 +46,25 @@ Page({
           is_taken:false,
         }
       })
-      wx.navigateTo({
+    /*  wx.cloud.callFunction({
+        name: 'RemoveCartList',
+        complete: res => {
+          console.log('remove   ',res)
+        }
+      })*/
+      wx.redirectTo({
         url: '/pages/order/detail/detail?order_id=' + this.data.order_id
       })
-      db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove()
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {  
+    wx.cloud.init({
+      traceUser: true,
+      env: 'cloud-103-zifl9'
+    })
     var temppromotion=0;
     wx.showLoading({
       title: '努力加载中'
