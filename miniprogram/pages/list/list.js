@@ -120,7 +120,9 @@ Page({
         id: food.id,
         name: food.name,
         price: parseFloat(food.price),
-        number: 1
+        number: 1,
+        dataID:food._id,
+        image_url:food.image
       }
     }
     //this.shopcartAnimate.show(e)

@@ -1,5 +1,12 @@
 <!--pages/order/list/list.wxml-->
-
+<view class="list-top-bar" wx:if="{{whichorder == true}}">
+  <button class="button-top-bar-on" bindtap="clickmyorder">我的订单</button>
+  <button class="button-top-bar-off" bindtap="clickallorder">全部订单</button>
+</view>
+<view class="list-top-bar" wx:else>
+  <button class="button-top-bar-off" bindtap="clickmyorder">我的订单</button>
+  <button class="button-top-bar-on" bindtap="clickallorder">全部订单</button>
+</view>
 <view class="list">
   <view class="list-empty" wx:if="{{order.length === 0}}">您还没有下过订单</view>
   <view class="list-item" wx:for="{{order}}" wx:key="id">
@@ -8,7 +15,7 @@
       <view>
         <view class="list-item-name">{{item.first_food_name}}</view>
         <view>
-          <text>等{{item.number}}件商品</text>
+          <text>共{{item.number}}件商品</text>
           <text class="list-item-price">{{priceFormat(item.orderPrice)}}</text>
         </view>
       </view>

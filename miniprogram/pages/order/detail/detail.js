@@ -10,7 +10,8 @@ Page({
     create_time:'',
     pay_time:'',
     is_taken:false,
-  }, onLoad: function (options) {
+  }, 
+  onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '订单详情'
     })
