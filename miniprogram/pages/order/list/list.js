@@ -34,6 +34,7 @@ Page({
       _openid: wx.getStorageSync('_OPENID')
     }).get().then(res => {
       if (res.data[res.data.length - 1].order_id == res.data.length) {
+      if (res.data.length <= 0||res.data[res.data.length - 1].order_id == res.data.length) {
         this.data.is_last = true;
       }
       this.setData({
