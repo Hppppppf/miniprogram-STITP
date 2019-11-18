@@ -10,6 +10,7 @@ Page({
     create_time:'',
     pay_time:'',
     is_taken:false,
+    id:"",
   }, 
   onLoad: function (options) {
     wx.setNavigationBarTitle({
@@ -17,9 +18,9 @@ Page({
     })
     var temppromotion=0
     console.log('options.id=',options.order_id)
-    var id=JSON.parse(options.order_id)
+    this.data.id=JSON.parse(options.order_id)
     db.collection('Order').where({
-      order_id:id
+      order_id:this.data.id
       }).get().then(data=> {
       db.collection('programData').get().then(res => {
         console.log('data=    ',data)
@@ -40,16 +41,16 @@ Page({
       })
     })
     var fetchCode
-    if(id<10){
-      fetchCode='A00'+id
-    }else if(id>=10&&id<100){
-      fetchCode='A0'+id
-    }else if(id>=100){
-      fetchCode=''+id
+    if (this.data.id<10){
+      fetchCode = 'A00' + this.data.id
+    } else if (this.data.id>=10&&id<100){
+      fetchCode = 'A0' + this.data.id
+    } else if (this.data.id>=100){
+      fetchCode = '' + this.data.id
     }
     this.setData({
       code:fetchCode,
-      sn:id,
+      sn: this.data.id,
       create_time:this.data.create_time,
       pay_time:this.data.pay_time,
       is_taken:this.data.is_taken
@@ -61,6 +62,21 @@ Page({
     app.isReloadOrderList = true
     wx.switchTab({
       url: '/pages/order/list/list'
+    })
+  },
+  getfood:function(){
+    var id1 = this.data.id
+    this.setData({
+      is_taken:true
+    })
+    wx.cloud.callFunction({
+      name:'gotfood',
+      data:{
+        ID: id1,
+      },
+      success: function (res) {
+        console.log(res)
+      },
     })
   }
 })
