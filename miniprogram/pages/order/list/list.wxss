@@ -75,3 +75,24 @@ page {
   display: block;
   text-align: center;
 }
+.list-top-bar{
+  flex-direction: row;
+  flex-wrap: nowrap;
+  display: flex;
+}
+.button-top-bar-on{
+  width: 40%;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  background-color: #00D8A0;
+  color: #FFF;
+  border: 0;
+}
+.button-top-bar-off{
+  width: 40%;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  background-color: #FFF;
+  color: #00D8A0;
+  border: 0;
+}
