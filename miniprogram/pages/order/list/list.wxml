@@ -9,7 +9,7 @@
         <view class="list-item-name">{{item.first_food_name}}</view>
         <view>
           <text>等{{item.number}}件商品</text>
-          <text class="list-item-price">{{priceFormat(item.price)}}</text>
+          <text class="list-item-price">{{priceFormat(item.orderPrice)}}</text>
         </view>
       </view>
     </view>

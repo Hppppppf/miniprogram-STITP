@@ -1,5 +1,6 @@
 // pages/order/checkout/checkout.js
 const db = wx.cloud.database(); //初始化数据库
+var util = require('../../../utils/utils.js');
 Page({
   /**
    * 页面的初始数据
@@ -8,14 +9,18 @@ Page({
     order:{},
     order_id:0,
     orderPrice:0,
+    note:'',
+    create_time:'',
+    number:0,
+    first_food_name:''
   },
-
+/*
   listenerTextarea: function (e) {
     var note = e.detail.value
     // 存储note值 
     wx.setStorageSync('note', note)
   },
-
+*/
   pay: function () {
     db.collection('Order').get().then(res=>{
       this.setData({
@@ -25,12 +30,16 @@ Page({
         data: {
           order_id: this.data.order_id,
           order: this.data.order,
-          orderPrice: this.data.orderPrice
+          orderPrice: this.data.orderPrice,
+          note:this.data.note,
+          create_time:this.data.create_time,
+          number:this.data.number,
+          first_food_name:this.data.first_food_name
         }
       })
-    })
-    wx.navigateTo({
-      url: '/pages/order/detail/detail?order_id'+this.data.order_id,
+      wx.navigateTo({
+        url: '/pages/order/detail/detail?order_id=' + this.data.order_id
+      })
     })
     db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove()
   },
@@ -42,22 +51,24 @@ Page({
     wx.showLoading({
       title: '努力加载中'
     })
-    db.collection('CartList').where({
-      _openid:wx.getStorageSync('_OPENID')
-    }).get().then(data => {
+    var time = util.formatTime(new Date());
+    db.collection('CartList').doc(wx.getStorageSync('_OPENID')).get().then(data => {
       db.collection('programData').get().then(res => {
-        if(data.data[0].cartPrice>res.data[0].promotion[0]){
+        if(data.data.cartPrice>res.data[0].promotion[0]){
           this.setData({
             promotion:res.data[0].promotion[1],
           })
           temppromotion=res.data[0].promotion[1]
         }
         this.setData({
-          order_food: data.data[0].cartList,
-          price: data.data[0].cartPrice-temppromotion,
+          order_food: data.data.cartList,
+          price: data.data.cartPrice-temppromotion,
           //另存一份备用，以减少访问云数据库的次数
-          order: data.data[0].cartList,
-          orderPrice: data.data[0].cartPrice - temppromotion,
+          order: data.data.cartList,
+          orderPrice: data.data.cartPrice - temppromotion,
+          number:data.data.cartNumber,
+          create_time:time,
+          //first_food_name:data.data.cartList[]
         })
       })
       wx.hideLoading()
@@ -66,7 +77,7 @@ Page({
     })
   },
   comment: function (e) {
-    this.data.comment = e.detail.value
+    this.data.note = e.detail.value
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -283,6 +283,7 @@ Page({
         cartList:this.data.cartList,
         cartNumber:this.data.cartNumber,
         cartPrice:this.data.cartPrice,
+        
       }
     })
   },
