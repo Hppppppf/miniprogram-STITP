@@ -30,8 +30,8 @@ Page({
           })
           temppromotion = res.data[0].promotion[1]
         }
+        console.log(data)
         this.setData({
-          comment:data.data[0].note,
           order_food: data.data[0].order,
           price: data.data[0].orderPrice - temppromotion,
           create_time:data.data[0].create_time,
@@ -40,12 +40,13 @@ Page({
           taken_time:data.data[0].taken_time,
           note:data.data[0].note,
         })
+        
       })
     })
     var fetchCode
     if (this.data.id<10){
       fetchCode = 'A00' + this.data.id
-    } else if (this.data.id>=10&&id<100){
+    } else if (this.data.id>=10 && this.data.id<100){
       fetchCode = 'A0' + this.data.id
     } else if (this.data.id>=100){
       fetchCode = '' + this.data.id
@@ -57,7 +58,7 @@ Page({
       pay_time:this.data.pay_time,
       is_taken:this.data.is_taken,
       taken_time:this.data.taken_time,
-      comment:this.data.note,
+      note:this.data.note,
     })
   },
   onUnload: function () {

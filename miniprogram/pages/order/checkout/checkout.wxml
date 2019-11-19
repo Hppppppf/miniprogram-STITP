@@ -26,12 +26,12 @@
   </view>
   <view class="content-comment">
     <label>备注</label>
-    <textarea placeholder="如有其他要求，请输入备注" bindinput="comment"></textarea>
+    <textarea placeholder="如有其他要求，请输入备注" bindblur="comment"></textarea>
   </view>
 </view>
 <view class="operate">
   <view class="operate-info">合计：{{priceFormat(price)}}</view>
-  <view class="operate-submit" bindtap="pay">去支付</view>
+  <view class="operate-submit" bindtap="pay">确认订单</view>
 </view>
 <wxs module="priceFormat">
   module.exports = function(price) {

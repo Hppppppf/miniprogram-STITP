@@ -7,7 +7,7 @@
         <text class="card-code">{{code}}</text>
         <text class="card-info-r">正在精心制作中…</text>
       </view>
-      <view class="card-comment" wx:if="{{comment}}">备注：{{comment}}</view>
+      <view class="card-comment" wx:if="{{note}}">备注：{{note}}</view>
       <view class="card-tips">美食制作中，尽快为您服务☺</view>
     </view>
   </view>
@@ -55,7 +55,7 @@
   </view>
     <view>
     <text>备注</text>
-    <view>{{comment}}</view>
+    <view>{{note}}</view>
   </view>
 </view>
 <view class="tips" wx:if="{{is_taken}}">取餐号{{code}} 您已取餐</view>

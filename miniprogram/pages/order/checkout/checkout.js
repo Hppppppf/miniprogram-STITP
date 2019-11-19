@@ -26,6 +26,7 @@ Page({
     db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove().then(res => {
       console.log('remove  ', res)
     })
+    console.log("note:"+this.data.note)
     var time = util.formatTime(new Date());
     db.collection('Order').get().then(res=>{
       this.setData({
@@ -37,7 +38,7 @@ Page({
           order_id: this.data.order_id,
           order: this.data.order,
           orderPrice: this.data.orderPrice,
-          note:this.data.note,
+          note: this.data.note,
           create_time:this.data.create_time,
           number:this.data.number,
           pay_time:this.data.pay_time,
@@ -87,6 +88,7 @@ Page({
   },
   comment: function (e) {
     this.data.note = e.detail.value
+    console.log(this.data.note)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
