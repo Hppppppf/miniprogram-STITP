@@ -53,3 +53,35 @@ page {
   font-size: 26rpx;
   color: #999;
 }
+
+.col-hg-1, .col-hg-2, .col-hg-3, .col-hg-4, .col-hg-5, .col-hg-6, .col-hg-7, .col-hg-8, .col-hg-9, .col-hg-10, .col-hg-11, .col-hg-12 { float: left; box-sizing: border-box;}
+
+.col-hg-12 { width: 100%; }
+
+.col-hg-11 { width: 91.6667%; }
+
+.col-hg-10 { width: 83.3333%; }
+
+.col-hg-9 { width: 75%; }
+
+.col-hg-8 { width: 66.6667%;}
+
+.col-hg-7 { width: 40%; }
+
+.col-hg-6 { width: 50%; }
+
+.col-hg-5 { width: 41.6667%; }
+
+.col-hg-4 { width: 33.3333%; }
+
+.col-hg-3 { width: 25%; }
+
+.col-hg-2 { width: 16.6667%; }
+
+.col-hg-1 { width: 8.33333%; }
+
+.col-hg-3-c{
+  float:middle;
+  width:25%;
+
+}

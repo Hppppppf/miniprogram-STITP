@@ -13,6 +13,7 @@ Page({
     id:"",
     taken_time:'',
     note:'',
+    whichorder:true,
   }, 
   onLoad: function (options) {
     wx.setNavigationBarTitle({
@@ -20,6 +21,8 @@ Page({
     })
     var temppromotion=0
     this.data.id=JSON.parse(options.order_id)
+    this.data.whichorder = JSON.parse(options.whichorder)
+    console.log(this.data.whichorder)
     db.collection('Order').where({
       order_id:this.data.id
       }).get().then(data=> {
@@ -30,7 +33,6 @@ Page({
           })
           temppromotion = res.data[0].promotion[1]
         }
-        console.log(data)
         this.setData({
           order_food: data.data[0].order,
           price: data.data[0].orderPrice - temppromotion,
@@ -85,5 +87,8 @@ Page({
          }
       })
     })
+  },
+  takefood:function(){
+
   }
 })

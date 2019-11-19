@@ -22,7 +22,7 @@
     </view>
     <view class="list-item-r">
       <view>
-        <view class="list-item-detail" bindtap="detail" data-order_id="{{item.order_id}}">查看详情</view>
+        <view class="list-item-detail" bindtap="detail" data-order_id="{{item.order_id}}" data-whichorder="{{whichorder}}">查看详情</view>
         <view class="list-item-taken list-item-taken-yes" wx:if="{{item.is_taken}}">已取餐</view>
         <view class="list-item-taken list-item-taken-no" wx:else>未取餐</view>
       </view>
@@ -33,7 +33,7 @@
 </view>
 <wxs module="priceFormat">
   module.exports = function(price) {
-    return '¥ ' + parseFloat(price)
+    return '¥ ' + parseFloat(price).toFixed(2)
   }
 </wxs>
 <wxs module="formatData">

@@ -8,7 +8,7 @@ Page({
    */
   data: {
     is_last:false,
-    whichorder:true
+    whichorder:true,
   },
 
   /**
@@ -20,9 +20,9 @@ Page({
 
   detail: function(e) {
     console.log(e)
-    console.log('order_id=',e.target.dataset.order_id)
+    console.log('order_id=', e.target.dataset.order_id + e.target.dataset.whichorder)
     wx.navigateTo({
-      url: '../detail/detail?order_id=' + e.target.dataset.order_id,
+      url: '../detail/detail?order_id=' + e.target.dataset.order_id + '&whichorder=' + e.target.dataset.whichorder,
     })
   },
 
@@ -37,9 +37,10 @@ Page({
       if (res.data.length <= 0) {
         this.data.is_last = false;
       }
+      console.log(res.data.order)
       this.setData({
         order: res.data,
-        is_last: this.data.is_last
+        is_last: this.data.is_last,
       })
     })
   },
@@ -70,7 +71,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.clickmyorder()
+    
   },
   
   /**
