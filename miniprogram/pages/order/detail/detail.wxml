@@ -54,8 +54,13 @@
     <view>{{taken_time}}</view>
   </view>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <view>
     <text>订单备注</text>
+=======
+    <view wx:if="{{is_taken}}">
+    <text >备注</text>
+>>>>>>> d508ac0ae0bff036dbdfc6ce17246de49f5891b4
 =======
     <view wx:if="{{is_taken}}">
     <text >备注</text>
