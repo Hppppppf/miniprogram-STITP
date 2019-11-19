@@ -12,7 +12,7 @@
     </view>
   </scroll-view>
   <!-- 右侧菜单 -->
-  <scroll-view class="food" scroll-y scroll-with-animation scroll-into-view="category_{{tapIndex}}" bindscroll="onFoodScroll" bindscrolltolower="scrolltolower">
+  <scroll-view class="food" scroll-y scroll-with-animation scroll-into-view="category_{{tapIndex}}" >
     <block>
       <view class="food-item" wx:for="{{foodList2}}" wx:for-item="food" wx:key="id">
         <view class="food-item-pic">
