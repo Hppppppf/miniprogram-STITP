@@ -15,7 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.clickmyorder()
   },
 
   detail: function(e) {
@@ -28,13 +28,14 @@ Page({
 
   clickmyorder:function(e){
     this.setData({
-      whichorder:true
+      whichorder:true,
+      is_last:true
     })
     db.collection('Order').where({
       _openid: wx.getStorageSync('_OPENID')
     }).get().then(res => {
-      if (res.data.length <= 0||res.data[res.data.length - 1].order_id == res.data.length) {
-        this.data.is_last = true;
+      if (res.data.length <= 0) {
+        this.data.is_last = false;
       }
       this.setData({
         order: res.data,
@@ -44,7 +45,8 @@ Page({
   },
   clickallorder: function (e) {
     this.setData({
-      whichorder:false
+      whichorder:false,
+      is_last:false,
     })
     db.collection('Order').get()
       .then(res => {

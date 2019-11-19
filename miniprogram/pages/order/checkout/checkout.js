@@ -13,7 +13,6 @@ Page({
     create_time:'',
     pay_time:'',
     number:0,
-    first_food_name:'',
     is_taken:false
   },
 /*
@@ -41,17 +40,10 @@ Page({
           note:this.data.note,
           create_time:this.data.create_time,
           number:this.data.number,
-          first_food_name:this.data.first_food_name,
           pay_time:this.data.pay_time,
           is_taken:false,
         }
       })
-    /*  wx.cloud.callFunction({
-        name: 'RemoveCartList',
-        complete: res => {
-          console.log('remove   ',res)
-        }
-      })*/
       wx.redirectTo({
         url: '/pages/order/detail/detail?order_id=' + this.data.order_id
       })
@@ -86,7 +78,6 @@ Page({
           orderPrice: data.data.cartPrice - temppromotion,
           number:data.data.cartNumber,
           create_time:time,
-          //first_food_name:data.data.cartList[]
         })
       })
       wx.hideLoading()
