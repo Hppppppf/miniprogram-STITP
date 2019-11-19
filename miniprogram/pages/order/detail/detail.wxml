@@ -53,8 +53,8 @@
     <text>取餐时间</text>
     <view>{{taken_time}}</view>
   </view>
-    <view>
-    <text>备注</text>
+    <view wx:if="{{is_taken}}">
+    <text >备注</text>
     <view>{{note}}</view>
   </view>
 </view>
@@ -66,7 +66,7 @@
 
 <wxs module="priceFormat">
   module.exports = function(price) {
-    return '¥ ' + parseFloat(price)
+    return '¥ ' + parseFloat(price).toFixed(2)
   }
 </wxs>
 <wxs module="checkPromotion">

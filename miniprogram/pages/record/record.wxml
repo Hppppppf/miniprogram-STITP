@@ -4,6 +4,18 @@
  	  <open-data type="userAvatarUrl"></open-data>
   </view>
 </view>
+<view bindtap="wallet" class="index-exam-inlets-mk col-hg-6">
+<view class="index-exam-inlets-mk col-hg-3">
+ <image src="/images/wallet.png" style="margin:15px;vertical-align: middle;width:50px; height: 50px;"></image>
+</view>
+ <view style="font-size:15px;margin-left:80px;margin-top:28px;color:#008B00">积分:</view>
+</view>
+ <view bindtap="modify" class="index-exam-inlets-mk col-hg-6">
+<view class="index-exam-inlets-mk col-hg-3">
+ <image src="/images/modify.png" style="margin:15px;vertical-align: middle;width:50px; height: 50px;"></image>
+</view>
+ <view style="font-size:15px;margin-left:80px;margin-top:28px;color:#008B00">个人信息</view>
+</view>
 <view class="content">
   <view class="list-title">消费记录</view>
   <view class="list-item" wx:for="{{list}}" wx:key="id">
@@ -12,12 +24,12 @@
       <view class="list-item-time">{{item.pay_time}}</view>
     </view>
     <view class="list-item-r">
-      <text>{{priceFormat(item.price)}}</text>
+      <text>{{priceFormat(item.orderPrice)}}</text>
     </view>
   </view>
 </view>
 <wxs module="priceFormat">
   module.exports = function(price) {
-    return '¥ ' + parseFloat(price)
+    return '¥ ' + parseFloat(price).toFixed(2)
   }
 </wxs>

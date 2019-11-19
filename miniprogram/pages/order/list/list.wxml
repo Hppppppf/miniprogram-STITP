@@ -33,7 +33,7 @@
 </view>
 <wxs module="priceFormat">
   module.exports = function(price) {
-    return '¥ ' + parseFloat(price)
+    return '¥ ' + parseFloat(price).toFixed(2)
   }
 </wxs>
 <wxs module="formatData">

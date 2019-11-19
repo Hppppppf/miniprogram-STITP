@@ -1,20 +1,32 @@
 // pages/record/record.js
+const db=wx.cloud.database()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    wallet:'/images/wallet.png'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    db.collection('Order').where({
+      _openid:wx.getStorageSync('_OPENID')
+    }).get().then(res=>{
+      this.setData({
+        list:res.data
+      })
+    })
   },
 
+modify:function(){
+  wx.navigateTo({
+    url: '../userlogin/register',
+  })
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
