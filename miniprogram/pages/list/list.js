@@ -63,6 +63,7 @@ Page({
     this.setData({
       activeIndex: index
     })
+    console.log(this.data.activeIndex)
     if (index != 3) {
       db.collection('foods').where({
         location: this.data.foodList[this.data.activeIndex]
@@ -103,6 +104,7 @@ Page({
     }
   },
   scrolltolower: function() {
+    console.log("tolower"+this.data.activeIndex)
     this.setData({
       activeIndex: categoryHeight.length - 1
     })
