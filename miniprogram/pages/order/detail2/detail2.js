@@ -7,24 +7,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-    create_time:'',
-    pay_time:'',
-    is_taken:false,
-    id:"",
-    taken_time:'',
-    note:'',
-    whichorder:true,
-  }, 
-  
+    create_time: '',
+    pay_time: '',
+    is_taken: false,
+    id: "",
+    taken_time: '',
+    note: '',
+    whichorder: true,
+  },
+
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '订单详情'
     })
-    var temppromotion=0
-    this.data.id=JSON.parse(options.order_id)
+    var temppromotion = 0
+    this.data.id = JSON.parse(options.order_id)
     this.data.whichorder = JSON.parse(options.whichorder)
     console.log(this.data.whichorder)
-    
+
     wx.showLoading({
       title: '加载中',
       mask: true,
@@ -34,8 +34,8 @@ Page({
     }, 1500)
 
     db.collection('Order').where({
-      order_id:this.data.id
-      }).get().then(data=> {
+      order_id: this.data.id
+    }).get().then(data => {
       db.collection('programData').get().then(res => {
         if (data.data[0].orderPrice > res.data[0].promotion[0]) {
           this.setData({
@@ -46,31 +46,31 @@ Page({
         this.setData({
           order_food: data.data[0].order,
           price: data.data[0].orderPrice - temppromotion,
-          create_time:data.data[0].create_time,
-          pay_time:data.data[0].pay_time,
-          is_taken:data.data[0].is_taken,
-          taken_time:data.data[0].taken_time,
-          note:data.data[0].note,
+          create_time: data.data[0].create_time,
+          pay_time: data.data[0].pay_time,
+          is_taken: data.data[0].is_taken,
+          taken_time: data.data[0].taken_time,
+          note: data.data[0].note,
         })
-        
+
       })
     })
     var fetchCode
-    if (this.data.id<10){
+    if (this.data.id < 10) {
       fetchCode = 'A00' + this.data.id
-    } else if (this.data.id>=10 && this.data.id<100){
+    } else if (this.data.id >= 10 && this.data.id < 100) {
       fetchCode = 'A0' + this.data.id
-    } else if (this.data.id>=100){
+    } else if (this.data.id >= 100) {
       fetchCode = '' + this.data.id
     }
     this.setData({
-      code:fetchCode,
+      code: fetchCode,
       sn: this.data.id,
-      create_time:this.data.create_time,
-      pay_time:this.data.pay_time,
-      is_taken:this.data.is_taken,
-      taken_time:this.data.taken_time,
-      note:this.data.note,
+      create_time: this.data.create_time,
+      pay_time: this.data.pay_time,
+      is_taken: this.data.is_taken,
+      taken_time: this.data.taken_time,
+      note: this.data.note,
     })
 
   },
@@ -82,27 +82,27 @@ Page({
       url: '/pages/order/list/list'
     })
   },
-  getfood:function(){
+  getfood: function () {
     var time = util.formatTime(new Date());
     this.setData({
-      is_taken:true,
-     taken_time:time
+      is_taken: true,
+      taken_time: time
     })
     db.collection('Order').where({
-      order_id:this.data.id
-    }).get().then(res=>{
+      order_id: this.data.id
+    }).get().then(res => {
       db.collection('Order').doc(res.data[0]._id).update({
-         data:{
-           is_taken:true,
-           taken_time:time
-         }
+        data: {
+          is_taken: true,
+          taken_time: time
+        }
       })
     })
   },
-  takefood:function(){
+  takefood: function () {
 
   },
-  onShow:function(){
+  onShow: function () {
 
   }
 })

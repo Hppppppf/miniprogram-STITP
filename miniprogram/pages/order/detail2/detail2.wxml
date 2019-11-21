@@ -62,14 +62,14 @@
   </view>
 </view>
 
-<block>
-    <view class="tips" wx:if="{{is_taken}}">取餐号{{code}} 您已取餐</view>
-    <view class="tips" wx:else>
-    <view>请将此页面展示给配送人员</view>
-    <button class="button-getfood" bindtap="getfood">确认取餐</button>
-  </view>
-</block>
   
+<block>
+    <view class="tips" wx:if="{{is_taken}}">已取餐</view>
+    <view class="tips" wx:else>
+    <view>接单前请仔细查看订单信息</view>
+    <button class="button-getfood" bindtap="getfood">接单</button>
+    </view>
+</block>
 
 <wxs module="priceFormat">
   module.exports = function(price) {

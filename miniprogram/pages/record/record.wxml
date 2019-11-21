@@ -6,13 +6,13 @@
 </view>
 <view bindtap="wallet" class="index-exam-inlets-mk col-hg-6">
 <view class="index-exam-inlets-mk col-hg-3">
- <image src="/images/wallet.png" style="margin:15px;vertical-align: middle;width:50px; height: 50px;"></image>
+ <image src="/images/wallet.png" style="margin:15px;vertical-align: middle;width:100rpx; height: 100rpx;"></image>
 </view>
  <view style="font-size:15px;margin-left:80px;margin-top:28px;color:#008B00">积分:</view>
 </view>
  <view bindtap="modify" class="index-exam-inlets-mk col-hg-6">
 <view class="index-exam-inlets-mk col-hg-3">
- <image src="/images/modify.png" style="margin:15px;vertical-align: middle;width:50px; height: 50px;"></image>
+ <image src="/images/modify.png" style="margin:15px;vertical-align: middle;width:100rpx; height: 100rpx;"></image>
 </view>
  <view style="font-size:15px;margin-left:80px;margin-top:28px;color:#008B00">个人信息</view>
 </view>

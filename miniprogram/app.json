@@ -7,7 +7,8 @@
     "pages/order/list/list",
     "pages/record/record",
     "pages/userlogin/register",
-    "pages/userlogin/userlogin"
+    "pages/userlogin/userlogin",
+    "pages/order/detail2/detail2"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

@@ -21,9 +21,19 @@ Page({
   detail: function(e) {
     console.log(e)
     console.log('order_id=', e.target.dataset.order_id + e.target.dataset.whichorder)
-    wx.navigateTo({
-      url: '../detail/detail?order_id=' + e.target.dataset.order_id + '&whichorder=' + e.target.dataset.whichorder,
-    })
+    if (this.data.whichorder)
+    {
+      wx.navigateTo({
+        url: '../detail/detail?order_id=' + e.target.dataset.order_id + '&whichorder=' + e.target.dataset.whichorder,
+      })
+    }
+    else
+    {
+      wx.navigateTo({
+        url: '../detail2/detail2?order_id=' + e.target.dataset.order_id + '&whichorder=' + e.target.dataset.whichorder,
+      })
+    }
+    
   },
 
   clickmyorder:function(e){
