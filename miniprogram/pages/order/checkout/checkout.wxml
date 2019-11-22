@@ -23,10 +23,15 @@
         <view class="order-total-price">{{priceFormat(price)}}</view>
       </view>
     </view>
-  </view>
-  <view class="content-comment">
-    <label>备注</label>
-    <textarea placeholder="如有其他要求，请输入备注" bindblur="comment"></textarea>
+    <view class="content-comment">备注</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea class="textarea" placeholder="如有其它要求，请备注" style="height: 3.3em" bindblur="comment" bindinput="getValueLength"/>
+          <view class="weui-textarea-counter">{{currentWordNumber|0}}/40</view>
+        </view>
+      </view>
+    </view>
   </view>
 </view>
 <view class="operate">

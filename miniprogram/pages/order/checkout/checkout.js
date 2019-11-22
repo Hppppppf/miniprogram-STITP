@@ -13,7 +13,8 @@ Page({
     create_time:'',
     pay_time:'',
     number:0,
-    is_taken:false
+    is_taken:false,
+    currentWordNumber:0
   },
 /*
   listenerTextarea: function (e) {
@@ -89,6 +90,17 @@ Page({
   comment: function (e) {
     this.data.note = e.detail.value
     console.log(this.data.note)
+  },
+
+  /****限制字数与计算 */
+  getValueLength: function (e) {
+    let value = e.detail.value
+    let len = parseInt(value.length)
+    //最多字数限制
+    if (len > 40) return;
+    this.setData({
+      currentWordNumber: len //当前字数 
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

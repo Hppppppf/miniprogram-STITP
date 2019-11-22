@@ -8,8 +8,8 @@ page {
 
 .content {
   flex: 1;
-  overflow: scroll;
-  margin-bottom: 40rpx;
+  /*overflow: scroll;*/
+  margin-bottom: 140rpx;
 }
 
 ::-webkit-scrollbar {
@@ -30,12 +30,8 @@ page {
   margin-top: 20rpx;
 }
 
-.content-comment > label {
-  font-size: 32rpx;
-  color: #a3a3a3;
-}
 
-.content-comment > textarea {
+.textarea {
   width: 95%;
   font-size: 24rpx;
   background: #f2f2f2;
@@ -103,6 +99,9 @@ page {
 
 .operate {
   height: 110rpx;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
   display: flex;
 }
 
