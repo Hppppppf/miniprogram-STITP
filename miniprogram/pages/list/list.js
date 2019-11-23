@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    firsttime: false, //记录是否是第一次加载页面
+    isPay: false, //用于判断用户是否进行了支付
     activeIndex: 0,
     tapIndex: 0,
     foodList: [],
@@ -31,7 +31,7 @@ Page({
     heightArr: [], // 数组:查找到的所有单元的内容高度
 
     showCart: false,
-    promotion: {}
+    promotion: {},
   },
   changingCategory: false, // 是否正在切换左侧激活的分类（防止滚动过快时切换迟缓）
   shopcartAnimate: null,
@@ -54,7 +54,20 @@ Page({
           foodList2: res.data
         })
       })
-    this.data.firsttime = true;
+
+    //页面加载时，从云端获取用户上次购物车中的数据
+    db.collection('CartList').where({
+      _openid: wx.getStorageSync('_OPENID')
+    }).get().then(res => {
+      console.log('res=', res)
+      if (res.data.length > 0) {
+        this.setData({
+          cartList: res.data[0].cartList,
+          cartNumber: res.data[0].cartNumber,
+          cartPrice: res.data[0].cartPrice,
+        })
+      }
+    })
   },
   // 点击左侧菜单项选择
   selectMenu: function(e) {
@@ -104,7 +117,7 @@ Page({
     }
   },
   scrolltolower: function() {
-    console.log("tolower"+this.data.activeIndex)
+    console.log("tolower" + this.data.activeIndex)
     this.setData({
       activeIndex: categoryHeight.length - 1
     })
@@ -123,15 +136,16 @@ Page({
         name: food.name,
         price: parseFloat(food.price),
         number: 1,
-        dataID:food._id,
-        image_url:food.image
+        dataID: food._id,
+        image_url: food.image
       }
     }
     //this.shopcartAnimate.show(e)
     this.setData({
       cartList: cartList,
       cartPrice: this.data.cartPrice + cartList[id].price,
-      cartNumber: this.data.cartNumber + 1
+      cartNumber: this.data.cartNumber + 1,
+      isPay: false,
     })
   },
   cartNumberDec: function(e) {
@@ -147,7 +161,8 @@ Page({
       this.setData({
         cartList: cartList,
         cartNumber: --this.data.cartNumber,
-        cartPrice: this.data.cartPrice - price
+        cartPrice: this.data.cartPrice - price,
+        isPay: false,
       })
       if (this.data.cartNumber <= 0) {
         this.setData({
@@ -167,7 +182,8 @@ Page({
       this.setData({
         cartList: cartList,
         cartNumber: ++this.data.cartNumber,
-        cartPrice: this.data.cartPrice + price
+        cartPrice: this.data.cartPrice + price,
+        isPay: false,
       })
     }
   },
@@ -186,7 +202,8 @@ Page({
       cartList: {},
       showCart: false,
       cartPrice: 0,
-      cartNumber: 0
+      cartNumber: 0,
+      isPay: false,
     });
   },
   /*
@@ -251,7 +268,7 @@ Page({
         this.setData({
           cartList: res.data[0].cartList,
           cartNumber: res.data[0].cartNumber,
-          cartPrice: res.data[0].cartPrice
+          cartPrice: res.data[0].cartPrice,
         })
       }
     })
@@ -262,7 +279,7 @@ Page({
    */
   onHide: function() {
     //页面隐藏时将选择的商品同时添加到云数据库中以保存用户数据
-    if (this.data.firsttime) {
+    if (!this.data.isPay) {
       db.collection('CartList').doc(wx.getStorageSync('_OPENID')).set({
         data: {
           cartList: this.data.cartList,
@@ -270,7 +287,7 @@ Page({
           cartPrice: this.data.cartPrice,
         }
       })
-      this.data.firsttime=false
+      this.data.isPay = true
     }
   },
 
@@ -279,16 +296,15 @@ Page({
    */
   onUnload: function() {
     //返回时将选择的商品同时添加到云数据库中以保存用户数据
-    if(this.data.firsttime){
-    db.collection('CartList').doc(wx.getStorageSync('_OPENID')).set({
-      data: {
-        cartList: this.data.cartList,
-        cartNumber: this.data.cartNumber,
-        cartPrice: this.data.cartPrice,
-
-      }
-    })
-    this.data.firsttime=false
+    if (!this.data.isPay) {
+      db.collection('CartList').doc(wx.getStorageSync('_OPENID')).set({
+        data: {
+          cartList: this.data.cartList,
+          cartNumber: this.data.cartNumber,
+          cartPrice: this.data.cartPrice,
+        }
+      })
+    this.data. isPay=true
     }
   },
 

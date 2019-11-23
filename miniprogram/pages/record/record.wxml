@@ -1,22 +1,26 @@
 <!--pages/record/record.wxml-->
 <view class="head">
   <view class="avatar">
- 	  <open-data type="userAvatarUrl"></open-data>
+    <open-data type="userAvatarUrl"></open-data>
   </view>
 </view>
-<view bindtap="wallet" class="index-exam-inlets-mk col-hg-6">
-<view class="index-exam-inlets-mk col-hg-3">
- <image src="/images/wallet.png" style="margin:15px;vertical-align: middle;width:100rpx; height: 100rpx;"></image>
-</view>
- <view style="font-size:15px;margin-left:80px;margin-top:28px;color:#008B00">积分</view>
-</view> 
- <view bindtap="modify" class="index-exam-inlets-mk col-hg-6">
-<view class="index-exam-inlets-mk col-hg-3">
- <image src="/images/modify.png" style="margin:15px;vertical-align: middle;width:100rpx; height: 100rpx;"></image>
-</view>
- <view style="font-size:15px;margin-left:80px;margin-top:28px;color:#008B00">个人信息</view>
-</view>
 <view class="content">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_example ">
+      <view bindtap="wallet" class="col-hg-6">
+        <view class="ImageWallet">
+          <image src="/images/wallet.png"></image>
+        </view>
+        <view class="TextWallet">积分</view>
+      </view>
+      <view bindtap="modify" class="col-hg-6">
+        <view class="ImageModify">
+          <image src="/images/modify.png"></image>
+        </view>
+        <view class="TextModify">个人信息</view>
+      </view>
+    </view>
+  </view>
   <view class="list-title">消费记录</view>
   <view class="list-item" wx:for="{{list}}" wx:key="id">
     <view class="list-item-l">

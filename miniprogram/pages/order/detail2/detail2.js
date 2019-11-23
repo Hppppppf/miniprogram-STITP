@@ -13,7 +13,6 @@ Page({
     id: "",
     taken_time: '',
     note: '',
-    whichorder: true,
   },
 
   onLoad: function (options) {
@@ -22,8 +21,6 @@ Page({
     })
     var temppromotion = 0
     this.data.id = JSON.parse(options.order_id)
-    this.data.whichorder = JSON.parse(options.whichorder)
-    console.log(this.data.whichorder)
 
     wx.showLoading({
       title: '加载中',

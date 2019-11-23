@@ -7,7 +7,7 @@ page {
 .head {
   width: 100%;
   background-color: #f7982a;
-  height: 400rpx;
+  height: 350rpx;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,8 +80,39 @@ page {
 
 .col-hg-1 { width: 8.33333%; }
 
-.col-hg-3-c{
-  float:middle;
-  width:25%;
+.ImageWallet{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #eeeeeb;
+}
+.TextWallet{
+  font-size:12px;
+  height: 40rpx;
+  color:#008B00;
+  text-align: center;
+  border-right: 1px solid #eeeeeb;
+}
 
+.ImageModify{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.ImageModify>image {
+width: 50rpx;
+height: 50rpx;
+}
+.ImageWallet>image{
+  width: 50rpx;
+height: 50rpx;
+}
+
+.TextModify{
+  font-size:12px;
+  height: 40rpx;
+  color:#008B00;
+ text-align: center;
 }
