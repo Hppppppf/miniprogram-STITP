@@ -26,11 +26,14 @@ Page({
   pay: function() {
     console.log("note:" + this.data.note)
     var time = util.formatTime(new Date());
-    db.collection('Order').get().then(res => {
+    db.collection('programData').get().then(res => {
       console.log('%%%%%%%%%%', res)
       this.setData({
-        order_id: ++res.data.length,
+        order_id: ++res.data[0].OrderNum,
         pay_time: time
+      })
+      wx.cloud.callFunction({
+        name: 'OrderNum',
       })
       db.collection('Order').add({
         data: {

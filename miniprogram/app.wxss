@@ -17,4 +17,4 @@ page {
   font-style:normal;
   -webkit-font-smoothing: antialiased;
 }
-@import 'style/weui.wxss'
+@import 'style/weui.wxss';

@@ -8,7 +8,9 @@
     "pages/record/record",
     "pages/userlogin/register",
     "pages/userlogin/userlogin",
-    "pages/order/detail2/detail2"
+    "pages/order/detail2/detail2",
+    "pages/record/location/location",
+    "pages/record/location/setLocation/setLocation"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

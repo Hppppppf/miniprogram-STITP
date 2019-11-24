@@ -1,0 +1,21 @@
+/* miniprogram/pages/record/location/setLocation/setLocation.wxss */
+.button{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20rpx 0rpx;
+}
+.btn-submit{
+  width: 680rpx;
+  background-color: #00D8A0;
+  color: white;
+  font-weight: bold;
+}
+.btn-delete{
+  width: 680rpx;
+  color: #00D8A0;
+  font-weight: bold;
+}
+.selectaddress{
+
+}

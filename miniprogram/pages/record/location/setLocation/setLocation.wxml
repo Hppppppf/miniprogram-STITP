@@ -1,0 +1,49 @@
+<!--pages/register/register.wxml-->
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">联系人</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="{{name}}"/>
+    </view>
+  </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">手机号</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="{{tel}}" />
+    </view>
+  </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">收货地址</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="selectaddress" placeholder="{{address}}" bindtap="getGeopoint" disabled="true"/>
+    </view>
+  </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell ">
+    <view class="weui-cell__hd">
+      <view class="weui-label">详细地址</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="{{detail}}" />
+    </view>
+  </view>
+</view>
+
+
+<view class="button">
+  <button class="btn-submit" type="defult" bindtap="locationSubmit">保存地址</button>
+</view>
+<view class="button">
+  <button class="btn-delete" type="defult" bindtap="locationDelete">删除地址</button>
+</view>

@@ -17,7 +17,7 @@
         <view class="ImageModify">
           <image src="/images/modify.png"></image>
         </view>
-        <view class="TextModify">个人信息</view>
+        <view class="TextModify">地址</view>
       </view>
     </view>
   </view>

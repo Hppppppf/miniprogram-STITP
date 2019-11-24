@@ -107,12 +107,12 @@ height: 50rpx;
 }
 .ImageWallet>image{
   width: 50rpx;
-height: 50rpx;
+  height: 50rpx;
 }
 
 .TextModify{
   font-size:12px;
   height: 40rpx;
   color:#008B00;
- text-align: center;
+  
 }

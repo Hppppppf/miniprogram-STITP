@@ -9,6 +9,7 @@ Page({
     name: "",
     tel: "",
     school: "",
+    location:{},
     num: "",
     enter_year: "",
     is_register: false
@@ -52,6 +53,7 @@ Page({
               globalData: JSON.stringify(app.globalData.userInfo),
               name: this.data.name,
               tel: this.data.tel,
+              location:this.data.location,
               school: this.data.school,
               num: this.data.num,
               enter_year: this.data.enter_year,

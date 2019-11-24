@@ -1,33 +1,41 @@
-// pages/record/record.js
-const db=wx.cloud.database()
+// miniprogram/pages/record/location/location.js
+const db = wx.cloud.database(); //初始化数据库
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    wallet:'/images/wallet.png'
+    haveLocation:true,
+    locationList:{},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //bug:只能显示20条
-    db.collection('Order').where({
-      _openid:wx.getStorageSync('_OPENID')
-    }).get().then(res=>{
-      this.setData({
-        list:res.data
-      })
+    db.collection('UserInfo').where({
+      _openid: wx.getStorageSync('_OPENID')
+    }).get().then(res => {
+      if (res.data[0].location)
+      {
+        this.setData({
+          locationList: res.data[0].location
+        })
+      }
+      else{
+        haveLocation:false
+      }
+    })
+    console.log(this.data.locationList)
+    
+  },
+  modifyLocation(e){
+    console.log(e)
+    wx.navigateTo({
+      url: 'setLocation/setLocation?index='+ e.currentTarget.dataset.index,
     })
   },
-
-modify:function(){
-  wx.navigateTo({
-    url: 'location/location',
-  })
-},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

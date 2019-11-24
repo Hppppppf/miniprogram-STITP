@@ -21,14 +21,6 @@ Page({
     })
     var temppromotion=0
     this.data.id=JSON.parse(options.order_id)
-    
-    wx.showLoading({
-      title: '加载中',
-      mask: true,
-    })
-    setTimeout(function () {
-      wx.hideLoading()
-    }, 1500)
 
     db.collection('Order').where({
       order_id:this.data.id
