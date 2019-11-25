@@ -18,7 +18,7 @@ Page({
         hasUserInfo: true
       })
       wx.redirectTo({
-        url: './register',
+        url: './register?isAdd='+false,
       })
     } else if (this.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -46,7 +46,7 @@ Page({
     }
     if (this.data.hasUserInfo) {
       wx.redirectTo({
-        url: './register',
+        url: './register?isAdd=' + false,
       })
     }
   },
@@ -55,7 +55,7 @@ Page({
     console.log(e)
     if (e.detail.errMsg == "getUserInfo:ok"){
       wx.redirectTo({
-        url: './register',
+        url: './register?isAdd=' + false,
       })
       app.globalData.userInfo = e.detail.userInfo
       this.setData({

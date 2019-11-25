@@ -1,6 +1,16 @@
-/* pages/register/register.wxss */
-.submit{
-  margin: 0 auto;
-  padding-top: 15px;
-  width: 90%;
+/* miniprogram/pages/userlogin/register.wxss */
+.button{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20rpx 0rpx;
+}
+.btn-submit{
+  width: 680rpx;
+  background-color: #00D8A0;
+  color: white;
+  font-weight: bold;
+}
+.addressList{
+  margin-bottom: 50rpx;
 }

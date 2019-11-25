@@ -64,3 +64,7 @@ page {
   width: 45rpx;
   height: 45rpx;
 }
+
+.addressList{
+  margin-bottom: 100rpx;
+}

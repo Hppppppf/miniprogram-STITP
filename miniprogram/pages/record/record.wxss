@@ -114,5 +114,5 @@ height: 50rpx;
   font-size:12px;
   height: 40rpx;
   color:#008B00;
-  
+  text-align: center;
 }
