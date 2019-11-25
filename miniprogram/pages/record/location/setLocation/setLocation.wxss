@@ -16,6 +16,14 @@
   color: #00D8A0;
   font-weight: bold;
 }
-.selectaddress{
-
+.setAddress{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content:space-between;
+}
+.setAddressImage{
+  width: 40rpx;
+  height: 40rpx;
 }

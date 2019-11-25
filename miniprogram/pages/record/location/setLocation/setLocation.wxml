@@ -24,8 +24,9 @@
     <view class="weui-cell__hd">
       <view class="weui-label">收货地址</view>
     </view>
-    <view class="weui-cell__bd">
-      <input class="selectaddress" placeholder="{{address}}" bindtap="getGeopoint" disabled="true"/>
+    <view class="setAddress" bindtap="getGeopoint">
+      <input class="selectaddress" placeholder="{{address}}"  disabled="true"/>
+      <image class="setAddressImage" src="../../../../images/next.png"></image>
     </view>
   </view>
 </view>
