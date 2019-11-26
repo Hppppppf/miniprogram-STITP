@@ -38,7 +38,7 @@ Page({
           create_time:data.data[0].create_time,
           pay_time:data.data[0].pay_time,
           is_taken:data.data[0].is_taken,
-          taken_time:data.data[0].taken_time,
+          //taken_time:data.data[0].taken_time,
           note:data.data[0].note,
         })
         

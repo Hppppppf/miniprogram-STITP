@@ -32,7 +32,7 @@ Page({
         pay_time: time
       })
       wx.cloud.callFunction({
-        name: 'OrderNum',
+        name: 'OrderNum'
       })
       db.collection('Order').add({
         data: {
@@ -44,6 +44,7 @@ Page({
           number: this.data.number,
           pay_time: this.data.pay_time,
           is_taken: false,
+          location:this.data.location
         }
       })
       console.log('order_id', this.data.order_id)
