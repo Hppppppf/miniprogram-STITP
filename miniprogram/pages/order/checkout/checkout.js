@@ -27,7 +27,6 @@ Page({
     console.log("note:" + this.data.note)
     var time = util.formatTime(new Date());
     db.collection('programData').get().then(res => {
-      console.log('%%%%%%%%%%', res)
       this.setData({
         order_id: ++res.data[0].OrderNum,
         pay_time: time
@@ -66,6 +65,15 @@ Page({
       title: '努力加载中'
     })
     var time = util.formatTime(new Date());
+    /*wx.getLocation({
+      success: function(res) {
+        db.collection('UserInfo').where({
+          _openid:wx.getStorageSync('_OPENID')
+        }).get().then(res=>{
+            //此处用于自动匹配已存地址。。。。还不知道咋写，先注释掉
+        })
+      },
+    })*/
     db.collection('CartList').doc(wx.getStorageSync('_OPENID')).get().then(data => {
       console.log('Data', data)
       db.collection('programData').get().then(res => {
@@ -116,7 +124,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    
   },
 
   /**

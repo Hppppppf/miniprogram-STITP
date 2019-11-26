@@ -1,5 +1,20 @@
 <view class="content">
   <view class="content-title">请确认您的订单</view>
+  <view class="weui-cells__title">订单配送至</view>
+  <view class="weui-cells weui-cells_after-title">
+    <navigator url="./selectAddress" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">          
+      <view class="location-info">
+            <text class="location-deatil">{{location.detail}}\n</text>
+            <view class="location-name">{{location.name}}
+              <text wx:if="{{location.sex}}">(先生)</text>
+              <text wx:else>(女士)</text>
+              <text class="location-tel"> {{location.tel}}</text>
+            </view>
+          </view></view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+  </view>
   <view class="order">
     <view class="order-title">订单详情</view>
     <view class="order-list">
@@ -27,7 +42,7 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
-          <textarea class="textarea" placeholder="如有其它要求，请备注" style="height: 3.3em" bindblur="comment" bindinput="getValueLength"/>
+          <textarea class="textarea" placeholder="如有其它要求，请备注" style="height: 3.3em" bindblur="comment" bindinput="getValueLength" maxlength="40"/>
           <view class="weui-textarea-counter">{{currentWordNumber|0}}/40</view>
         </view>
       </view>
