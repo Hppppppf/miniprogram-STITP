@@ -46,7 +46,7 @@ Page({
           taken_time: data.data[0].taken_time,
           note: data.data[0].note,
         })
-
+        wx.hideLoading()
       })
       var fetchCode
       if (this.data.id < 10) {
@@ -65,7 +65,6 @@ Page({
         taken_time: this.data.taken_time,
         note: this.data.note,
       })
-      wx.hideLoading()
     })
   },
   onUnload: function () {
