@@ -76,8 +76,18 @@ Page({
       name: 'deleteLocation'
     })
   },
-
+  selectTrue:function(){
+    this.setData({
+      sex:true
+    })
+  },
+  selectFalse: function () {
+    this.setData({
+      sex: false
+    })
+  },
   changeName:function(e){
+    console.log(e)
     this.setData({
       name:e.detail.value
     })

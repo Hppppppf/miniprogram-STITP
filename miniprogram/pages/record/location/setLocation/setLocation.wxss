@@ -27,3 +27,48 @@
   width: 40rpx;
   height: 40rpx;
 }
+.Name{
+  height: 100rpx;
+  flex-wrap: nowrap;
+}
+.infoInput{
+  height: 130rpx;
+  width: 100%;
+}
+.Nameinput{
+  padding-top: 24rpx;
+  width: 80%;
+  border-bottom: 1rpx solid #ececec;
+}
+.SexButtons{
+  width: 280rpx;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+.selectButtons{
+  width: 100%;
+  height: 30rpx;
+  line-height:25rpx;
+  display: flex;
+  padding: 25rpx 0rpx;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  
+}
+.selectedSex{
+  background-color: #00D8A0;
+  color: white;
+  width: 130rpx;
+  height: 50rpx;
+  font-size: 12px;
+}
+.unselectedSex{
+  background-color:white;
+  color: #00D8A0;
+  width: 130rpx;
+  height: 50rpx;
+  font-size: 12px;
+}
