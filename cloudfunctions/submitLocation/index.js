@@ -13,15 +13,16 @@ exports.main = async (event, context) => {
   var index = event.index
   try {
     return await db.collection('UserInfo').where({
-      _openid: event._openid
+      _openid: event._openid,
+      'location.index':event.index
     })
       .update({
         data: {
-          'location.index.name':event.name,
-          'location.index.sex': event.sex,
-          'location.index.tel': event.tel,
-          'location.index.detail': event.detail,
-          'location.index.location': event.location,
+          'location.$.name':event.name,
+          'location.$.sex': event.sex,
+          'location.$.tel': event.tel,
+          'location.$.detail': event.detail,
+          'location.$.location': event.location,
         }
       })
   } catch (e) {

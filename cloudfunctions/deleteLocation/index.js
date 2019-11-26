@@ -11,12 +11,12 @@ const _ = db.command
 // 云函数入口函数
 exports.main = async (event, context) => {
   try {
-    return await db.collection("UserInfo").where({
+    return await db.collection('UserInfo').where({
       _openid:event._openid
     })
       .update({
         data: {
-          OrderNum: _.inc(1)
+          location:event.location
         },
       })
   } catch (e) {

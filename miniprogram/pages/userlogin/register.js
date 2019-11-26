@@ -124,6 +124,7 @@ Page({
                 index: count
               })
               locationList[this.data.index] = {
+                index:this.data.index,
                 name: this.data.name,
                 tel: this.data.tel,
                 location: this.data.address,
@@ -136,7 +137,7 @@ Page({
                 }
               }).then(res => {
                 wx.showToast({
-                  title: '新增记录成功',
+                  title: '新增地址成功',
                 })
               })
               wx.switchTab({
@@ -145,7 +146,7 @@ Page({
               wx.hideToast()
             } else { //如果用户存的地址超过了20个，则执行
               wx.showToast({
-                title: '新增记录失败！您的地址已达上限',
+                title: '新增地址失败！您的地址已达上限',
                 icon: 'none',
               })
             }

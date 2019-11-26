@@ -12,6 +12,7 @@ Page({
     tel: "收货人手机号",
     detail: "例：桃苑25栋",
     sex: true,
+    locationList:{},
   },
   getGeopoint: function() {
     var that = this
@@ -49,12 +50,14 @@ Page({
           tel: res.data[0].location[this.data.index].tel,
           address: res.data[0].location[this.data.index].location,
           detail: res.data[0].location[this.data.index].detail,
-          sex: res.data[0].location[this.data.index].sex
+          sex: res.data[0].location[this.data.index].sex,
+          locationList: res.data[0].location
         })
       }
     })
   },
   locationSubmit: function() {
+    console.log(this.data.location)
     wx.cloud.callFunction({
       name: 'submitLocation',
       data: {
@@ -72,8 +75,24 @@ Page({
     })
   },
   locationDelete: function() {
-    wx.cloud.callFunction( {
-      name: 'deleteLocation'
+    for (var i = this.data.index; i < this.data.locationList.length - 1; i++) {
+      this.data.locationList[i].index = this.data.locationList[i + 1].index
+      this.data.locationList[i].name = this.data.locationList[i + 1].name
+      this.data.locationList[i].sex = this.data.locationList[i + 1].sex
+      this.data.locationList[i].tel = this.data.locationList[i + 1].tel
+      this.data.locationList[i].location = this.data.locationList[i + 1].location
+      this.data.locationList[i].detail = this.data.locationList[i + 1].detail
+    }
+    this.data.locationList.splice(this.data.locationList.length - 1, 1)
+    wx.cloud.callFunction({
+      name: 'deleteLocation',
+      data: {
+        _openid: wx.getStorageSync('_OPENID'),
+        location: this.data.locationList
+      }
+    })
+    wx.navigateTo({
+      url: '../location',
     })
   },
   selectTrue:function(){

@@ -1,6 +1,8 @@
-<view class='addlocation' style="display:{{haveLocation?'none':'display'}};width:100%;height:100%">
-  <image class="addlocation-image" src="../../../images/addlocation.png"></image>
+<view style="display:{{haveLocation?'none':'display'}};width:100%;height:80%">
+  <view class='addlocation' >
+    <image class="addlocation-image" src="../../../images/addlocation.png"></image>
   <view class="addlocation-view">请添加收货地址</view>
+  </view>
 </view>
 <view class="addressList">
   <view style="display:{{haveLocation?'inline-block':'none'}};width:100%;height:100%">

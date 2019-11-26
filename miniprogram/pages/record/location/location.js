@@ -17,12 +17,15 @@ Page({
     db.collection('UserInfo').where({
       _openid: wx.getStorageSync('_OPENID')
     }).get().then(res => {
-      if (res.data[0].location) {
+      if (res.data[0].location.length != 0) {
+        console.log(res.data[0].location.length)
         this.setData({
           locationList: res.data[0].location
         })
       } else {
-        haveLocation: false
+        this.setData({
+          haveLocation: false
+        })
       }
     })
 
