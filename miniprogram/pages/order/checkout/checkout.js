@@ -28,11 +28,11 @@ Page({
     var time = util.formatTime(new Date());
     db.collection('programData').get().then(res => {
       this.setData({
-        order_id: ++res.data[0].OrderNum,
+        order_id: ++res.data[0].orderNum,
         pay_time: time
       })
       wx.cloud.callFunction({
-        name: 'OrderNum',
+        name: 'orderNum'
       })
       db.collection('Order').add({
         data: {

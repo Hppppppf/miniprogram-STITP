@@ -11,11 +11,11 @@ const _ = db.command
 exports.main = async (event, context) => {
   console.log(event)
   try {
-    return await programData.where({
+    return await db.collection('programData').where({
       _id: "c0b4c39b-5e84-482f-bf27-57b8b8c900ab"
     }).update({
       data: {
-        OrderNum: _.inc(1)
+        orderNum: _.inc(1)
       },
     })
   } catch (e) {
