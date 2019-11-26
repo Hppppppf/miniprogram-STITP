@@ -48,7 +48,7 @@ Page({
           note:data.data[0].note,
           address:data.data[0].location
         })
-        
+        wx.hideLoading()
       })
         var fetchCode
         if (this.data.id < 10) {
@@ -68,7 +68,6 @@ Page({
           note: this.data.note,
           address: this.data.address
         })
-        wx.hideLoading()
     })
 
   },
