@@ -13,6 +13,24 @@
   </view>
 </view>
 <view class="order">
+  <view class="order-title">配送信息</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">送货地址</view>
+      <view class="weui-cell__ft">
+        <view class="location-info">
+          <view class="location-name">{{address.name}}
+            <text wx:if="{{address.sex}}">(先生)\n</text>
+            <text wx:else>(女士)\n</text>
+            <text class="location-tel"> {{address.tel}}\n</text>
+          </view>
+          <text class="location-deatil">{{address.location+address.detail}}\n</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="order">
   <view class="order-title">订单详情</view>
   <view class="order-list">
     <view class="order-item" wx:for="{{order_food}}" wx:key="id">
@@ -55,20 +73,20 @@
     <view>{{taken_time}}</view>
   </view>
 
-    <view wx:if="{{is_taken}}">
-    <text >订单备注</text>
+  <view wx:if="{{is_taken}}">
+    <text>订单备注</text>
 
     <view>{{note}}</view>
   </view>
 </view>
 
-  
+
 <block>
-    <view class="tips" wx:if="{{is_taken}}">已取餐</view>
-    <view class="tips" wx:else>
+  <view class="tips" wx:if="{{is_taken}}">已取餐</view>
+  <view class="tips" wx:else>
     <view>接单前请仔细查看订单信息</view>
     <button class="button-getfood" bindtap="getfood">接单</button>
-    </view>
+  </view>
 </block>
 
 <wxs module="priceFormat">

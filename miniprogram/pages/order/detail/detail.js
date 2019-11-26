@@ -13,11 +13,16 @@ Page({
     id:"",
     taken_time:'',
     note:'',
+    address:''
   }, 
   
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '订单详情'
+    })
+    wx.showLoading({
+      title: '加载中',
+      mask:true
     })
     var temppromotion=0
     this.data.id=JSON.parse(options.order_id)
@@ -25,6 +30,7 @@ Page({
     db.collection('Order').where({
       order_id:this.data.id
       }).get().then(data=> {
+        console.log(data)
       db.collection('programData').get().then(res => {
         if (data.data[0].orderPrice > res.data[0].promotion[0]) {
           this.setData({
@@ -40,26 +46,29 @@ Page({
           is_taken:data.data[0].is_taken,
           //taken_time:data.data[0].taken_time,
           note:data.data[0].note,
+          address:data.data[0].location
         })
         
       })
-    })
-    var fetchCode
-    if (this.data.id<10){
-      fetchCode = 'A00' + this.data.id
-    } else if (this.data.id>=10 && this.data.id<100){
-      fetchCode = 'A0' + this.data.id
-    } else if (this.data.id>=100){
-      fetchCode = '' + this.data.id
-    }
-    this.setData({
-      code:fetchCode,
-      sn: this.data.id,
-      create_time:this.data.create_time,
-      pay_time:this.data.pay_time,
-      is_taken:this.data.is_taken,
-      taken_time:this.data.taken_time,
-      note:this.data.note,
+        var fetchCode
+        if (this.data.id < 10) {
+          fetchCode = 'A00' + this.data.id
+        } else if (this.data.id >= 10 && this.data.id < 100) {
+          fetchCode = 'A0' + this.data.id
+        } else if (this.data.id >= 100) {
+          fetchCode = '' + this.data.id
+        }
+        this.setData({
+          code: fetchCode,
+          sn: this.data.id,
+          create_time: this.data.create_time,
+          pay_time: this.data.pay_time,
+          is_taken: this.data.is_taken,
+          taken_time: this.data.taken_time,
+          note: this.data.note,
+          address: this.data.address
+        })
+        wx.hideLoading()
     })
 
   },

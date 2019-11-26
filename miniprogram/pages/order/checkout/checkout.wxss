@@ -121,3 +121,29 @@ page {
   background: #ff9c35;
   color: #fff;
 }
+
+.location-item{
+  display: flex;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #ececec;
+  justify-content:space-between;
+}
+.location-deatil{
+  font-weight: bold;
+  font-size: 20px;
+}
+.location-name{
+  flex-direction: row;
+  flex-wrap: nowrap;
+  color: #757373;
+  font-size: 16px;
+}
+.location-modify{
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
+.location-modifyimage{
+  width: 45rpx;
+  height: 45rpx;
+}

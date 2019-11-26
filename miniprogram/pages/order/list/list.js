@@ -50,7 +50,7 @@ Page({
     }).count().then(res => {
       //console.log('Count', res)
       total = res.total;
-     console.log('Total', total)
+      console.log('Total', total)
       //计算需要分几次取
       const batchTimes = Math.ceil(total / MAX_LIMIT)
       //承载所有读操作的promise的数组
@@ -70,28 +70,33 @@ Page({
           }
           console.log('arraypro=  ', arraypro)
           //对数据进行排序，使最新的订单出现在最上面
-          var compare=function(obj1,obj2){
-            var var1=obj1.pay_time
-            var var2=obj2.pay_time
-            if(var1<var2){
-              return -1
-            }
-            else if(var1>var2){
+          var compare = function(obj1, obj2) {
+            var var1 = obj1.pay_time
+            var var2 = obj2.pay_time
+            if (var1 < var2) {
               return 1
-            }else{
+            } else if (var1 > var2) {
+              return -1
+            } else {
               return 0
             }
           }
           arraypro.sort(compare)
-          console.log('SORTARRAYPRO=',arraypro)
+          console.log('SORTARRAYPRO=', arraypro)
           //将数据传递到页面视图
           that.setData({
             order: arraypro,
-            is_last:true
+            is_last: true
           })
-          wx.hideLoading()
         })
       }
+      if (total == 0) {
+        that.setData({
+          order: arraypro,
+          is_last: true
+        })
+      }
+      wx.hideLoading()
     })
   },
   clickallorder: function(e) {
@@ -111,7 +116,7 @@ Page({
     //const countResult = await db.collection('Order').count()
     var total = 0
     db.collection('Order').count().then(res => {
-     // console.log('Count', res)
+      // console.log('Count', res)
       total = res.total
       console.log('Total', total)
       //计算需要分几次取
@@ -133,28 +138,33 @@ Page({
 
           console.log('arraypro=  ', arraypro)
           //对数据进行排序，使最新的订单出现在最上面
-          var compare = function (obj1, obj2) {
+          var compare = function(obj1, obj2) {
             var var1 = obj1.pay_time
             var var2 = obj2.pay_time
             if (var1 < var2) {
               return 1
-            }
-            else if (var1 > var2) {
+            } else if (var1 > var2) {
               return -1
             } else {
               return 0
             }
           }
           arraypro.sort(compare)
-          console.log('SORTARRATPRO=',arraypro)
+          console.log('SORTARRATPRO=', arraypro)
           //将数据传递到页面视图
           that.setData({
             order: arraypro,
-            is_last:true
+            is_last: true
           })
-          wx.hideLoading()
         })
       }
+      if (total == 0) {
+        that.setData({
+          order: arraypro,
+          is_last: true
+        })
+      }
+      wx.hideLoading()
     })
   },
   /**

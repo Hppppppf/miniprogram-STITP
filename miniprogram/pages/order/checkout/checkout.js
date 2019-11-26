@@ -52,6 +52,7 @@ Page({
         url: '/pages/order/detail/detail?order_id=' + this.data.order_id
       })
     })
+    db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove()
   },
   /**
    * 生命周期函数--监听页面加载
@@ -92,6 +93,13 @@ Page({
           orderPrice: data.data.cartPrice - temppromotion,
           number: data.data.cartNumber,
           create_time: time,
+        })
+        db.collection('UserInfo').where({
+          _openid:wx.getStorageSync('_OPENID')
+        }).get().then(res=>{
+          this.setData({
+            location:res.data[0].location[0]
+          })
         })
       })
       wx.hideLoading()
@@ -139,7 +147,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove()
+
   },
 
   /**

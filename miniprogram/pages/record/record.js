@@ -1,18 +1,18 @@
 // pages/record/record.js
-const db=wx.cloud.database()
+const db = wx.cloud.database()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    wallet:'/images/wallet.png'
+    wallet: '/images/wallet.png'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     //bug:只能显示20条
     /*
     db.collection('Order').where({
@@ -21,7 +21,7 @@ Page({
       this.setData({
         list:res.data
       })
-    })*///正在修复中……
+    })*/ //正在修复中……
 
     //bug已修复
     var that = this
@@ -58,14 +58,13 @@ Page({
           }
           console.log('arraypro=  ', arraypro)
           //对数据进行排序，使最新的订单出现在最上面
-          var compare = function (obj1, obj2) {
+          var compare = function(obj1, obj2) {
             var var1 = obj1.pay_time
             var var2 = obj2.pay_time
             if (var1 < var2) {
-              return -1
-            }
-            else if (var1 > var2) {
               return 1
+            } else if (var1 > var2) {
+              return 0
             } else {
               return 0
             }
@@ -76,63 +75,63 @@ Page({
           that.setData({
             list: arraypro,
           })
-          wx.hideLoading()
         })
       }
+      wx.hideLoading()
     })
   },
 
-modify:function(){
-  wx.navigateTo({
-    url: 'location/location',
-  })
-},
+  modify: function() {
+    wx.navigateTo({
+      url: 'location/location',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

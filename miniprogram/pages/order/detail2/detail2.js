@@ -26,9 +26,6 @@ Page({
       title: '加载中',
       mask: true,
     })
-    setTimeout(function () {
-      wx.hideLoading()
-    }, 1500)
 
     db.collection('Order').where({
       order_id: this.data.id
@@ -51,25 +48,25 @@ Page({
         })
 
       })
+      var fetchCode
+      if (this.data.id < 10) {
+        fetchCode = 'A00' + this.data.id
+      } else if (this.data.id >= 10 && this.data.id < 100) {
+        fetchCode = 'A0' + this.data.id
+      } else if (this.data.id >= 100) {
+        fetchCode = '' + this.data.id
+      }
+      this.setData({
+        code: fetchCode,
+        sn: this.data.id,
+        create_time: this.data.create_time,
+        pay_time: this.data.pay_time,
+        is_taken: this.data.is_taken,
+        taken_time: this.data.taken_time,
+        note: this.data.note,
+      })
+      wx.hideLoading()
     })
-    var fetchCode
-    if (this.data.id < 10) {
-      fetchCode = 'A00' + this.data.id
-    } else if (this.data.id >= 10 && this.data.id < 100) {
-      fetchCode = 'A0' + this.data.id
-    } else if (this.data.id >= 100) {
-      fetchCode = '' + this.data.id
-    }
-    this.setData({
-      code: fetchCode,
-      sn: this.data.id,
-      create_time: this.data.create_time,
-      pay_time: this.data.pay_time,
-      is_taken: this.data.is_taken,
-      taken_time: this.data.taken_time,
-      note: this.data.note,
-    })
-
   },
   onUnload: function () {
     var app = getApp();
