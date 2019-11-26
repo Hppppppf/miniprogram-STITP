@@ -1,11 +1,14 @@
 page {
   height: 100%;
 }
-.addLocation{
+.addlocation{
   display:flex;
-  height: 80%;
+  height: 100%;
+  width: 100%;
   justify-content: center;
   align-items:center;
+  flex-direction: column;
+  color: #dbdbdb;
 }
 .addlocation-image{
   width: 180rpx;
