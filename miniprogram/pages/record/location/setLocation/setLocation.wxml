@@ -34,7 +34,7 @@
     <view class="weui-cell__hd">
       <view class="weui-label">收货地址</view>
     </view>
-    <view class="setAddress" bindtap="getGeopoint">
+    <view class="setAddress" bindtap="openMap">
       <input class="selectaddress" placeholder="{{address}}"  disabled="true"/>
       <image class="setAddressImage" src="../../../../images/next.png"></image>
     </view>
