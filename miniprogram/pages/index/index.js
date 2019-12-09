@@ -31,7 +31,7 @@ Page({
     }).get().then(res => {
       if (res.data.length > 0) {
         this.setData({
-          userInfo: res.data[0].userInfo,
+          userInfo: res.data[0].globalData,
           hasUserInfo: true,
         })
         wx.setStorageSync('userinfo', this.data.userInfo)

@@ -45,5 +45,10 @@
       }
     ]
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "将使用您的位置权限"
+    }
+  },
   "sitemapLocation": "sitemap.json"
 }

@@ -54,34 +54,33 @@ Page({
     }).get().then(
       res => {
         if (res.data.length <= 0) { //数据库中没有用户信息，属于新增用户，进行注册
-            locationList[this.data.index] = {
-              name: this.data.name,
-              tel: this.data.tel,
-              location: this.data.address,
-              detail: this.data.detail,
-              sex: this.data.sex,
-            }
-            db.collection('UserInfo').add({ //将新用户的信息添加到数据库
-              data: {
-                globalData: JSON.stringify(app.globalData.userInfo),
-                location: locationList,
-              }
-            }).then(res => {
-              wx.showToast({
-                title: '新增记录成功',
-              })
-              wx.cloud.callFunction({ //调用云函数获取用户信息并记入缓存中，此后以缓存中是否有该数据作为判断用户是否需要注册或重新获取权限
-                name: 'getUserInfo',
-                complete: res => {
-                  wx.setStorageSync('userinfo', res.result.data)
-                }
-              })
-              wx.redirectTo({
-                url: '../list/list',
-              })
-            })
+          locationList[this.data.index] = {
+            name: this.data.name,
+            tel: this.data.tel,
+            location: this.data.address,
+            detail: this.data.detail,
+            sex: this.data.sex,
           }
-        else { //若数据库中有用户信息，不属于新增用户，执行下面操作
+          db.collection('UserInfo').add({ //将新用户的信息添加到数据库
+            data: {
+              globalData: JSON.stringify(app.globalData.userInfo),
+              location: locationList,
+            }
+          }).then(res => {
+            wx.showToast({
+              title: '新增记录成功',
+            })
+            wx.cloud.callFunction({ //调用云函数获取用户信息并记入缓存中，此后以缓存中是否有该数据作为判断用户是否需要注册或重新获取权限
+              name: 'getUserInfo',
+              complete: res => {
+                wx.setStorageSync('userinfo', res.result.data)
+              }
+            })
+            wx.redirectTo({
+              url: '../list/list',
+            })
+          })
+        } else { //若数据库中有用户信息，不属于新增用户，执行下面操作
           if (this.data.isAdd) { //如果用户是从添加地址按钮进入
             var location = res.data[0].location
             var count = 0
@@ -140,12 +139,12 @@ Page({
       })
   },
 
-  selectTrue: function () {
+  selectTrue: function() {
     this.setData({
       sex: true
     })
   },
-  selectFalse: function () {
+  selectFalse: function() {
     this.setData({
       sex: false
     })
@@ -167,8 +166,26 @@ Page({
       detail: e.detail.value,
     })
   },
-  openMap: function (e) {
+  openMap: function(e) {
     var that = this
+    wx.getLocation({
+      success: function(res) {
+        that.getGeopoint()
+      },
+      fail: function(res) {
+        wx.showModal({
+          title: '提示',
+          content: '此功能需获取位置信息，请重新设置',
+          success: function(res) {
+            if (res.confirm == false) {
+              return false;
+            }
+            wx.openSetting()
+          }
+        })
+      }
+    })
+    /*
     wx.getSetting({
       success(res) {
         //这里判断是否有地位权限
@@ -204,7 +221,7 @@ Page({
 
       }
 
-    })
+    })*/
   },
   getGeopoint: function() {
     var that = this
