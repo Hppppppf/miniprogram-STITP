@@ -23,6 +23,8 @@ exports.main = async (event, context) => {
           'location.$.tel': event.tel,
           'location.$.detail': event.detail,
           'location.$.location': event.location,
+          'location.$.latitude': event.latitude,
+          'location.$.longitude': event.longitude
         }
       })
   } catch (e) {

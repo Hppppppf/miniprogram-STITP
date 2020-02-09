@@ -7,6 +7,8 @@ Page({
    */
   data: {
     address: "请选择收货地址",
+    latitude:0,
+    longitude:0,
     index: 0,
     name: "收货人姓名",
     tel: "收货人手机号",
@@ -60,7 +62,9 @@ Page({
         // success
         console.log(res, "location")
         that.setData({
-          address: res.address
+          address: res.address,
+          latitude:res.latitude,
+          longitude:res.longitude
         })
       },
       fail: function() {
@@ -90,7 +94,9 @@ Page({
           address: res.data[0].location[this.data.index].location,
           detail: res.data[0].location[this.data.index].detail,
           sex: res.data[0].location[this.data.index].sex,
-          locationList: res.data[0].location
+          latitude: res.data[0].location[this.data.index].latitude,
+          longitude: res.data[0].location[this.data.index].longitude,
+          locationList: res.data[0].location,
         })
       }
     })
@@ -105,6 +111,8 @@ Page({
         name: this.data.name,
         tel: this.data.tel,
         location: this.data.address,
+        latitude: this.data.latitude,
+        longitude: this.data.longitude,
         detail: this.data.detail,
         sex: this.data.sex
       },
@@ -114,15 +122,20 @@ Page({
     })
   },
   locationDelete: function() {
-    for (var i = this.data.index; i < this.data.locationList.length - 1; i++) {
+ /*   for (var i = this.data.index; i < this.data.locationList.length - 1; i++) {
       this.data.locationList[i].index = this.data.locationList[i + 1].index
       this.data.locationList[i].name = this.data.locationList[i + 1].name
       this.data.locationList[i].sex = this.data.locationList[i + 1].sex
       this.data.locationList[i].tel = this.data.locationList[i + 1].tel
       this.data.locationList[i].location = this.data.locationList[i + 1].location
       this.data.locationList[i].detail = this.data.locationList[i + 1].detail
-    }
-    this.data.locationList.splice(this.data.locationList.length - 1, 1)
+    }*/
+    console.log(this.data.locationList)
+    var index = this.data.index
+    var tempList = this.data.locationList.splice(index,1)
+    this.setData({
+      locationList: tempList
+    })
     wx.cloud.callFunction({
       name: 'deleteLocation',
       data: {
