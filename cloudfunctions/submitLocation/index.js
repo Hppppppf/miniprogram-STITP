@@ -14,17 +14,20 @@ exports.main = async (event, context) => {
   try {
     return await db.collection('UserInfo').where({
       _openid: event._openid,
-      'location.index':event.index
+      //'location.index':event.index
     })
       .update({
         data: {
+          'location':event.locationList
+          /*
           'location.$.name':event.name,
           'location.$.sex': event.sex,
           'location.$.tel': event.tel,
           'location.$.detail': event.detail,
           'location.$.location': event.location,
           'location.$.latitude': event.latitude,
-          'location.$.longitude': event.longitude
+          'location.$.longitude': event.longitude,
+          */
         }
       })
   } catch (e) {

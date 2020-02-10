@@ -102,11 +102,17 @@ Page({
     })
   },
   locationSubmit: function() {
-    console.log(this.data.location)
+    console.log(this.data.locationList)
+    //合并整个location
+    var locationTemp = {"name":this.data.name,"index":this.data.index,"latitude":this.data.latitude,"longitude":this.data.longitude,"location":this.data.location,"sex":this.data.sex,"tel":this.data.tel,"detail":this.data.detail,"location":this.data.address}
+      this.data.locationList[this.data.index]=locationTemp
     wx.cloud.callFunction({
       name: 'submitLocation',
       data: {
+        //直接上传locationList
         _openid: wx.getStorageSync('_OPENID'),
+        locationList: this.data.locationList,
+        /*
         index: this.data.index,
         name: this.data.name,
         tel: this.data.tel,
@@ -115,6 +121,7 @@ Page({
         longitude: this.data.longitude,
         detail: this.data.detail,
         sex: this.data.sex
+        */
       },
     })
     wx.navigateTo({
