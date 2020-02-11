@@ -13,7 +13,30 @@ Page({
     id:"",
     taken_time:'',
     note:'',
-    address:''
+    address:'',
+    latitude:0,
+    longitude:0,
+
+    markers: [{
+      //iconPath: "/resources/others.png",
+      id: 0,
+      latitude: 23.099994,
+      longitude: 113.324520,
+      width: 50,
+      height: 50
+    }],
+    polyline: [{
+      points: [{
+        longitude: 113.3245211,
+        latitude: 23.10229
+      }, {
+        longitude: 130.324520,
+        latitude: 28.21229
+      }],
+      color: "#FF0000DD",
+      width: 2,
+      dottedLine: true
+    }],
   }, 
   
   onLoad: function (options) {
@@ -46,7 +69,7 @@ Page({
           is_taken:data.data[0].is_taken,
           //taken_time:data.data[0].taken_time,
           note:data.data[0].note,
-          address:data.data[0].location
+          address:data.data[0].location,
         })
         wx.hideLoading()
       })
@@ -66,7 +89,7 @@ Page({
           is_taken: this.data.is_taken,
           taken_time: this.data.taken_time,
           note: this.data.note,
-          address: this.data.address
+          address: this.data.address,
         })
     })
 
@@ -79,6 +102,7 @@ Page({
       url: '/pages/order/list/list'
     })
   },
+  
   getfood:function(){
     var time = util.formatTime(new Date());
     this.setData({
@@ -96,10 +120,35 @@ Page({
       })
     })
   },
+  
   takefood:function(){
-
+    
   },
   onShow:function(){
-
+    db.collection('Order').where({
+      order_id: this.data.id
+    }).get().then(res=>{
+      markers: [{
+        iconPath: "/resources/others.png",
+        id: 0,
+        latitude: res.latitude,
+        longitude: res.longitude,
+        width: 50,
+        height: 50
+      }]
+      polyline: [{
+          points: [{
+            latitude: res.latitude,
+            longitude: res.longitude
+          }, {
+            longitude: this.data.address.longitude,
+            latitude: this.data.address.latitude
+          }],
+          color: "#FF0000DD",
+          width: 2,
+          dottedLine: true
+      }]
+        
+    })
   }
 })
