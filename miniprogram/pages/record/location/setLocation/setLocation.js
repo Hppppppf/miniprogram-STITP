@@ -7,12 +7,14 @@ Page({
    */
   data: {
     address: "请选择收货地址",
+    latitude:0,
+    longitude:0,
     index: 0,
     name: "收货人姓名",
     tel: "收货人手机号",
     detail: "例：桃苑25栋",
     sex: true,
-    locationList:{},
+    locationList:[],
   },
   openMap: function (e) {
     var that = this
@@ -60,7 +62,9 @@ Page({
         // success
         console.log(res, "location")
         that.setData({
-          address: res.address
+          address: res.address,
+          latitude:res.latitude,
+          longitude:res.longitude
         })
       },
       fail: function() {
@@ -90,49 +94,79 @@ Page({
           address: res.data[0].location[this.data.index].location,
           detail: res.data[0].location[this.data.index].detail,
           sex: res.data[0].location[this.data.index].sex,
-          locationList: res.data[0].location
+          latitude: res.data[0].location[this.data.index].latitude,
+          longitude: res.data[0].location[this.data.index].longitude,
+          locationList: res.data[0].location,
         })
       }
     })
   },
   locationSubmit: function() {
-    console.log(this.data.location)
+    console.log(this.data.locationList)
+    //合并整个location
+    var locationTemp = {"name":this.data.name,"index":this.data.index,"latitude":this.data.latitude,"longitude":this.data.longitude,"location":this.data.location,"sex":this.data.sex,"tel":this.data.tel,"detail":this.data.detail,"location":this.data.address}
+      this.data.locationList[this.data.index]=locationTemp
     wx.cloud.callFunction({
       name: 'submitLocation',
       data: {
+        //直接上传locationList
         _openid: wx.getStorageSync('_OPENID'),
+        locationList: this.data.locationList,
+        /*
         index: this.data.index,
         name: this.data.name,
         tel: this.data.tel,
         location: this.data.address,
+        latitude: this.data.latitude,
+        longitude: this.data.longitude,
         detail: this.data.detail,
         sex: this.data.sex
+        */
       },
     })
-    wx.navigateTo({
-      url: '../location',
+        db.collection('UserInfo').where({
+      _openid: wx.getStorageSync('_OPENID')
+    }).get().then(res => {
+      if (res.data[0].location.length != 0) {
+        console.log(res.data[0].location.length)
+        this.setData({
+          locationList: res.data[0].location
+        })
+      } else {
+        this.setData({
+          haveLocation: false
+        })
+      }
+    })
+    wx.navigateBack({
+      delta:1
     })
   },
   locationDelete: function() {
-    for (var i = this.data.index; i < this.data.locationList.length - 1; i++) {
-      this.data.locationList[i].index = this.data.locationList[i + 1].index
-      this.data.locationList[i].name = this.data.locationList[i + 1].name
-      this.data.locationList[i].sex = this.data.locationList[i + 1].sex
-      this.data.locationList[i].tel = this.data.locationList[i + 1].tel
-      this.data.locationList[i].location = this.data.locationList[i + 1].location
-      this.data.locationList[i].detail = this.data.locationList[i + 1].detail
+    console.log("this.data.locationList=", this.data.locationList)
+    var locationListLength = 0
+    var index=this.data.index
+    for (var i in this.data.locationList) {
+      locationListLength++
     }
-    this.data.locationList.splice(this.data.locationList.length - 1, 1)
+    var locationList = []
+    for (var i = 0; i < locationListLength; i++) {
+      locationList[i] = this.data.locationList[i]
+    }
+    for (var i = this.data.index; i < locationList.length - 1; i++) {
+      locationList[i]=locationList[i+1]
+    }
+    locationList.splice(locationListLength-1,1)
     wx.cloud.callFunction({
       name: 'deleteLocation',
       data: {
         _openid: wx.getStorageSync('_OPENID'),
-        location: this.data.locationList
+        location:locationList
       }
     })
-    wx.navigateTo({
-      url: '../location',
-    })
+wx.navigateBack({
+ delta:1
+})
   },
   selectTrue:function(){
     this.setData({

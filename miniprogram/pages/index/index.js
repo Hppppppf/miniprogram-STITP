@@ -109,7 +109,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    wx.startLocationUpdateBackground({
+      success(res) {
+        console.log('开启后台定位', res)
+      },
+      fail(res) {
+        console.log('开启后台定位失败', res)
+      }
+    })
   },
 
   /**

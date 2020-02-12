@@ -145,3 +145,25 @@ page {
   color: #00D8A0;
   font-size: 36rpx;
 }
+
+
+.location-item{
+  display: flex;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #ececec;
+  justify-content:space-between;
+}
+.location-deatil{
+  font-weight: bold;
+  font-size: 15px;
+}
+.location-name{
+  flex-direction: row;
+  flex-wrap: nowrap;
+  color: #757373;
+  font-size: 16px;
+}
+
+.weui-cell__bd{
+  display: flex
+}

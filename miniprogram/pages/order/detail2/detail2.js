@@ -13,6 +13,8 @@ Page({
     id: "",
     taken_time: '',
     note: '',
+    latitude:0,
+    longitude:0,
   },
 
   onLoad: function (options) {
@@ -74,7 +76,7 @@ Page({
     wx.switchTab({
       url: '/pages/order/list/list'
     })
-  },
+  },/*
   getfood: function () {
     var time = util.formatTime(new Date());
     this.setData({
@@ -91,9 +93,21 @@ Page({
         }
       })
     })
-  },
+  },*/
   takefood: function () {
-
+    //接单后开启位置实时获取
+    wx.onLocationChange(function (res) {
+      console.log('location change', res)
+      var order_id = this.data.id
+      wx.cloud.callFunction({
+        name: 'sendCourierLocation',
+        data: {
+          order_id: order_id,
+          latitude: res.latitude,
+          longitude: res.longitude,
+        },
+      })
+    })
   },
   onShow: function () {
 

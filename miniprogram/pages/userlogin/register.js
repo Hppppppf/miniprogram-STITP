@@ -14,6 +14,8 @@ Page({
     name: "收货人姓名",
     tel: "收货人手机号",
     detail: "例：桃苑25栋",
+    latitude:0,
+    longitude:0,
     sex: true,
     isAdd: false,
   },
@@ -60,6 +62,8 @@ Page({
             location: this.data.address,
             detail: this.data.detail,
             sex: this.data.sex,
+            latitude: this.data.latitude,
+            longitude: this.data.longitude,
           }
           db.collection('UserInfo').add({ //将新用户的信息添加到数据库
             data: {
@@ -98,6 +102,8 @@ Page({
                 location: this.data.address,
                 detail: this.data.detail,
                 sex: this.data.sex,
+                latitude: this.data.latitude,
+                longitude: this.data.longitude,
               }
               db.collection('UserInfo').doc(res.data[0]._id).update({
                 data: {
@@ -230,7 +236,9 @@ Page({
         // success
         console.log(res, "location")
         that.setData({
-          address: res.address
+          address: res.address,
+          latitude: res.latitude,
+          longitude: res.longitude
         })
       },
       fail: function() {

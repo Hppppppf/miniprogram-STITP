@@ -22,6 +22,19 @@ Page({
     else{
       this.clickallorder()
     }
+    wx.getLocation({
+      isHighAccuracy: 'true',
+      success: function (res) {
+        console.log(res)
+        db.collection("UserInfo").where({
+          _openid: wx.getStorageSync('_OPENID')
+        }).update({
+          data: {
+            geoPoint: [res.latitude,res.longitude]
+          }
+        })
+      },
+    })
   },
 
   detail: function(e) {

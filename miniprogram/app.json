@@ -50,5 +50,8 @@
       "desc": "将使用您的位置权限"
     }
   },
+  "requiredBackgroundModes": [
+    "location"
+  ],
   "sitemapLocation": "sitemap.json"
 }

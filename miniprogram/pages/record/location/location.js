@@ -14,12 +14,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    /*
     db.collection('UserInfo').where({
       _openid: wx.getStorageSync('_OPENID')
     }).get().then(res => {
       if (res.data[0].location.length != 0) {
-        console.log(res.data[0].location.length)
+        console.log(res.data[0].location)
         this.setData({
           locationList: res.data[0].location
         })
@@ -29,7 +28,7 @@ Page({
         })
       }
     })
-*/
+
   },
   modifyLocation(e) {
     console.log(e)
@@ -54,20 +53,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    db.collection('UserInfo').where({
-      _openid: wx.getStorageSync('_OPENID')
-    }).get().then(res => {
-      if (res.data[0].location.length != 0) {
-        console.log(res.data[0].location.length)
-        this.setData({
-          locationList: res.data[0].location
-        })
-      } else {
-        this.setData({
-          haveLocation: false
-        })
-      }
-    })
+    this.onLoad()
   },
 
   /**
