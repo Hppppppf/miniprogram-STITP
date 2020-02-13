@@ -1,0 +1,199 @@
+.container{
+  min-height: 100vh;
+  background-color: #F7F8F8;
+  .tabs{
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    height: 88rpx;
+    // line-height: 88rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .title{
+      text-align: center;
+      font-size:36rpx;
+      font-family:PingFang-SC-Regular;
+      font-weight:bold;
+      color:#fff;
+      flex:1;
+      height: 88rpx;
+      line-height: 88rpx;
+    }
+    image{
+      width: 50rpx;
+      height: 50rpx;
+      margin-left: 20rpx;
+    }
+    .white{
+      width: 50rpx;
+      height: 50rpx;
+      margin-right: 20rpx;
+    }
+  }
+  .my-details{
+    position: relative;
+    height:400rpx;
+    z-index: 9;
+    .img{
+      width: 100%;
+      height: 400rpx;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 0;
+    }
+    .details{
+      padding-top: 150rpx;
+      position: absolute;
+      width: 100%;
+      .balance{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 39rpx;
+        text{
+          font-size:32rpx;
+          font-family:PingFang-SC-Medium;
+          font-weight:500;
+          color:#FFFFFF;
+        }
+        image{
+          width: 38rpx;
+          height: 38rpx;
+          margin-right: 30rpx;
+        }
+        view{
+          text-align: center;
+          .text{
+            font-size:24rpx;
+            font-family:PingFang-SC-Regular;
+            font-weight:400;
+            color:#fff;
+            margin-top: 10rpx;
+          }
+        }
+      }
+      .withdrawal{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 39rpx;
+        margin-top: 80rpx;
+        test{
+          font-size:60rpx;
+          font-family:PingFang-SC-Medium;
+          font-weight:500;
+          color:#FFFFFF;
+        }
+        button{
+          width:226rpx;
+          height:60rpx;
+          line-height: 60rpx;
+          text-align:center;
+          background-color: #FFFFFF;
+          border-radius:30rpx;
+          font-size:30rpx;
+          font-family:Adobe Heiti Std R;
+          font-weight:normal;
+          color:#14AE85;
+          border: none;
+          margin: 0;
+        }
+      }
+    }
+  }
+  .ul{
+    margin-top: 30rpx;
+    background-color: #fff;
+    padding:  0 30rpx;
+    .li{
+      height: 110rpx;
+      border-bottom: 1rpx solid #E4E4E4;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .left{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size:30rpx;
+        font-family:PingFang-SC-Medium;
+        font-weight:500;
+        color:#000000;
+        image{
+          margin-right: 25rpx;
+        }
+      }
+      .right{
+        font-size:32rpx;
+        font-family:PingFang-SC-Medium;
+        font-weight:bold;
+        color:#FF2626;
+        display: flex;
+        align-items: center;
+        image.arrIcon{
+          width: 19rpx;
+          height: 31rpx;
+          margin-left: 20rpx;
+        }
+      }
+
+      &:last-child{
+        border: none;
+      }
+    }
+  }
+  .proup{
+    z-index: 99;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgba(0,0,0,.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .box{
+      text-align: center;
+      image.errIcon{
+        width: 56rpx;
+        height: 56rpx;
+        margin-top: 30rpx;
+      }
+      .Exhibition{
+        background-color: #fff;
+        width: 550rpx;
+        height: 531rpx;
+        border-radius: 10rpx;
+        text-align: center;
+        image{
+          width: 281rpx;
+          height: 180rpx;
+          margin-top: 74rpx;
+        }
+        .text{
+          font-size:32rpx;
+          font-family:PingFang-SC-Medium;
+          font-weight:500;
+          color:rgba(0,0,0,1);
+          margin-top: 30rpx;
+        }
+        .richtext{
+          text-align: left;
+          font-size:28rpx;
+          font-family:PingFang-SC-Medium;
+          font-weight:500;
+          color:#383838;
+          padding: 0 20rpx;
+          margin-top: 20rpx;
+          line-height:42rpx;
+        }
+      }
+    }
+  }
+}

@@ -25,7 +25,7 @@
             <text wx:else>(女士)\n</text>
             <text class="location-tel"> {{address.tel}}\n</text>
           </view>
-          <text class="location-deatil">{{address.location}}\n{{address.detail}}\n</text>
+          <text class="location-deatil">{{address.location+address.detail}}\n</text>
         </view>
       </view>
     </view>

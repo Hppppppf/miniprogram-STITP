@@ -87,6 +87,12 @@ Page({
       url: 'location/location',
     })
   },
+
+  wallet:function(){
+    wx.navigateTo({
+      url: 'coin/coin',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

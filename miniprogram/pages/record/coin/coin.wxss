@@ -1,0 +1,197 @@
+/* miniprogram/pages/record/coin/coin.wxss */
+
+.container {
+  min-height: 100vh;
+  background-color: #f7f8f8;
+}
+
+
+.container .my-details {
+  position: relative;
+  height: 400rpx;
+  z-index: 9;
+}
+
+.container .my-details .img {
+  width: 100%;
+  height: 400rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+}
+
+.container .my-details .details {
+  padding-top: 150rpx;
+  position: absolute;
+  width: 100%;
+}
+
+.container .my-details .details .balance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 39rpx;
+}
+
+.container .my-details .details .balance text {
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: #fff;
+}
+
+.container .my-details .details .balance image {
+  width: 38rpx;
+  height: 38rpx;
+  margin-right: 20rpx;
+  margin-top: 10rpx;
+}
+
+.container .my-details .details .balance view {
+  text-align: center;
+}
+
+.container .my-details .details .balance view .text {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: #fff;
+  margin-top: 10rpx;
+}
+
+.container .my-details .details .withdrawal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 39rpx;
+  margin-top: 80rpx;
+}
+
+.container .my-details .details .withdrawal test {
+  font-size: 60rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: #fff;
+}
+
+.container .my-details .details .withdrawal button {
+  width: 226rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 30rpx;
+  font-size: 30rpx;
+  font-family: Adobe Heiti Std R;
+  font-weight: normal;
+  color: #14ae85;
+  border: none;
+  margin: 0;
+}
+
+.container .ul {
+  margin-top: 30rpx;
+  background-color: #fff;
+  padding: 0 30rpx;
+}
+
+.container .ul .li {
+  height: 110rpx;
+  border-bottom: 1rpx solid #e4e4e4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container .ul .li .left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: #000;
+}
+
+.container .ul .li .left image {
+  margin-right: 25rpx;
+}
+
+.container .ul .li .right {
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: bold;
+  color: #ff2626;
+  display: flex;
+  align-items: center;
+}
+
+.container .ul .li .right image.arrIcon {
+  width: 19rpx;
+  height: 31rpx;
+  margin-left: 20rpx;
+}
+
+.container .ul .li:last-child {
+  border: none;
+}
+
+.container .proup {
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container .proup .box {
+  text-align: center;
+}
+
+.container .proup .box image.errIcon {
+  width: 56rpx;
+  height: 56rpx;
+  margin-top: 30rpx;
+}
+
+.container .proup .box .Exhibition {
+  background-color: #fff;
+  width: 550rpx;
+  height: 531rpx;
+  border-radius: 10rpx;
+  text-align: center;
+}
+
+.container .proup .box .Exhibition image {
+  width: 281rpx;
+  height: 180rpx;
+  margin-top: 74rpx;
+}
+
+.container .proup .box .Exhibition .text {
+  font-size: 32rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: #000;
+  margin-top: 30rpx;
+}
+
+.container .proup .box .Exhibition .richtext {
+  text-align: left;
+  font-size: 28rpx;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: #383838;
+  padding: 0 20rpx;
+  margin-top: 20rpx;
+  line-height: 42rpx;
+}

@@ -13,9 +13,32 @@ Page({
     id: "",
     taken_time: '',
     note: '',
+    address:'',
     latitude:0,
     longitude:0,
-  },
+
+/*
+  markers: [{
+    //iconPath: "/resources/others.png",
+    id: 0,
+    latitude: 23.099994,
+    longitude: 113.324520,
+    width: 50,
+    height: 50
+  }],
+  polyline: [{
+    points: [{
+      longitude: 113.3245211,
+      latitude: 23.10229
+    }, {
+      longitude: 130.324520,
+      latitude: 28.21229
+    }],
+    color: "#FF0000DD",
+    width: 2,
+    dottedLine: true
+  }],*/
+}, 
 
   onLoad: function (options) {
     wx.setNavigationBarTitle({
@@ -47,6 +70,7 @@ Page({
           is_taken: data.data[0].is_taken,
           taken_time: data.data[0].taken_time,
           note: data.data[0].note,
+          address: data.data[0].location,
         })
         wx.hideLoading()
       })

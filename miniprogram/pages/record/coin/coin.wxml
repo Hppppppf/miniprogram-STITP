@@ -1,0 +1,69 @@
+<!--miniprogram/pages/record/coin/coin.wxml-->
+
+<view class="container">
+
+  <view class="my-details">
+    <image class="img" src="../../../images/bg.png"></image>
+    <view class="details" style="padding-top: 10rpx">
+      <view class="balance">
+        <text>余额</text>
+        <view>
+          <image src="../../../images/gc01.png" bindtap="Invitation"></image>
+          <view class="text">提现需要到APP</view>
+        </view>
+
+      </view>
+      <view class="withdrawal">
+         <test>￥100.12</test>
+         <!-- <button plain bindtap="cashTap">提现</button> -->
+      </view>
+    </view>
+  </view>
+
+  <view class="ul">
+    <view class="li" bindtap="pageTo" data-url="/pages/my/myBankCard/index">
+      <view class="left">
+        <image src="../../../images/yhk01.png" mode="widthFix" style="width:25px;"></image>
+        <text>充值</text>
+      </view>
+      <view class="right">
+        <image class="arrIcon" src="../../../images/zy01.png"></image>
+      </view>
+    </view>
+    <view class="li" bindtap="pageTo" data-url="/pages/my/commission/index">
+      <view class="left">
+        <image src="../../../images/qianbao.png" mode="widthFix" style="width:25px;"></image>
+        <text>总佣金</text>
+      </view>
+      <view class="right">
+        <text>¥ 60.00</text>
+        <image class="arrIcon" src="../../../images/zy01.png"></image>
+      </view>
+    </view>
+    <view class="li" bindtap="pageTo" data-url="/pages/my/record/index">
+      <view class="left">
+        <image src="../../../images/tx01.png" mode="widthFix" style="width:25px;"></image>
+        <text>可提现</text>
+      </view>
+      <view class="right">
+        <text>¥ 60.00</text>
+        <image class="arrIcon" src="../../../images/zy01.png"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="proup" wx:if="{{isProup}}">
+    <view class="box">
+      <view class="Exhibition">
+        <image src="../../../images/ts01.png"></image>
+        <view class="text">提现规则</view>
+        <view class="richtext">
+          <view>1.可提现金额最少为100元</view>
+          <view>2.提现时间：每月10/20/30号；</view>
+          <view> 3.提现前提必须实名认证并绑定银行卡</view>
+        </view>
+      </view>
+      <image class="errIcon" src="../../../images/gb01.png" bindtap="Invitation"></image>
+    </view>
+  </view>
+</view>
