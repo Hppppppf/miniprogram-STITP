@@ -1,6 +1,12 @@
 // pages/order/detail/detail.js
 const db = wx.cloud.database(); //初始化数据库
-var util = require('../../../utils/utils.js');
+var util = require
+('../../../utils/utils.js');
+//引入腾讯地图SDK核心类
+var QQMapWX = require('qqmap-wx-jssdk.js');//相对路径有BUG？只能放到同目录下
+var qqmapsdk = new QQMapWX({
+  key: '7IXBZ-2TU63-7EF36-Y6HR2-6LDNT-DTBGQ' // 必填
+});
 Page({
 
   /**
@@ -14,32 +20,18 @@ Page({
     taken_time:'',
     note:'',
     address:'',
-    latitude:0,
-    longitude:0,
-
-    markers: [{
-      //iconPath: "/resources/others.png",
-      id: 0,
-      latitude: 23.099994,
-      longitude: 113.324520,
-      width: 50,
-      height: 50
-    }],
-    polyline: [{
-      points: [{
-        longitude: 113.3245211,
-        latitude: 23.10229
-      }, {
-        longitude: 130.324520,
-        latitude: 28.21229
-      }],
-      color: "#FF0000DD",
-      width: 2,
-      dottedLine: true
-    }],
+    latitude_0:0,
+    longitude_0:0,
+    latitude_1: 0,
+    longitude_1: 0,
+    polyline:[],
   }, 
   
   onLoad: function (options) {
+    //实例化腾讯地图API核心类
+    qqmapsdk = new QQMapWX({
+      key:'7IXBZ-2TU63-7EF36-Y6HR2-6LDNT-DTBGQ'
+    });
     wx.setNavigationBarTitle({
       title: '订单详情'
     })
@@ -70,7 +62,13 @@ Page({
           //taken_time:data.data[0].taken_time,
           note:data.data[0].note,
           address:data.data[0].location,
+          latitude_0: data.data[0].location.latitude,
+          longitude_0: data.data[0].location.longitude,
+          //暂时把食堂默认为南一
+          latitude_1: res.data[0].geoPoint[0][0],
+          longitude_1: res.data[0].geoPoint[0][1],
         })
+        this.showWay(),
         wx.hideLoading()
       })
         var fetchCode
@@ -124,6 +122,67 @@ Page({
   takefood:function(){
     
   },
+  showWay:function(){
+    console.log("调用腾讯地图SDK")
+    var _this = this;
+    //调用距离计算接口
+    qqmapsdk.direction({
+      mode: 'walking',//'walk'(步行路线规划)
+      //from参数不填默认当前地址
+      from: String(this.data.latitude_0 + ',' + this.data.longitude_0),
+      to: String(this.data.latitude_1 + ',' + this.data.longitude_1),
+      success: function (res) {
+        console.log(res);
+        var ret = res.result.routes[0];
+        var count = ret.steps.length;
+        var pl = [];
+        var coors = [];
+        //获取各个步骤的polyline
+     //  for (var i = 0; i < count; i++) {
+     //    if (ret.steps[i].mode == 'WALKING' && ret.steps[i].polyline) {
+     //      coors.push(ret.steps[i].polyline);
+     //    }
+     //    if (ret.steps[i].mode == 'TRANSIT' && ret.steps[i].lines[0].polyline) {
+     //      coors.push(ret.steps[i].lines[0].polyline);
+     //    }
+     //  }
+        coors.push(ret.polyline);
+        //坐标解压（返回的点串坐标，通过前向差分进行压缩）
+        var kr = 1000000;
+        for (var i = 0; i < coors.length; i++) {
+          for (var j = 2; j < coors[i].length; j++) {
+            coors[i][j] = Number(coors[i][j - 2]) + Number(coors[i][j]) / kr;
+          }
+        }
+        //定义新数组，将coors中的数组合并为一个数组
+        var coorsArr = [];
+        for (var i = 0; i < coors.length; i++) {
+          coorsArr = coorsArr.concat(coors[i]);
+        }
+        //将解压后的坐标放入点串数组pl中
+        for (var i = 0; i < coorsArr.length; i += 2) {
+          pl.push({ latitude: coorsArr[i], longitude: coorsArr[i + 1] })
+        }
+        //设置polyline属性，将路线显示出来,将解压坐标第一个数据作为起点
+        
+        _this.setData({
+          latitude: pl[0].latitude,
+          longitude: pl[0].longitude,
+          polyline: [{
+            points: pl,
+            color: '#FF0000DD',
+            width: 4
+          }]
+        })
+      },
+      fail: function (error) {
+        console.error(error);
+      },
+      complete: function (res) {
+        console.log(res);
+      }
+    });
+  },
   onShow:function(){
     db.collection('Order').where({
       order_id: this.data.id
@@ -136,19 +195,6 @@ Page({
         width: 50,
         height: 50
       }]
-      polyline: [{
-          points: [{
-            latitude: res.latitude,
-            longitude: res.longitude
-          }, {
-            longitude: this.data.address.longitude,
-            latitude: this.data.address.latitude
-          }],
-          color: "#FF0000DD",
-          width: 2,
-          dottedLine: true
-      }]
-        
     })
-  }
+  },
 })
