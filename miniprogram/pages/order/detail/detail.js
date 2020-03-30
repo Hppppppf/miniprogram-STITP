@@ -20,11 +20,12 @@ Page({
     taken_time:'',
     note:'',
     address:'',
-    latitude_0:0,
-    longitude_0:0,
-    latitude_1: 0,
-    longitude_1: 0,
+    latitude_food:0,
+    logitude_food:0,
+    latitude_user: 0,
+    logitude_user: 0,
     polyline:[],
+    markers:[],
   }, 
   
   onLoad: function (options) {
@@ -53,6 +54,15 @@ Page({
           })
           temppromotion = res.data[0].promotion[1]
         }
+        let temp = {
+          iconPath: "../../../images/userLocation.png",
+          id: 1,
+          latitude: data.data[0].location.latitude,
+          longitude: data.data[0].location.longitude,
+          width: 30,
+          height: 30
+        }
+        this.data.markers.push(temp)
         this.setData({
           order_food: data.data[0].order,
           price: data.data[0].orderPrice - temppromotion,
@@ -62,12 +72,14 @@ Page({
           //taken_time:data.data[0].taken_time,
           note:data.data[0].note,
           address:data.data[0].location,
-          latitude_0: data.data[0].location.latitude,
-          longitude_0: data.data[0].location.longitude,
-          //暂时把食堂默认为南一
-          latitude_1: res.data[0].geoPoint[0][0],
-          longitude_1: res.data[0].geoPoint[0][1],
+          latitude_user: data.data[0].location.latitude,
+          logitude_user: data.data[0].location.longitude,
+
+          latitude_food: res.data[0].geoPoint[0][0],
+          logitude_food: res.data[0].geoPoint[0][1],
+          markers:this.data.markers,
         })
+        
         this.showWay(),
         wx.hideLoading()
       })
@@ -129,8 +141,8 @@ Page({
     qqmapsdk.direction({
       mode: 'walking',//'walk'(步行路线规划)
       //from参数不填默认当前地址
-      from: String(this.data.latitude_0 + ',' + this.data.longitude_0),
-      to: String(this.data.latitude_1 + ',' + this.data.longitude_1),
+      from: String(this.data.latitude_food + ',' + this.data.logitude_food),
+      to: String(this.data.latitude_user + ',' + this.data.logitude_user),
       success: function (res) {
         console.log(res);
         var ret = res.result.routes[0];
@@ -187,14 +199,16 @@ Page({
     db.collection('Order').where({
       order_id: this.data.id
     }).get().then(res=>{
-      markers: [{
-        iconPath: "/resources/others.png",
-        id: 0,
-        latitude: res.latitude,
-        longitude: res.longitude,
-        width: 50,
-        height: 50
-      }]
+      this.setData({
+        markers: [{
+          iconPath: "../../../images/foodLocation.png",
+          id: 0,
+          latitude: 32.10843,
+          longitude: 118.93337,
+          width: 30,
+          height: 30
+        }]
+      })
     })
   },
 })
