@@ -14,6 +14,7 @@ Page({
     pay_time: '',
     number: 0,
     is_taken: false,
+    order_taken:false,
     currentWordNumber: 0
   },
   /*
@@ -44,6 +45,7 @@ Page({
           number: this.data.number,
           pay_time: this.data.pay_time,
           is_taken: false,
+          order_taken:false,
           location:this.data.location
         }
       })

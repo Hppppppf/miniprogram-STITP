@@ -10,21 +10,6 @@ Page({
     height: app.globalData.height
   },
 
-
-  pageTo({ currentTarget: { dataset } }) {
-    // console.log(dataset);
-    wx.navigateTo({
-      url: dataset.url
-    })
-  },
-  Invitation() {
-    this.setData({
-      isProup: !this.data.isProup
-    })
-  },
-  cashTap() {
-    wx.navigateTo({ url: '../drawMoney/drawMoney' });
-  },
   /**
    * 生命周期函数--监听页面加载
    */

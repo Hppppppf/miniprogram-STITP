@@ -13,92 +13,101 @@
   </view>
 </view>
 <!-->
-<map id="map" longitude="{{address.longitude}}" latitude="{{address.latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 200px;"></map>
+<map id="map" longitude="{{address.longitude}}" latitude="{{address.latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location
+  style="width: 100%; height: 200px;"></map>
 <-->
-<view class="order">
-  <view class="order-title">配送信息</view>
-  <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell">
-      <view class="weui-cell__bd">送货地址</view>
-      <view class="weui-cell__ft">
-        <view class="location-info">
-          <view class="location-name">{{address.name}}
-            <text wx:if="{{address.sex}}">(先生)\n</text>
-            <text wx:else>(女士)\n</text>
-            <text class="location-tel"> {{address.tel}}\n</text>
+  <view class="order">
+    <view class="order-title">配送信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">送货地址</view>
+        <view class="weui-cell__ft">
+          <view class="location-info">
+            <view class="location-name">{{address.name}}
+              <text wx:if="{{address.sex}}">(先生)\n</text>
+              <text wx:else>(女士)\n</text>
+              <text class="location-tel"> {{address.tel}}\n</text>
+            </view>
+            <text class="location-deatil">{{address.location+address.detail}}\n</text>
           </view>
-          <text class="location-deatil">{{address.location+address.detail}}\n</text>
         </view>
       </view>
     </view>
   </view>
-</view>
-<view class="order">
-  <view class="order-title">订单详情</view>
-  <view class="order-list">
-    <view class="order-item" wx:for="{{order_food}}" wx:key="id">
-      <view class="order-item-l">
-        <image class="order-item-image" mode="widthFix" src="{{item.image_url}}" />
-        <view>
-          <view class="order-item-name">{{item.name}}</view>
-          <view class="order-item-number">x {{item.number}}</view>
+  <view class="order">
+    <view class="order-title">订单详情</view>
+    <view class="order-list">
+      <view class="order-item" wx:for="{{order_food}}" wx:key="id">
+        <view class="order-item-l">
+          <image class="order-item-image" mode="widthFix" src="{{item.image_url}}" />
+          <view>
+            <view class="order-item-name">{{item.name}}</view>
+            <view class="order-item-number">x {{item.number}}</view>
+          </view>
+        </view>
+        <view class="order-item-price">{{priceFormat(item.price * item.number)}}</view>
+      </view>
+      <view class="order-item" wx:if="{{checkPromotion(promotion)}}">
+        <view class="order-item-l">
+          <i class="order-promotion-icon">减</i>满减优惠</view>
+        <view class="order-promotion-price">- {{priceFormat(promotion)}}</view>
+      </view>
+      <view class="order-item">
+        <view class="order-item-l">小计</view>
+        <view class="order-total-price">{{priceFormat(price)}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="list">
+    <view>
+      <text>订单号码</text>
+      <view>{{sn}}</view>
+    </view>
+    <view>
+      <text>下单时间</text>
+      <view>{{create_time}}</view>
+    </view>
+    <view>
+      <text>付款时间</text>
+      <view>{{pay_time}}</view>
+    </view>
+    <view wx:if="{{is_taken}}">
+      <text>取餐时间</text>
+      <view>{{taken_time}}</view>
+    </view>
+
+    <view wx:if="{{is_taken}}">
+      <text>订单备注</text>
+
+      <view>{{note}}</view>
+    </view>
+  </view>
+
+
+  <block>
+    <view class="tips" wx:if="{{is_taken}}">已取餐</view>
+    <view class="tips" wx:else>
+      <view>接单前请仔细查看订单信息</view>
+      <view class="tips" wx:if="{{order_taken}}">
+        <view class="tips" wx:if="{{food_arrival}}">已送达</view>
+        <view class="tips" wx:else>
+          <button class="button-getfood" bindtap="takefood">确认送达</button>
         </view>
       </view>
-      <view class="order-item-price">{{priceFormat(item.price * item.number)}}</view>
+      <view class="tips" wx:else>
+        <button class="button-getfood" bindtap="takefood">接单</button>
+      </view>
     </view>
-    <view class="order-item" wx:if="{{checkPromotion(promotion)}}">
-      <view class="order-item-l">
-        <i class="order-promotion-icon">减</i>满减优惠</view>
-      <view class="order-promotion-price">- {{priceFormat(promotion)}}</view>
-    </view>
-    <view class="order-item">
-      <view class="order-item-l">小计</view>
-      <view class="order-total-price">{{priceFormat(price)}}</view>
-    </view>
-  </view>
-</view>
+  </block>
 
-<view class="list">
-  <view>
-    <text>订单号码</text>
-    <view>{{sn}}</view>
-  </view>
-  <view>
-    <text>下单时间</text>
-    <view>{{create_time}}</view>
-  </view>
-  <view>
-    <text>付款时间</text>
-    <view>{{pay_time}}</view>
-  </view>
-  <view wx:if="{{is_taken}}">
-    <text>取餐时间</text>
-    <view>{{taken_time}}</view>
-  </view>
-
-  <view wx:if="{{is_taken}}">
-    <text>订单备注</text>
-
-    <view>{{note}}</view>
-  </view>
-</view>
-
-
-<block>
-  <view class="tips" wx:if="{{is_taken}}">已取餐</view>
-  <view class="tips" wx:else>
-    <view>接单前请仔细查看订单信息</view>
-    <button class="button-getfood" bindtap="takefood">接单</button>
-  </view>
-</block>
-
-<wxs module="priceFormat">
-  module.exports = function(price) {
-    return '¥ ' + parseFloat(price).toFixed(2)
-  }
-</wxs>
-<wxs module="checkPromotion">
-  module.exports = function(promotion) {
-    return parseFloat(promotion) > 0
-  }
-</wxs>
+  <wxs module="priceFormat">
+    module.exports = function(price) {
+      return '¥ ' + parseFloat(price).toFixed(2)
+    }
+  </wxs>
+  <wxs module="checkPromotion">
+    module.exports = function(promotion) {
+      return parseFloat(promotion) > 0
+    }
+  </wxs>

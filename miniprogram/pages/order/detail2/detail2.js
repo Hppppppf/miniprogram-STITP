@@ -10,12 +10,14 @@ Page({
     create_time: '',
     pay_time: '',
     is_taken: false,
+    order_taken:false,
     id: "",
     taken_time: '',
     note: '',
     address:'',
     latitude:0,
     longitude:0,
+    food_arrival:false,
 
 /*
   markers: [{
@@ -69,6 +71,7 @@ Page({
           pay_time: data.data[0].pay_time,
           is_taken: data.data[0].is_taken,
           taken_time: data.data[0].taken_time,
+          order_taken:data.data[0].order_taken,
           note: data.data[0].note,
           address: data.data[0].location,
         })
@@ -132,6 +135,23 @@ Page({
         },
       })
     })
+    this.setData({
+      order_taken:true
+    })
+    db.collection('Order').where({
+      order_id: this.data.id
+    }).get().then(res => {
+      db.collection('Order').doc(res.data[0]._id).update({
+        data: {
+          order_taken: this.data.order_taken
+        }
+      })
+    })
+    if(this.data.is_taken&&this.data.order_taken){
+      this.setData({
+        food_arrival:true
+      })
+    }
   },
   onShow: function () {
 

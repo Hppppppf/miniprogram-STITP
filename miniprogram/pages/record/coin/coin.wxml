@@ -6,12 +6,7 @@
     <image class="img" src="../../../images/bg.png"></image>
     <view class="details" style="padding-top: 10rpx">
       <view class="balance">
-        <text>余额</text>
-        <view>
-          <image src="../../../images/gc01.png" bindtap="Invitation"></image>
-          <view class="text">提现需要到APP</view>
-        </view>
-
+        <text>积分余额</text>
       </view>
       <view class="withdrawal">
          <test>￥100.12</test>
@@ -24,7 +19,7 @@
     <view class="li" bindtap="pageTo" data-url="/pages/my/myBankCard/index">
       <view class="left">
         <image src="../../../images/yhk01.png" mode="widthFix" style="width:25px;"></image>
-        <text>充值</text>
+        <text>详情</text>
       </view>
       <view class="right">
         <image class="arrIcon" src="../../../images/zy01.png"></image>
@@ -43,7 +38,7 @@
     <view class="li" bindtap="pageTo" data-url="/pages/my/record/index">
       <view class="left">
         <image src="../../../images/tx01.png" mode="widthFix" style="width:25px;"></image>
-        <text>可提现</text>
+        <text>可使用</text>
       </view>
       <view class="right">
         <text>¥ 60.00</text>
