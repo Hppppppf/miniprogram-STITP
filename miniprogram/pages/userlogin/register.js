@@ -91,7 +91,7 @@ Page({
             for (var i in location) { //数一数用户一共存了多少个地址
               count++
             }
-            if (count < 20) { //限制用户最多存20个地址
+            if (count < 5) { //限制用户最多存5个地址
               this.setData({
                 index: count
               })
@@ -116,7 +116,7 @@ Page({
               })
               wx.navigateBack()
               wx.hideToast()
-            } else { //如果用户存的地址超过了20个，则执行
+            } else { //如果用户存的地址超过了5个，则执行
               wx.showToast({
                 title: '新增地址失败！您的地址已达上限',
                 icon: 'none',

@@ -7,16 +7,16 @@ Page({
    */
   data: {
     address: "请选择收货地址",
-    latitude:0,
-    longitude:0,
+    latitude: 0,
+    longitude: 0,
     index: 0,
     name: "收货人姓名",
     tel: "收货人手机号",
     detail: "例：桃苑25栋",
     sex: true,
-    locationList:[],
+    locationList: [],
   },
-  openMap: function (e) {
+  openMap: function(e) {
     var that = this
     wx.getSetting({
       success(res) {
@@ -25,7 +25,7 @@ Page({
           wx.showModal({
             title: '提示',
             content: '请求获取位置权限',
-            success: function (res) {
+            success: function(res) {
               if (res.confirm == false) {
                 return false;
               }
@@ -63,8 +63,8 @@ Page({
         console.log(res, "location")
         that.setData({
           address: res.address,
-          latitude:res.latitude,
-          longitude:res.longitude
+          latitude: res.latitude,
+          longitude: res.longitude
         })
       },
       fail: function() {
@@ -104,8 +104,18 @@ Page({
   locationSubmit: function() {
     console.log(this.data.locationList)
     //合并整个location
-    var locationTemp = {"name":this.data.name,"index":this.data.index,"latitude":this.data.latitude,"longitude":this.data.longitude,"location":this.data.location,"sex":this.data.sex,"tel":this.data.tel,"detail":this.data.detail,"location":this.data.address}
-      this.data.locationList[this.data.index]=locationTemp
+    var locationTemp = {
+      "name": this.data.name,
+      "index": this.data.index,
+      "latitude": this.data.latitude,
+      "longitude": this.data.longitude,
+      "location": this.data.location,
+      "sex": this.data.sex,
+      "tel": this.data.tel,
+      "detail": this.data.detail,
+      "location": this.data.address
+    }
+    this.data.locationList[this.data.index] = locationTemp
     wx.cloud.callFunction({
       name: 'submitLocation',
       data: {
@@ -123,8 +133,12 @@ Page({
         sex: this.data.sex
         */
       },
+    }).then(res => {
+      wx.showToast({
+        title: '修改地址成功',
+      })
     })
-        db.collection('UserInfo').where({
+    db.collection('UserInfo').where({
       _openid: wx.getStorageSync('_OPENID')
     }).get().then(res => {
       if (res.data[0].location.length != 0) {
@@ -138,14 +152,13 @@ Page({
         })
       }
     })
-    wx.navigateBack({
-      delta:1
-    })
+    wx.navigateBack()
+    wx.hideToast()
   },
   locationDelete: function() {
     console.log("this.data.locationList=", this.data.locationList)
     var locationListLength = 0
-    var index=this.data.index
+    var index = this.data.index
     for (var i in this.data.locationList) {
       locationListLength++
     }
@@ -154,44 +167,47 @@ Page({
       locationList[i] = this.data.locationList[i]
     }
     for (var i = this.data.index; i < locationList.length - 1; i++) {
-      locationList[i]=locationList[i+1]
+      locationList[i] = locationList[i + 1]
     }
-    locationList.splice(locationListLength-1,1)
+    locationList.splice(locationListLength - 1, 1)
     wx.cloud.callFunction({
       name: 'deleteLocation',
       data: {
         _openid: wx.getStorageSync('_OPENID'),
-        location:locationList
+        location: locationList
       }
+    }).then(res => {
+      wx.showToast({
+        title: '删除地址成功',
+      })
     })
-wx.navigateBack({
- delta:1
-})
+    wx.hideToast()
+    wx.navigateBack()
   },
-  selectTrue:function(){
+  selectTrue: function() {
     this.setData({
-      sex:true
+      sex: true
     })
   },
-  selectFalse: function () {
+  selectFalse: function() {
     this.setData({
       sex: false
     })
   },
-  changeName:function(e){
+  changeName: function(e) {
     console.log(e)
     this.setData({
-      name:e.detail.value
+      name: e.detail.value
     })
   },
 
-  changeTel: function (e) {
+  changeTel: function(e) {
     this.setData({
       tel: e.detail.value
     })
   },
 
-  changeDetail: function (e) {
+  changeDetail: function(e) {
     this.setData({
       detail: e.detail.value
     })

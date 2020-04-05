@@ -31,7 +31,6 @@ Page({
 
   },
   modifyLocation(e) {
-    console.log(e)
     wx.navigateTo({
       url: 'setLocation/setLocation?index=' + e.currentTarget.dataset.index,
     })

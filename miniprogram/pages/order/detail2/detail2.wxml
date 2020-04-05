@@ -85,17 +85,19 @@
   </view>
 
 
-  <block>
-    <view class="tips" wx:if="{{is_taken}}">已取餐</view>
+  <!--block>
+    <view class="tips" wx:if="{{is_taken}}">已送达</view>
     <view class="tips" wx:else>
       <view>接单前请仔细查看订单信息</view>
-      <view class="tips" wx:if="{{order_taken}}">
-        <view class="tips" wx:if="{{food_arrival}}">已送达</view>
-        <view class="tips" wx:else>
-          <button class="button-getfood" bindtap="takefood">确认送达</button>
-        </view>
-      </view>
+      <button class="button-getfood" bindtap="takefood">接单</button>
+    </view>
+  </block-->
+  <block>
+    <view class="tips" wx:if="{{is_taken}}">顾客已取餐</view>
+    <view wx:else>
+      <view class="tips" wx:if="{{order_taken}}">正在配送中...</view>
       <view class="tips" wx:else>
+        <view>接单前请仔细查看订单信息</view>
         <button class="button-getfood" bindtap="takefood">接单</button>
       </view>
     </view>
