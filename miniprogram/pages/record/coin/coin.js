@@ -1,5 +1,6 @@
 // miniprogram/pages/record/coin/coin.js
 const app = getApp();
+const db = wx.cloud.database(); //初始化数据库
 Page({
 
   /**
@@ -7,14 +8,25 @@ Page({
    */
   data: {
     isProup: false,
-    height: app.globalData.height
+    height: app.globalData.height,
+    credit_count:0,
+    credit_earn:0,
+    credit_trans:0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    db.collection('Credit').where({
+      _openid: wx.getStorageSync('_OPENID')
+    }).get().then(res => {
+      this.setData({
+        credit_count:res.data[0].credit_count,
+        credit_earn:res.data[0].credit_earn,
+        credit_trans:res.data.credit_trans
+      })
+    })
   },
 
   /**

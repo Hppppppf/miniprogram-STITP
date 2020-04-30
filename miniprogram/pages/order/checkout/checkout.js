@@ -14,7 +14,8 @@ Page({
     pay_time: '',
     number: 0,
     is_taken: false,
-    order_taken:false,
+    order_taken: false,
+    deliveryfee: 1,
     currentWordNumber: 0
   },
   /*
@@ -45,8 +46,9 @@ Page({
           number: this.data.number,
           pay_time: this.data.pay_time,
           is_taken: false,
-          order_taken:false,
-          location:this.data.location
+          order_taken: false,
+          location: this.data.location,
+          deliveryfee: this.data.deliveryfee,
         }
       })
       console.log('order_id', this.data.order_id)
@@ -79,7 +81,6 @@ Page({
       },
     })*/
     db.collection('CartList').doc(wx.getStorageSync('_OPENID')).get().then(data => {
-      console.log('Data', data)
       db.collection('programData').get().then(res => {
         if (data.data.cartPrice > res.data[0].promotion[0]) {
           this.setData({
@@ -97,10 +98,10 @@ Page({
           create_time: time,
         })
         db.collection('UserInfo').where({
-          _openid:wx.getStorageSync('_OPENID')
-        }).get().then(res=>{
+          _openid: wx.getStorageSync('_OPENID')
+        }).get().then(res => {
           this.setData({
-            location:res.data[0].location[0]
+            location: res.data[0].location[0]
           })
         })
       })
@@ -124,6 +125,46 @@ Page({
       currentWordNumber: len //当前字数 
     })
   },
+
+  /*计算配送费*/
+
+  selectone: function() {
+    this.setData({
+      deliveryfee: 1,
+    })
+  },
+
+  selectthree: function() {
+    this.setData({
+      deliveryfee: 3,
+    })
+  },
+
+  selectfive: function() {
+    this.setData({
+      deliveryfee: 5,
+    })
+  },
+
+  selectother: function() {
+
+  },
+
+  changefee: function(e) {
+    console.log("fee=", e.detail)
+    var fee = e.detail.value;
+    if (fee < 1) {
+      wx.showToast({
+        title: '请输入大于1的金额',
+        icon: 'none'
+      })
+      fee=1;
+    } 
+      this.setData({
+        deliveryfee: parseFloat(fee),
+      })
+      
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -135,7 +176,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    
+
   },
 
   /**

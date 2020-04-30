@@ -9,7 +9,7 @@
         <text>积分余额</text>
       </view>
       <view class="withdrawal">
-         <test>￥100.12</test>
+         <test>{{credit_count}}</test>
          <!-- <button plain bindtap="cashTap">提现</button> -->
       </view>
     </view>
@@ -31,7 +31,7 @@
         <text>总佣金</text>
       </view>
       <view class="right">
-        <text>¥ 60.00</text>
+        <text>{{credit_earn}}</text>
         <image class="arrIcon" src="../../../images/zy01.png"></image>
       </view>
     </view>
@@ -41,7 +41,7 @@
         <text>可使用</text>
       </view>
       <view class="right">
-        <text>¥ 60.00</text>
+        <text>{{credit_earn-credit_trans}}</text>
         <image class="arrIcon" src="../../../images/zy01.png"></image>
       </view>
     </view>

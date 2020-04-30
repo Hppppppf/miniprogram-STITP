@@ -51,9 +51,18 @@
         <i class="order-promotion-icon">减</i>满减优惠</view>
       <view class="order-promotion-price">- {{priceFormat(promotion)}}</view>
     </view>
+  </view>
+  <view class="order">
+    <view class="order-title">配送费</view>
+      <view class="order-item">
+        <view class="order-item-l"></view>
+          <view class="order-item-price">{{priceFormat(deliveryfee)}}</view>
+    </view>
+  </view>
+  <view class="order">
     <view class="order-item">
       <view class="order-item-l">小计</view>
-      <view class="order-total-price">{{priceFormat(price)}}</view>
+      <view class="order-total-price">{{priceFormat(price+deliveryfee)}}</view>
     </view>
   </view>
 </view>

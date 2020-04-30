@@ -3,15 +3,16 @@
   <view class="weui-cells__title">订单配送至</view>
   <view class="weui-cells weui-cells_after-title">
     <navigator url="./selectAddress" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">          
-      <view class="location-info">
-            <text class="location-deatil">{{location.detail}}\n</text>
-            <view class="location-name">{{location.name}}
-              <text wx:if="{{location.sex}}">(先生)</text>
-              <text wx:else>(女士)</text>
-              <text class="location-tel"> {{location.tel}}</text>
-            </view>
-          </view></view>
+      <view class="weui-cell__bd">
+        <view class="location-info">
+          <text class="location-deatil">{{location.detail}}\n</text>
+          <view class="location-name">{{location.name}}
+            <text wx:if="{{location.sex}}">(先生)</text>
+            <text wx:else>(女士)</text>
+            <text class="location-tel"> {{location.tel}}</text>
+          </view>
+        </view>
+      </view>
       <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </navigator>
   </view>
@@ -33,16 +34,45 @@
           <i class="order-promotion-icon">减</i>满减优惠</view>
         <view class="order-promotion-price">- {{priceFormat(promotion)}}</view>
       </view>
+    </view>
+    <view class="order">
+      <view class="order-title">配送费</view>
       <view class="order-item">
-        <view class="order-item-l">小计</view>
-        <view class="order-total-price">{{priceFormat(price)}}</view>
+        <view class="order-item-l">
+          <view class="DeliveryButtons">
+            <view class="selectButtons" wx:if="{{deliveryfee==1}}">
+              <button class="selectedDelivery" bindtap="selectone">1元</button>
+              <button class="unselectedDelivery" bindtap="selectthree">3元</button>
+              <button class="unselectedDelivery" bindtap="selectfive">5元</button>
+              <input class="unselectedDelivery" style="border:0.2rpx solid #e3e3e3;border-radius:10rpx;text-align:center;" type="number" placeholder="其他" placeholder-style="#00d8a0;" bindchange="changefee"></input>
+            </view>
+            <view class="selectButtons" wx:if="{{deliveryfee==3}}">
+              <button class="unselectedDelivery" bindtap="selectone">1元</button>
+              <button class="selectedDelivery" bindtap="selectthree">3元</button>
+              <button class="unselectedDelivery" bindtap="selectfive">5元</button>
+              <input class="unselectedDelivery" style="border:0.2rpx solid #e3e3e3;border-radius:10rpx;text-align:center;" type="number" placeholder="其他" placeholder-style="#00d8a0;" bindchange="changefee"></input>
+            </view>
+            <view class="selectButtons" wx:if="{{deliveryfee==5}}">
+              <button class="unselectedDelivery" bindtap="selectone">1元</button>
+              <button class="unselectedDelivery" bindtap="selectthree">3元</button>
+              <button class="selectedDelivery" bindtap="selectfive">5元</button>
+              <input class="unselectedDelivery" style="border:0.2rpx solid #e3e3e3;border-radius:10rpx;text-align:center;" type="number" placeholder="其他" placeholder-style="#00d8a0;" bindchange="changefee"></input>
+            </view>
+            <view class="selectButtons" wx:if="{{deliveryfee!=1&&deliveryfee!=3&&deliveryfee!=5}}">
+              <button class="unselectedDelivery" bindtap="selectone">1元</button>
+              <button class="unselectedDelivery" bindtap="selectthree">3元</button>
+              <button class="unselectedDelivery" bindtap="selectfive">5元</button>
+              <input class="selectedDelivery" style="border:1rpx solid ;border-radius:10rpx;text-align:center;" type="number" placeholder="其他" bindchange="changefee" value="{{deliveryfee}}"></input>
+            </view>
+          </view>
+        </view>
       </view>
     </view>
     <view class="content-comment">备注</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__bd">
-          <textarea class="textarea" placeholder="如有其它要求，请备注" style="height: 3.3em" bindblur="comment" bindinput="getValueLength" maxlength="40"/>
+          <textarea class="textarea" placeholder="如有其它要求，请备注" style="height: 3.3em" bindblur="comment" bindinput="getValueLength" maxlength="40" />
           <view class="weui-textarea-counter">{{currentWordNumber|0}}/40</view>
         </view>
       </view>
@@ -50,7 +80,7 @@
   </view>
 </view>
 <view class="operate">
-  <view class="operate-info">合计：{{priceFormat(price)}}</view>
+  <view class="operate-info">合计：{{priceFormat(price+deliveryfee)}}</view>
   <view class="operate-submit" bindtap="pay">确认订单</view>
 </view>
 <wxs module="priceFormat">

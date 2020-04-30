@@ -26,6 +26,7 @@ Page({
     logitude_user: 0,
     polyline: [],
     markers: [],
+    deliveryfee:0,
   },
 
   onLoad: function(options) {
@@ -79,6 +80,8 @@ Page({
           latitude_food: res.data[0].geoPoint[0][0],
           logitude_food: res.data[0].geoPoint[0][1],
           markers: this.data.markers,
+
+          deliveryfee:data.data[0].deliveryfee,
         })
 
         this.showWay(),
@@ -101,6 +104,7 @@ Page({
         taken_time: this.data.taken_time,
         note: this.data.note,
         address: this.data.address,
+        deliveryfee:this.data.deliveryfee,
       })
     })
 

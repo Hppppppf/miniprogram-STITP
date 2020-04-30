@@ -65,7 +65,7 @@ Page({
             if (var1 < var2) {
               return 1
             } else if (var1 > var2) {
-              return 0
+              return -1
             } else {
               return 0
             }
@@ -104,7 +104,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.onLoad();
   },
 
   /**

@@ -1,4 +1,5 @@
 /* pages/order/detail/detail.wxss */
+
 page {
   background: #f8f8f8;
 }
@@ -76,6 +77,10 @@ page {
   border-top: 1rpx #e3e3e3 solid;
 }
 
+.order-item-price {
+  margin-right: 40rpx;
+}
+
 .order-item-l {
   flex: 1;
   display: flex;
@@ -108,6 +113,7 @@ page {
 
 .order-total-price {
   font-size: 40rpx;
+  margin-right: 25rpx;
 }
 
 .list {
@@ -133,37 +139,39 @@ page {
   text-align: center;
   margin: 20rpx auto 40rpx;
   padding: 12rpx 20rpx;
-  background: #00D8A0;
+  background: #00d8a0;
   color: #fff;
   font-size: 36rpx;
 }
-.button-getfood{
+
+.button-getfood {
   width: 85%;
   height: 80rpx;
   text-align: center;
   background: #fff;
-  color: #00D8A0;
+  color: #00d8a0;
   font-size: 36rpx;
 }
 
-
-.location-item{
+.location-item {
   display: flex;
   padding: 20rpx 30rpx;
   border-bottom: 1rpx solid #ececec;
-  justify-content:space-between;
+  justify-content: space-between;
 }
-.location-deatil{
+
+.location-deatil {
   font-weight: bold;
   font-size: 15px;
 }
-.location-name{
+
+.location-name {
   flex-direction: row;
   flex-wrap: nowrap;
   color: #757373;
   font-size: 16px;
 }
 
-.weui-cell__bd{
-  display: flex
+.weui-cell__bd {
+  display: flex;
 }

@@ -28,7 +28,7 @@
       <view class="list-item-time">{{item.pay_time}}</view>
     </view>
     <view class="list-item-r">
-      <text>{{priceFormat(item.orderPrice)}}</text>
+      <text>{{priceFormat(item.orderPrice+item.deliveryfee)}}</text>
     </view>
   </view>
 </view>
