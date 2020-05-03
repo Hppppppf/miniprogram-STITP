@@ -5,7 +5,7 @@
     <view class="card-content">
       <view class="card-info">
         <text class="card-code">{{code}}</text>
-        <text class="card-info-r">正在加急配送中…</text>
+        <text class="card-info-r">{{tip}}正在加急配送中…</text>
       </view>
       <view class="card-comment" wx:if="{{note}}">备注：{{note}}</view>
       <view class="card-tips">美食配送中，尽快为您服务☺</view>
@@ -30,6 +30,10 @@
           <text class="location-deatil">{{address.location+address.detail}}\n</text>
         </view>
       </view>
+    </view>
+    <view class="weui-cell">
+      <view class="weui-cell__bd">配送总距离</view>
+      <view class="weui-cell__ft">{{totalDistance}}KM</view>
     </view>
   </view>
 </view>

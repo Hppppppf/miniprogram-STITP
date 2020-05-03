@@ -25,8 +25,42 @@ Page({
     latitude_user: 0,
     logitude_user: 0,
     polyline: [],
-    markers: [],
+    markers: [{
+      iconPath: "../../../images/foodLocation.png",
+      id: 2,
+      latitude: 32.108430,
+      longitude: 118.933370,
+      width: 30,
+      height: 30
+    }, {
+      iconPath: "../../../images/foodLocation.png",
+      id: 3,
+      latitude: 32.111720,
+      longitude: 118.933180,
+      width: 30,
+      height: 30
+    }, {
+      iconPath: "../../../images/foodLocation.png",
+      id: 4,
+      latitude: 32.117280,
+      longitude: 118.933580,
+      width: 30,
+      height: 30
+    }, {
+      iconPath: "../../../images/expressLocation.png",
+      id: 5,
+      latitude: 32.116340,
+      longitude: 118.935340,
+      width: 30,
+      height: 30
+    }],
     deliveryfee:0,
+    food_location:[false,false,false,false],
+    locationList:'',
+    distance:[],
+    totalDistance:0,
+    is_CrossStore:false,
+    tip:'',
   },
 
   onLoad: function(options) {
@@ -55,6 +89,7 @@ Page({
           })
           temppromotion = res.data[0].promotion[1]
         }
+        //起点
         let temp = {
           iconPath: "../../../images/userLocation.png",
           id: 1,
@@ -77,14 +112,13 @@ Page({
           latitude_user: data.data[0].location.latitude,
           logitude_user: data.data[0].location.longitude,
 
-          latitude_food: res.data[0].geoPoint[0][0],
-          logitude_food: res.data[0].geoPoint[0][1],
+          logitude_food: res.data[0].geoPoint[0][0],
+          latitude_food: res.data[0].geoPoint[0][1],
           markers: this.data.markers,
 
           deliveryfee:data.data[0].deliveryfee,
         })
-
-        this.showWay(),
+        this.calculateDis()
           wx.hideLoading()
       })
       var fetchCode
@@ -150,7 +184,45 @@ Page({
   takefood: function() {
 
   },
-  showWay: function() {
+  distance:function(a,b){
+    var _this = this;
+    console.log(b)
+    //调用距离计算接口
+    qqmapsdk.calculateDistance({
+      //mode: 'driving',//可选值：'driving'（驾车）、'walking'（步行），不填默认：'walking',可不填
+      //from参数不填默认当前地址
+      //获取表单提交的经纬度并设置from和to参数（示例为string格式）
+      from: a, //若起点有数据则采用起点坐标，若为空默认当前地址
+      to: b, //终点坐标
+      success: function (res) {//成功后的回调
+        console.log(res);
+        var res = res.result;
+        var dis = [];
+        var totalDis = 0;
+        var flag = false;
+        for (var i = 0; i < res.elements.length; i++) {
+          dis.push(res.elements[i].distance); //将返回数据存入dis数组，
+          totalDis += res.elements[i].distance;
+          if (i>0){
+            flag=true
+          }
+        }
+        _this.setData({ //设置并更新distance数据
+          distance: dis,
+          totalDistance:totalDis/1000.0,
+          is_CrossStore:flag
+        });
+      },
+      fail: function (error) {
+        console.error(error);
+      },
+      complete: function (res) {
+        console.log(res);
+      }
+    });
+    return true
+  },
+  showWay: function(a,b) {
     console.log("调用腾讯地图SDK")
     var _this = this;
     //调用距离计算接口
@@ -201,8 +273,8 @@ Page({
           longitude: pl[0].longitude,
           polyline: [{
             points: pl,
-            color: '#FF0000DD',
-            width: 4
+            color: '#90EE90',
+            width: 5
           }]
         })
       },
@@ -214,20 +286,99 @@ Page({
       }
     });
   },
-  onShow: function() {
+  calculateDis:function(){
+    let tempMarkers = [{
+      iconPath: "../../../images/foodLocation.png",
+      id: 2,
+      latitude: 32.108430,
+      longitude: 118.933370,
+      width: 30,
+      height: 30
+    }, {
+        iconPath: "../../../images/foodLocation.png",
+        id: 3,
+        latitude: 32.111720, 
+        longitude: 118.933180,
+        width: 30,
+        height: 30
+      }, {
+        iconPath: "../../../images/foodLocation.png",
+        id: 4,
+        latitude: 32.117280, 
+        longitude: 118.933580,
+        width: 30,
+        height: 30
+      }, {
+        iconPath: "../../../images/expressLocation.png",
+        id: 5,
+        latitude: 32.116340,
+        longitude: 118.935340,
+        width: 30,
+        height: 30
+      }]
+    var tempFood_Location = [false, false, false, false]
+    var locationList = ''
+    this.setData({
+      distance: 0
+    })
+    var userLocation = String(this.data.latitude_user + "," + this.data.logitude_user)
+    var _this = this
+    //判断商品出发点
     db.collection('Order').where({
       order_id: this.data.id
     }).get().then(res => {
       this.setData({
-        markers: [{
-          iconPath: "../../../images/foodLocation.png",
-          id: 0,
-          latitude: 32.10843,
-          longitude: 118.93337,
-          width: 30,
-          height: 30
-        }]
+        food_location: [false, false, false, false]
+      })
+      Object.keys(res.data[0].order).forEach(function (key) {
+        var tempDataID = res.data[0].order[key].dataID
+        console.log(tempDataID)
+        //快递
+        if (tempDataID == "fc0705b9-1f32-4295-ae58-76427cdab816" || tempDataID == "ff4ed28d-d8c2-4c82-af0d-0ebd355546f1" || tempDataID == "f836f523-decb-4289-bfab-d89adf4b03fe") {
+          tempFood_Location[3] = true
+          locationList += '32.116340,118.935340;'
+          this.data.markers.push(tempMarkers[3])
+        } else {
+          //食品
+          db.collection('foods').where({
+            _id: tempDataID
+          }).get().then(res => {
+            console.log(res)
+            if (res.data[0].location == "南一") {
+              if(!tempFood_Location[0]){
+                tempFood_Location[0] = true
+                locationList += '32.108430,118.933370;'
+                _this.data.markers.push(tempMarkers[0])
+              }
+            } else if (res.data[0].location == "南二") {
+              if (!tempFood_Location[1]) {
+                tempFood_Location[1] = true
+                locationList += '32.111720,118.933180;'
+                _this.data.markers.push(tempMarkers[1])
+              }
+            } else if (res.data[0].location == "南三") {
+              if (!tempFood_Location[2]) {
+                tempFood_Location[2] = true
+                locationList += '32.117280,118.933580;'
+                _this.data.markers.push(tempMarkers[2])
+              }
+            }
+            locationList = locationList.substr(0, locationList.length - 1)
+            _this.distance(userLocation, locationList)
+          })
+        }
+      });
+      this.setData({
+        food_location: tempFood_Location,
+        markers: this.data.markers,
       })
     })
+
+
+    //this.showWay(),
+  },
+  onShow: function() {
+    
+
   },
 })
