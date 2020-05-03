@@ -95,6 +95,15 @@ Page({
         note: this.data.note,
       })
     })
+    db.collection('Credit').add({
+      data: {
+        //_openid: wx.getStorageSync('_OPENID'),
+        order_id: this.data.id,
+        credit_p: 0,
+        credit_got: 0,
+        credit_total: 0,
+      }
+    })
   },
   onUnload: function() {
     var app = getApp();
@@ -102,6 +111,15 @@ Page({
     app.isReloadOrderList = true
     wx.switchTab({
       url: '/pages/order/list/list'
+    })
+    db.collection('Credit').where({
+      _openid:wx.getStorageSync('_OPENID'),
+    }).get().then(res=>{
+      for(var i in res.data){
+        if(res.data[i].credit_p==0&&res.data[0].credit_got==0){
+          db.collection('Credit').doc(res.data[i]._id).remove()
+        }
+      }
     })
   },
   /*
@@ -124,9 +142,9 @@ Page({
     },*/
   takefood: function() {
     //接单后开启位置实时获取
+    var order_id = this.data.id
     wx.onLocationChange(function(res) {
       console.log('location change', res)
-      var order_id = this.data.id
       wx.cloud.callFunction({
         name: 'sendCourierLocation',
         data: {
@@ -143,10 +161,25 @@ Page({
     db.collection('Order').where({
       order_id: this.data.id
     }).get().then(res => {
-      db.collection('Order').doc(res.data[0]._id).update({
+      console.log("order_taken", res.data)
+      wx.cloud.callFunction({
+        name: 'order_taken',
         data: {
+          _id: res.data[0]._id,
+          order_id: this.data.id,
           order_taken: this.data.order_taken,
         }
+      })
+    })
+    db.collection('Credit').where({
+      order_id: this.data.id,
+    }).get().then(res => {
+      wx.cloud.callFunction({
+        name: 'credit_get',
+        data: {
+          _id:res.data[0]._id,
+          order_id: this.data.id,
+        },
       })
     })
   },

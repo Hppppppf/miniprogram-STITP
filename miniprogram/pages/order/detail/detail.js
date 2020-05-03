@@ -167,12 +167,14 @@ Page({
           db.collection('Order').where({
             order_id: _that.data.id
           }).get().then(res => {
-            db.collection('Order').doc(res.data[0]._id).update({
-              data: {
-                is_taken: true,
-                taken_time: time
-              }
-            })
+           wx.cloud.callFunction({
+             name:'is_taken',
+             data:{
+               _id:res.data[0]._id,
+               is_taken:_that.data.is_taken,
+               taken_time:_that.data.taken_time,
+             }
+           })
           })
         }else if(res.cancel){
 
