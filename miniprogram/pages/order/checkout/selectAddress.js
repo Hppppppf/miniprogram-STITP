@@ -29,6 +29,8 @@ Page({
         this.data.addressList[i] = {
           detail: this.data.locationList[i].detail,
           location: this.data.locationList[i].location,
+          latitude: this.data.locationList[i].latitude,
+          longitude: this.data.locationList[i].longitude,
           name: this.data.locationList[i].name,
           sex: this.data.locationList[i].sex,
           tel: this.data.locationList[i].tel,

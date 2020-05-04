@@ -199,7 +199,7 @@ Page({
   },
   distance: function(a, b) {
     var _this = this;
-    console.log(b)
+    console.log(a)
     //调用距离计算接口
     qqmapsdk.calculateDistance({
       //mode: 'driving',//可选值：'driving'（驾车）、'walking'（步行），不填默认：'walking',可不填
@@ -218,6 +218,13 @@ Page({
           totalDis += res.elements[i].distance;
           if (i > 0) {
             flag = true
+            _this.setData({
+              tip:"跨店订单"
+            })
+          }else{
+            _this.setData({
+              tip: "订单"
+            })
           }
         }
         _this.setData({ //设置并更新distance数据
@@ -350,7 +357,7 @@ Page({
         if (tempDataID == "fc0705b9-1f32-4295-ae58-76427cdab816" || tempDataID == "ff4ed28d-d8c2-4c82-af0d-0ebd355546f1" || tempDataID == "f836f523-decb-4289-bfab-d89adf4b03fe") {
           tempFood_Location[3] = true
           locationList += '32.116340,118.935340;'
-          this.data.markers.push(tempMarkers[3])
+          _this.data.markers.push(tempMarkers[3])
         } else {
           //食品
           db.collection('foods').where({
