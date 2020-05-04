@@ -12,7 +12,8 @@
     "pages/record/location/location",
     "pages/record/location/setLocation/setLocation",
     "pages/order/checkout/selectAddress",
-    "pages/record/coin/coin"
+    "pages/record/coin/coin",
+    "pages/record/coin/detaillist"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

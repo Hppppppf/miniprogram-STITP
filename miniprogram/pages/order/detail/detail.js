@@ -120,6 +120,16 @@ Page({
         })
         this.calculateDis()
         wx.hideLoading()
+        if(this.data.order_taken){
+          db.collection('OrderTaken').where({
+            order_id:this.data.id
+          }).get().then(res=>{
+            this.setData({
+              deliveryname:res.data[0].deliveryname,
+              deliverytel :res.data[0].deliverytel
+            })
+          })
+        }
       })
       var fetchCode
       if (this.data.id < 10) {
@@ -350,7 +360,7 @@ Page({
         if (tempDataID == "fc0705b9-1f32-4295-ae58-76427cdab816" || tempDataID == "ff4ed28d-d8c2-4c82-af0d-0ebd355546f1" || tempDataID == "f836f523-decb-4289-bfab-d89adf4b03fe") {
           tempFood_Location[3] = true
           locationList += '32.116340,118.935340;'
-          this.data.markers.push(tempMarkers[3])
+          _this.data.markers.push(tempMarkers[3])
         } else {
           //食品
           db.collection('foods').where({

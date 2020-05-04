@@ -18,7 +18,10 @@ Page({
     latitude: 0,
     longitude: 0,
     food_arrival: false,
-    deliveryfee:0
+    deliveryfee: 0,
+    showModal: false,
+    deliveryname: '',
+    deliverytel: ''
     /*
       markers: [{
         //iconPath: "/resources/others.png",
@@ -74,7 +77,7 @@ Page({
           order_taken: data.data[0].order_taken,
           note: data.data[0].note,
           address: data.data[0].location,
-          deliveryfee:data.data[0].deliveryfee
+          deliveryfee: data.data[0].deliveryfee
         })
         wx.hideLoading()
       })
@@ -102,9 +105,24 @@ Page({
         order_id: this.data.id,
         credit_p: 0,
         credit_got: 0,
-        orderPrice:0,
+        orderPrice: 0,
+        order_takentime: ''
       }
     })
+    db.collection('CreditTotal').where({
+      _openid: wx.getStorageSync('_OPENID')
+    }).get().then(res => {
+      if (res.data.length <= 0) {
+        db.collection('CreditTotal').add({
+          data: {
+            credit_count: 0,
+            credit_transt: 0,
+            credit_orderPrice: 0
+          }
+        })
+      }
+    })
+
   },
   onUnload: function() {
     var app = getApp();
@@ -114,14 +132,15 @@ Page({
       url: '/pages/order/list/list'
     })
     db.collection('Credit').where({
-      _openid:wx.getStorageSync('_OPENID'),
-    }).get().then(res=>{
-      for(var i in res.data){
-        if(res.data[i].credit_p==0&&res.data[0].credit_got==0){
+      _openid: wx.getStorageSync('_OPENID'),
+    }).get().then(res => {
+      for (var i in res.data) {
+        if (res.data[i].credit_p == 0 && res.data[i].credit_got == 0) {
           db.collection('Credit').doc(res.data[i]._id).remove()
         }
       }
     })
+
   },
   /*
     getfood: function () {
@@ -142,50 +161,116 @@ Page({
       })
     },*/
   takefood: function() {
-    //接单后开启位置实时获取
-    var order_id = this.data.id
-    wx.onLocationChange(function(res) {
-      console.log('location change', res)
-      wx.cloud.callFunction({
-        name: 'sendCourierLocation',
-        data: {
-          order_id: order_id,
-          latitude: res.latitude,
-          longitude: res.longitude,
-        },
-      })
-    })
-    this.setData({
-      order_taken: true
-    })
-
-    db.collection('Order').where({
-      order_id: this.data.id
-    }).get().then(res => {
-      console.log("order_taken", res.data)
-      wx.cloud.callFunction({
-        name: 'order_taken',
-        data: {
-          _id: res.data[0]._id,
-          order_id: this.data.id,
-          order_taken: this.data.order_taken,
-        }
-      })
-    })
-    db.collection('Credit').where({
-      order_id: this.data.id,
-    }).get().then(res => {
-      wx.cloud.callFunction({
-        name: 'credit_get',
-        data: {
-          _id:res.data[0]._id,
-          order_id: this.data.id,
-        },
-      })
-    })
+    this.showDialogBtn()
   },
 
   onShow: function() {
 
+  },
+
+  /**
+   * 弹窗
+   */
+  showDialogBtn: function() {
+    this.setData({
+      showModal: true
+    })
+  },
+  /**
+   * 弹出框蒙层截断touchmove事件
+   */
+  preventTouchMove: function() {},
+  /**
+   * 隐藏模态对话框
+   */
+  hideModal: function() {
+    this.setData({
+      showModal: false
+    });
+  },
+  /**
+   * 对话框取消按钮点击事件
+   */
+  onCancel: function() {
+    this.hideModal();
+  },
+  /**
+   * 对话框确认按钮点击事件
+   */
+  onConfirm: function() {
+    if (this.data.deliveryname == "" || this.data.deliverytel == "") {
+      wx.showToast({
+        title: '请输入您的信息方便顾客联系到您',
+        icon: 'none'
+      })
+    } else {
+      this.hideModal();
+      var time = util.formatTime(new Date());
+      //接单后开启位置实时获取
+      var order_id = this.data.id
+      wx.onLocationChange(function(res) {
+        console.log('location change', res)
+        wx.cloud.callFunction({
+          name: 'sendCourierLocation',
+          data: {
+            order_id: order_id,
+            latitude: res.latitude,
+            longitude: res.longitude,
+          },
+        })
+      })
+      this.setData({
+        order_taken: true
+      })
+
+      db.collection('Order').where({
+        order_id: this.data.id
+      }).get().then(res => {
+        console.log("order_taken", res.data)
+        wx.cloud.callFunction({
+          name: 'order_taken',
+          data: {
+            _id: res.data[0]._id,
+            order_id: this.data.id,
+            order_taken: this.data.order_taken,
+          }
+        })
+      })
+      db.collection('Credit').where({
+        order_id: this.data.id,
+      }).get().then(res => {
+        wx.cloud.callFunction({
+          name: 'credit_get',
+          data: {
+            _id: res.data[0]._id,
+            order_id: this.data.id,
+            order_takentime: time,
+          },
+        })
+      })
+      db.collection('OrderTaken').add({
+        data: {
+          order_id: order_id,
+          deliveryname: this.data.deliveryname,
+          deliverytel: this.data.deliverytel
+        }
+      })
+    }
+  },
+  inputChange1: function(e) {
+    //保存input框的值
+    console.log(e.detail)
+    this.setData({
+      deliveryname: e.detail.value
+    })
+  },
+
+  inputChange2: function(e) {
+    //保存input框的值
+    console.log(e.detail)
+    this.setData({
+      deliverytel: e.detail.value
+    })
   }
+
 })

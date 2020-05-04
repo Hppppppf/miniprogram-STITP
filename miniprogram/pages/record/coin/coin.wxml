@@ -16,16 +16,16 @@
   </view>
 
   <view class="ul">
-    <view class="li" bindtap="pageTo" data-url="/pages/my/myBankCard/index">
+    <view class="li" bindtap="pageTo" data-url="/detaillist">
       <view class="left">
         <image src="../../../images/yhk01.png" mode="widthFix" style="width:25px;"></image>
-        <text>详情</text>
+        <text>收入详情</text>
       </view>
       <view class="right">
         <image class="arrIcon" src="../../../images/zy01.png"></image>
       </view>
     </view>
-    <view class="li" bindtap="pageTo" data-url="/pages/my/commission/index">
+    <view class="li" bindtap="pageTo" data-url="/detaillist">
       <view class="left">
         <image src="../../../images/qianbao.png" mode="widthFix" style="width:25px;"></image>
         <text>总佣金</text>
@@ -35,7 +35,7 @@
         <image class="arrIcon" src="../../../images/zy01.png"></image>
       </view>
     </view>
-    <view class="li" bindtap="pageTo" data-url="/pages/my/record/index">
+    <view class="li" bindtap="pageTo" data-url="/detaillist">
       <view class="left">
         <image src="../../../images/tx01.png" mode="widthFix" style="width:25px;"></image>
         <text>可使用</text>

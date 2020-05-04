@@ -112,6 +112,25 @@
     </view>
   </block>
 
+  <!--弹窗-->
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+  <view class="modal-dialog" wx:if="{{showModal}}">
+    <view class="modal-content">
+      <view class="modal-title">请输入您的姓名：</view>
+      <view class="modal-input">
+        <input placeholder-class="input-holder" bindinput="inputChange1" class="input" placeholder="您的姓名"></input>
+      </view>
+      <view class="modal-title">请输入您的联系方式：</view>
+      <view class="modal-input">
+        <input placeholder-class="input-holder" type="number" maxlength="11" bindinput="inputChange2" class="input" placeholder="您的电话号码"></input>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+      <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+    </view>
+  </view>
+
   <wxs module="priceFormat">
     module.exports = function(price) {
       return '¥ ' + parseFloat(price).toFixed(2)

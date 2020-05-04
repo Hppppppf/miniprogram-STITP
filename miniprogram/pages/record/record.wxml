@@ -24,7 +24,8 @@
   <view class="list-title">消费记录</view>
   <view class="list-item" wx:for="{{list}}" wx:key="id">
     <view class="list-item-l">
-      <view>消费</view>
+      <view wx:if="{{item.paymethod=='jf'}}">积分支付</view>
+      <view wx:if="{{item.paymethod=='wx'}}">微信支付</view>
       <view class="list-item-time">{{item.pay_time}}</view>
     </view>
     <view class="list-item-r">

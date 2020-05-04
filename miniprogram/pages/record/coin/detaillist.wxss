@@ -1,0 +1,98 @@
+/* miniprogram/pages/record/coin/detaillist.wxss */
+page {
+  background: #f8f8f8;
+}
+
+.list-item {
+  display: flex;
+  padding: 20rpx;
+  color: #999;
+  font-size: 26rpx;
+  border-bottom: 1rpx solid #ececec;
+}
+
+.list-item:last-child {
+  border-bottom: 0;
+}
+
+.list-item-l {
+  flex: 1;
+}
+
+.list-item-name {
+  font-size: 30rpx;
+  color: #666;
+  margin-right: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+.list-item-price {
+  color: #f7982a;
+  margin-left: 20rpx;
+  font-weight: 600;
+}
+
+.list-item-t {
+  margin-bottom: 10rpx;
+}
+
+.list-item-r > view {
+  margin-top: 30rpx;
+  display: flex;
+}
+
+.list-item-detail {
+  text-align: center;
+  color: #ff9000;
+  font-size: 24rpx;
+  padding: 17rpx 10rpx;
+  background: #fff;
+  border: 1rpx solid #ff9000;
+}
+
+.list-item-taken {
+  font-size: 24rpx;
+  padding: 17rpx 10rpx;
+  margin-left: 20rpx;
+}
+
+.list-item-taken-yes {
+  background: #19d600;
+  color: #999;
+}
+
+.list-item-taken-no {
+  background: #ffd161;
+  color: #fff;
+}
+
+.list-empty {
+  margin-top: 80rpx;
+  text-align: center;
+}
+
+.list-item-last {
+  display: block;
+  text-align: center;
+}
+.list-top-bar{
+  flex-direction: row;
+  flex-wrap: nowrap;
+  display: flex;
+}
+.button-top-bar-on{
+  width: 40%;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  background-color: #00D8A0;
+  color: #FFF;
+  border: 0;
+}
+.button-top-bar-off{
+  width: 40%;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  background-color: #FFF;
+  color: #00D8A0;
+  border: 0;
+}

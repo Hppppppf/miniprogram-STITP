@@ -35,6 +35,15 @@
       <view class="weui-cell__bd">配送总距离</view>
       <view class="weui-cell__ft">{{totalDistance}}KM</view>
     </view>
+    <view class="weui-cell" wx:if="{{order_taken}}">
+      <view class="weui-cell__bd">配送员信息</view>
+      <view class="weui-cell__ft">
+        <view class="location-info">
+          <view class="location-name"> {{deliveryname}}</view>
+          <text class="location-deatil"> {{deliverytel}}</text>
+        </view>
+      </view>
+    </view>
   </view>
 </view>
 <view class="order">
@@ -58,9 +67,9 @@
   </view>
   <view class="order">
     <view class="order-title">配送费</view>
-      <view class="order-item">
-        <view class="order-item-l"></view>
-          <view class="order-item-price">{{priceFormat(deliveryfee)}}</view>
+    <view class="order-item">
+      <view class="order-item-l"></view>
+      <view class="order-item-price">{{priceFormat(deliveryfee)}}</view>
     </view>
   </view>
   <view class="order">

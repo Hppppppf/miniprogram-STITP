@@ -16,7 +16,8 @@ Page({
     is_taken: false,
     order_taken: false,
     deliveryfee: 1,
-    currentWordNumber: 0
+    currentWordNumber: 0,
+    paymethod: ''
   },
   /*
     listenerTextarea: function (e) {
@@ -26,37 +27,129 @@ Page({
     },
   */
   pay: function() {
+    var that = this
     console.log("note:" + this.data.note)
     var time = util.formatTime(new Date());
-    db.collection('programData').get().then(res => {
-      this.setData({
-        order_id: ++res.data[0].orderNum,
-        pay_time: time
-      })
-      wx.cloud.callFunction({
-        name: 'orderNum'
-      })
-      db.collection('Order').add({
-        data: {
-          order_id: this.data.order_id,
-          order: this.data.order,
-          orderPrice: this.data.orderPrice,
-          note: this.data.note,
-          create_time: this.data.create_time,
-          number: this.data.number,
-          pay_time: this.data.pay_time,
-          is_taken: false,
-          order_taken: false,
-          location: this.data.location,
-          deliveryfee: this.data.deliveryfee,
+    wx.showActionSheet({
+      itemList: ['微信支付', '积分支付'],
+      success(res) {
+        console.log(res.tapIndex)
+        if (res.tapIndex == 0) {
+          that.setData({
+            paymethod: "wx",
+          })
+          db.collection('programData').get().then(res => {
+            that.setData({
+              order_id: ++res.data[0].orderNum,
+              pay_time: time
+            })
+            wx.cloud.callFunction({
+              name: 'orderNum'
+            })
+            db.collection('Order').add({
+              data: {
+                order_id: that.data.order_id,
+                order: that.data.order,
+                orderPrice: that.data.orderPrice,
+                note: that.data.note,
+                create_time: that.data.create_time,
+                number: that.data.number,
+                pay_time: that.data.pay_time,
+                is_taken: false,
+                order_taken: false,
+                location: that.data.location,
+                deliveryfee: that.data.deliveryfee,
+                paymethod: that.data.paymethod,
+              }
+            })
+            console.log('order_id', that.data.order_id)
+            wx.redirectTo({
+              url: '/pages/order/detail/detail?order_id=' + that.data.order_id
+            })
+          })
+          db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove()
+        } else if (res.tapIndex == 1) {
+          console.log('jfffffffff')
+          var credit_count = 0;
+          var paycredit_count = 0;
+          var credit_orderPrice = 0;
+          var paycredit_orderPrice = 0;
+          wx.cloud.callFunction({
+            name: 'jfpay_total',
+          })
+          db.collection('CreditTotal').where({
+            _openid: wx.getStorageSync('_OPENID')
+          }).get().then(res => {
+            wx.cloud.callFunction({
+              name: 'credit_total',
+              data: {
+                _id: res.data[0]._id,
+              }
+            })
+            credit_count = res.data[0].credit_count;
+            credit_orderPrice = res.data[0].credit_orderPrice;
+          })
+          db.collection('CreditPayTotal').where({
+            _openid: wx.getStorageSync('_OPENID')
+          }).get().then(res => {
+            paycredit_count = res.data[0].paycredit_count;
+            paycredit_orderPrice = res.data[0].paycredit_orderPrice
+          })
+          var vcredit_count = credit_count - paycredit_count;
+          var vcredit_orderPrice = credit_orderPrice = paycredit_orderPrice;
+          var vprice = that.data.orderPrice + that.data.deliveryfee
+          if (vcredit_count + vcredit_orderPrice >= vprice) {
+            that.setData({
+              paymethod: 'jf'
+            })
+            db.collection('programData').get().then(res => {
+              that.setData({
+                order_id: ++res.data[0].orderNum,
+                pay_time: time
+              })
+              wx.cloud.callFunction({
+                name: 'orderNum'
+              })
+              db.collection('Order').add({
+                data: {
+                  order_id: that.data.order_id,
+                  order: that.data.order,
+                  orderPrice: that.data.orderPrice,
+                  note: that.data.note,
+                  create_time: that.data.create_time,
+                  number: that.data.number,
+                  pay_time: that.data.pay_time,
+                  is_taken: false,
+                  order_taken: false,
+                  location: that.data.location,
+                  deliveryfee: that.data.deliveryfee,
+                  paymethod: that.data.paymethod,
+                }
+              })
+              console.log('order_id', that.data.order_id)
+              wx.redirectTo({
+                url: '/pages/order/detail/detail?order_id=' + that.data.order_id
+              })
+              wx.cloud.callFunction({
+                name: 'jfpay',
+                data: {
+                  paytime: time,
+                  order_id: that.data.order_id,
+                  credit_count:vcredit_count,
+                  credit_orderPrice:vcredit_orderPrice
+                }
+              })
+            })
+            db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove()
+          } else {
+            wx.showToast({
+              title: '积分不足，请选择其他支付方式',
+              icon: 'none'
+            })
+          }
         }
-      })
-      console.log('order_id', this.data.order_id)
-      wx.redirectTo({
-        url: '/pages/order/detail/detail?order_id=' + this.data.order_id
-      })
+      }
     })
-    db.collection('CartList').doc(wx.getStorageSync('_OPENID')).remove()
   },
   /**
    * 生命周期函数--监听页面加载
@@ -158,12 +251,12 @@ Page({
         title: '请输入大于1的金额',
         icon: 'none'
       })
-      fee=1;
-    } 
-      this.setData({
-        deliveryfee: parseFloat(fee),
-      })
-      
+      fee = 1;
+    }
+    this.setData({
+      deliveryfee: parseFloat(fee),
+    })
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
