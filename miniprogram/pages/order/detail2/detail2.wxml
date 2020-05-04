@@ -5,17 +5,17 @@
     <view class="card-content">
       <view class="card-info">
         <text class="card-code">{{code}}</text>
-        <text class="card-info-r">正在加急配送中…</text>
+        <text class="card-info-r">{{tip}}正在配送中…</text>
       </view>
       <view class="card-comment" wx:if="{{note}}">备注：{{note}}</view>
       <view class="card-tips">美食配送中，尽快为您服务☺</view>
     </view>
   </view>
 </view>
-<!-->
-<map id="map" longitude="{{address.longitude}}" latitude="{{address.latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location
-  style="width: 100%; height: 200px;"></map>
-<-->
+
+<!--地图容器-->
+<map wx:if="{{!is_taken}}"id="myMap" style="width: 100%; height: 200px;" longitude="118.933762" latitude="32.116058" scale='14' subkey="AVABZ-EIPWP-7RTDK-L6UQ3-SHYET-V5B6V" polyline="{{polyline}}" markers="{{markers}}"></map>
+
   <view class="order">
     <view class="order-title">配送信息</view>
     <view class="weui-cells weui-cells_after-title">
@@ -32,6 +32,10 @@
           </view>
         </view>
       </view>
+      <view wx:if="{{!is_taken}}" class="weui-cell">
+        <view class="weui-cell__bd">预计配送总时间</view>
+        <view class="weui-cell__ft">{{totalTime}}分钟</view>
+    </view>
     </view>
   </view>
   <view class="order">

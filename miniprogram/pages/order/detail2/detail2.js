@@ -1,6 +1,11 @@
 // pages/order/detail/detail.js
 const db = wx.cloud.database(); //初始化数据库
 var util = require('../../../utils/utils.js');
+//引入腾讯地图SDK核心类
+var QQMapWX = require('qqmap-wx-jssdk.js'); //相对路径有BUG？只能放到同目录下
+var qqmapsdk = new QQMapWX({
+  key: '7IXBZ-2TU63-7EF36-Y6HR2-6LDNT-DTBGQ' // 必填
+});
 Page({
 
   /**
@@ -18,6 +23,47 @@ Page({
     latitude: 0,
     longitude: 0,
     food_arrival: false,
+    deliveryfee: 0,
+    is_CrossStore:false,
+    tip:"",
+    distance:0,
+    totalDistance:0,
+    latitude_food: 0,
+    longitude_food: 0,
+    latitude_user: 0,
+    longitude_user: 0,
+    speed_user:0.2,
+    totalTime:0,
+    polyline: [],
+    markers: [{
+      iconPath: "../../../images/foodLocation.png",
+      id: 2,
+      latitude: 32.108430,
+      longitude: 118.933370,
+      width: 30,
+      height: 30
+    }, {
+      iconPath: "../../../images/foodLocation.png",
+      id: 3,
+      latitude: 32.111720,
+      longitude: 118.933180,
+      width: 30,
+      height: 30
+    }, {
+      iconPath: "../../../images/foodLocation.png",
+      id: 4,
+      latitude: 32.117280,
+      longitude: 118.933580,
+      width: 30,
+      height: 30
+    }, {
+      iconPath: "../../../images/expressLocation.png",
+      id: 5,
+      latitude: 32.116340,
+      longitude: 118.935340,
+      width: 30,
+      height: 30
+    }],
     deliveryfee:0
     /*
       markers: [{
@@ -63,6 +109,40 @@ Page({
             promotion: res.data[0].promotion[1],
           })
           temppromotion = res.data[0].promotion[1]
+        }
+        //如订单未完成，显示地图
+        if (!data.data[0].is_taken){
+          //起点
+          let temp = {
+            iconPath: "../../../images/userLocation.png",
+            id: 1,
+            latitude: data.data[0].location.latitude,
+            longitude: data.data[0].location.longitude,
+            width: 30,
+            height: 30
+          }
+          this.data.markers.push(temp)
+          //实例化腾讯地图API核心类
+          qqmapsdk = new QQMapWX({
+            key: '7IXBZ-2TU63-7EF36-Y6HR2-6LDNT-DTBGQ'
+          });
+          var _this = this
+          wx.getLocation({
+            type: 'gcj02',
+            success(res) {
+              const latitudeGet = res.latitude
+              const longitudeGet = res.longitude
+              const speedGet = res.speed
+              const accuracyGet = res.accuracy
+              _this.setData({
+                latitude_user: latitudeGet,
+                logitude_user: longitudeGet,
+                speed_user: 0.2,//speedGet,
+              })
+              _this.calculateDis(longitudeGet,latitudeGet)
+            }
+          })
+          
         }
         this.setData({
           order_food: data.data[0].order,
@@ -184,8 +264,140 @@ Page({
       })
     })
   },
+  calculateDis: function (logitude_user,latitude_user) {
+    let tempMarkers = [{
+      iconPath: "../../../images/foodLocation.png",
+      id: 2,
+      latitude: 32.108430,
+      longitude: 118.933370,
+      width: 30,
+      height: 30
+    }, {
+      iconPath: "../../../images/foodLocation.png",
+      id: 3,
+      latitude: 32.111720,
+      longitude: 118.933180,
+      width: 30,
+      height: 30
+    }, {
+      iconPath: "../../../images/foodLocation.png",
+      id: 4,
+      latitude: 32.117280,
+      longitude: 118.933580,
+      width: 30,
+      height: 30
+    }, {
+      iconPath: "../../../images/expressLocation.png",
+      id: 5,
+      latitude: 32.116340,
+      longitude: 118.935340,
+      width: 30,
+      height: 30
+    }]
+    var tempFood_Location = [false, false, false, false]
+    var locationList = ''
+    this.setData({
+      distance: 0
+    })
+    var userLocation = String(latitude_user + "," + logitude_user)
+    var _this = this
+    //判断商品出发点
+    db.collection('Order').where({
+      order_id: this.data.id
+    }).get().then(res => {
+      this.setData({
+        food_location: [false, false, false, false]
+      })
+      Object.keys(res.data[0].order).forEach(function (key) {
+        var tempDataID = res.data[0].order[key].dataID
+        console.log(tempDataID)
+        //快递
+        if (tempDataID == "fc0705b9-1f32-4295-ae58-76427cdab816" || tempDataID == "ff4ed28d-d8c2-4c82-af0d-0ebd355546f1" || tempDataID == "f836f523-decb-4289-bfab-d89adf4b03fe") {
+          tempFood_Location[3] = true
+          locationList += '32.116340,118.935340;'
+          _this.data.markers.push(tempMarkers[3])
+        } else {
+          //食品
+          db.collection('foods').where({
+            _id: tempDataID
+          }).get().then(res => {
+            console.log(res)
+            if (res.data[0].location == "南一") {
+              if (!tempFood_Location[0]) {
+                tempFood_Location[0] = true
+                locationList += '32.108430,118.933370;'
+                _this.data.markers.push(tempMarkers[0])
+              }
+            } else if (res.data[0].location == "南二") {
+              if (!tempFood_Location[1]) {
+                tempFood_Location[1] = true
+                locationList += '32.111720,118.933180;'
+                _this.data.markers.push(tempMarkers[1])
+              }
+            } else if (res.data[0].location == "南三") {
+              if (!tempFood_Location[2]) {
+                tempFood_Location[2] = true
+                locationList += '32.117280,118.933580;'
+                _this.data.markers.push(tempMarkers[2])
+              }
+            }
+            locationList = locationList.substr(0, locationList.length - 1)
+            _this.distance(userLocation, locationList)
+          })
+        }
+      });
+      this.setData({
+        food_location: tempFood_Location,
+        markers: this.data.markers,
+      })
+    })
 
+
+    //this.showWay(),
+  },
+  distance: function (a, b) {
+    var _this = this;
+    console.log(b)
+    //调用距离计算接口
+    qqmapsdk.calculateDistance({
+      //mode: 'driving',//可选值：'driving'（驾车）、'walking'（步行），不填默认：'walking',可不填
+      //from参数不填默认当前地址
+      //获取表单提交的经纬度并设置from和to参数（示例为string格式）
+      from: a, //若起点有数据则采用起点坐标，若为空默认当前地址
+      to: b, //终点坐标
+      success: function (res) { //成功后的回调
+        console.log(res);
+        var res = res.result;
+        var dis = [];
+        var totalDis = 0;
+        var flag = false;
+        for (var i = 0; i < res.elements.length; i++) {
+          dis.push(res.elements[i].distance); //将返回数据存入dis数组，
+          totalDis += res.elements[i].distance;
+          if (i > 0) {
+            flag = true
+            _this.setData({
+              tip: "[跨店订单]"
+            })
+          }
+        }
+        _this.setData({ //设置并更新distance数据
+          distance: dis,
+          totalDistance: totalDis / 1000.0,
+          totalTime: totalDis / _this.data.speed_user,
+          is_CrossStore: flag
+        });
+      },
+      fail: function (error) {
+        console.error(error);
+      },
+      complete: function (res) {
+        console.log(res);
+      }
+    });
+    return true
+  },
   onShow: function() {
-
+    
   }
 })
