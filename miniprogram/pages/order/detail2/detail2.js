@@ -368,40 +368,57 @@ Page({
           tempFood_Location[3] = true
           locationList += '32.116340,118.935340;'
           _this.data.markers.push(tempMarkers[3])
+          _this.distance(userLocation, locationList)
+          _this.setData({
+            food_location: tempFood_Location,
+            markers: _this.data.markers,
+          })
         } else {
           //食品
           db.collection('foods').where({
             _id: tempDataID
           }).get().then(res => {
-            console.log(res)
             if (res.data[0].location == "南一") {
               if (!tempFood_Location[0]) {
                 tempFood_Location[0] = true
                 locationList += '32.108430,118.933370;'
                 _this.data.markers.push(tempMarkers[0])
+                console.log("南一" + locationList)
+                _this.distance(userLocation, locationList)
+                _this.setData({
+                  food_location: tempFood_Location,
+                  markers: _this.data.markers,
+                })
               }
             } else if (res.data[0].location == "南二") {
               if (!tempFood_Location[1]) {
                 tempFood_Location[1] = true
                 locationList += '32.111720,118.933180;'
                 _this.data.markers.push(tempMarkers[1])
+                console.log("南二" + locationList)
+                _this.distance(userLocation, locationList)
+                _this.setData({
+                  food_location: tempFood_Location,
+                  markers: _this.data.markers,
+                })
               }
             } else if (res.data[0].location == "南三") {
               if (!tempFood_Location[2]) {
                 tempFood_Location[2] = true
                 locationList += '32.117280,118.933580;'
                 _this.data.markers.push(tempMarkers[2])
+                console.log("南三" + locationList)
+                _this.distance(userLocation, locationList)
+                _this.setData({
+                  food_location: tempFood_Location,
+                  markers: _this.data.markers,
+                })
               }
             }
-            locationList = locationList.substr(0, locationList.length - 1)
-            _this.distance(userLocation, locationList)
           })
         }
+
       });
-      this.setData({
-        food_location: tempFood_Location,
-        markers: this.data.markers,
-      })
     })
   },
 
@@ -415,15 +432,16 @@ Page({
     //this.showWay(),
   },
   distance: function (a, b) {
+    console.log("调用腾讯地图SDK" + a + b)
     var _this = this;
-    console.log(b)
+    console.log(a)
     //调用距离计算接口
     qqmapsdk.calculateDistance({
       //mode: 'driving',//可选值：'driving'（驾车）、'walking'（步行），不填默认：'walking',可不填
       //from参数不填默认当前地址
       //获取表单提交的经纬度并设置from和to参数（示例为string格式）
       from: a, //若起点有数据则采用起点坐标，若为空默认当前地址
-      to: b, //终点坐标
+      to: b.substr(0, b.length - 1), //终点坐标
       success: function (res) { //成功后的回调
         console.log(res);
         var res = res.result;
@@ -436,14 +454,17 @@ Page({
           if (i > 0) {
             flag = true
             _this.setData({
-              tip: "[跨店订单]"
+              tip: "跨店订单"
+            })
+          } else {
+            _this.setData({
+              tip: "订单"
             })
           }
         }
         _this.setData({ //设置并更新distance数据
           distance: dis,
-          totalDistance: totalDis,
-          totalTime: totalDis / _this.data.speed_user,
+          totalTime: totalDis/_this.data.speed_user,
           is_CrossStore: flag
         });
       },

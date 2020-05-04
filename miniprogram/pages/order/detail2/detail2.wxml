@@ -148,11 +148,13 @@
   <wxs module="timeFormat">
   module.exports = function(time) {
     if (time<60){
-      return time+'分钟'
-    }else if(time < 1440){
-      return (time/60).toFixed(0) +'小时'+ (time%60)
-    }else(time >= 1440){
-      return (time/1440).toFixed(0) +'天'+ (time%1440/60).toFixed(0) +'小时'+ (time%60).toFixed(0)+'分钟'
+      return time+'秒'
+    }else if(time < 3600){
+      return (time/60).toFixed(0) +'分钟'+ (time%60)+'秒'
+    }else if(time < 86400){
+      return (time/3600).toFixed(0) +'小时'+ (time%3600/60).toFixed(0) +'分钟'
+    }else{
+      return (time/86400).toFixed(0) +'天'+ (time%86400/3600).toFixed(0) +'小时'+ (time%3600/60).toFixed(0)+'分钟'
     }
   }
   </wxs>

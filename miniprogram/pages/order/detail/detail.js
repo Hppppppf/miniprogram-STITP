@@ -297,7 +297,11 @@ Page({
           tempFood_Location[3] = true
           locationList += '32.116340,118.935340;'
           _this.data.markers.push(tempMarkers[3])
-          count++
+          _this.distance(userLocation, locationList)
+          _this.setData({
+            food_location: tempFood_Location,
+            markers: _this.data.markers,
+          })
         } else {
           //食品
           db.collection('foods').where({
@@ -309,7 +313,11 @@ Page({
                 locationList += '32.108430,118.933370;'
                 _this.data.markers.push(tempMarkers[0])
                 console.log("南一" + locationList)
-                count++
+                _this.distance(userLocation, locationList)
+                _this.setData({
+                  food_location: tempFood_Location,
+                  markers: _this.data.markers,
+                })
               }
             } else if (res.data[0].location == "南二") {
               if (!tempFood_Location[1]) {
@@ -317,7 +325,11 @@ Page({
                 locationList += '32.111720,118.933180;'
                 _this.data.markers.push(tempMarkers[1])
                 console.log("南二" + locationList)
-                count++
+                _this.distance(userLocation, locationList)
+                _this.setData({
+                  food_location: tempFood_Location,
+                  markers: _this.data.markers,
+                })
               }
             } else if (res.data[0].location == "南三") {
               if (!tempFood_Location[2]) {
@@ -325,23 +337,16 @@ Page({
                 locationList += '32.117280,118.933580;'
                 _this.data.markers.push(tempMarkers[2])
                 console.log("南三"+locationList)
-                count++
+                _this.distance(userLocation, locationList)
+                _this.setData({
+                  food_location: tempFood_Location,
+                  markers: _this.data.markers,
+                })
               }
             }
           })
-          if (count == res.data[0].number) {
-            console.log(count)
-            _this.distance(userLocation, locationList)
-            _this.setData({
-              food_location: tempFood_Location,
-              markers: _this.data.markers,
-            })
-          }
         }
-        
-        
-        
-        
+       
       });
     })
 
