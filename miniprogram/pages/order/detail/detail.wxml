@@ -5,7 +5,7 @@
     <view class="card-content">
       <view class="card-info">
         <text class="card-code">{{code}}</text>
-        <text class="card-info-r">{{tip}}正在加急配送中…</text>
+        <text class="card-info-r">您的{{tip}}正在配送中…</text>
       </view>
       <view class="card-comment" wx:if="{{note}}">备注：{{note}}</view>
       <view class="card-tips">美食配送中，尽快为您服务☺</view>

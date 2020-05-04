@@ -209,7 +209,7 @@ Page({
   },
   distance: function(a, b) {
     var _this = this;
-    console.log(b)
+    console.log(a)
     //调用距离计算接口
     qqmapsdk.calculateDistance({
       //mode: 'driving',//可选值：'driving'（驾车）、'walking'（步行），不填默认：'walking',可不填
@@ -228,6 +228,13 @@ Page({
           totalDis += res.elements[i].distance;
           if (i > 0) {
             flag = true
+            _this.setData({
+              tip:"跨店订单"
+            })
+          }else{
+            _this.setData({
+              tip: "订单"
+            })
           }
         }
         _this.setData({ //设置并更新distance数据
