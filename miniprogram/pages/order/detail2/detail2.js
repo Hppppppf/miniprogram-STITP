@@ -35,38 +35,10 @@ Page({
     longitude_food: 0,
     latitude_user: 0,
     longitude_user: 0,
-    speed_user:0.2,
+    speed_user:1.25,
     totalTime:0,
     polyline: [],
-    markers: [{
-      iconPath: "../../../images/foodLocation.png",
-      id: 2,
-      latitude: 32.108430,
-      longitude: 118.933370,
-      width: 30,
-      height: 30
-    }, {
-      iconPath: "../../../images/foodLocation.png",
-      id: 3,
-      latitude: 32.111720,
-      longitude: 118.933180,
-      width: 30,
-      height: 30
-    }, {
-      iconPath: "../../../images/foodLocation.png",
-      id: 4,
-      latitude: 32.117280,
-      longitude: 118.933580,
-      width: 30,
-      height: 30
-    }, {
-      iconPath: "../../../images/expressLocation.png",
-      id: 5,
-      latitude: 32.116340,
-      longitude: 118.935340,
-      width: 30,
-      height: 30
-    }],
+    markers: [],
     deliveryfee:0
     /*
       markers: [{
@@ -140,13 +112,13 @@ Page({
               _this.setData({
                 latitude_user: latitudeGet,
                 longitude_user: longitudeGet,
-                speed_user: 0.2,//speedGet,
+                speed_user: 1.25,//speedGet,
               })
               _this.calculateDis(longitudeGet,latitudeGet)
             }
           })
-          
         }
+        console.log(data)
         this.setData({
           order_food: data.data[0].order,
           price: data.data[0].orderPrice - temppromotion,
@@ -470,7 +442,7 @@ Page({
         }
         _this.setData({ //设置并更新distance数据
           distance: dis,
-          totalDistance: totalDis / 1000.0,
+          totalDistance: totalDis,
           totalTime: totalDis / _this.data.speed_user,
           is_CrossStore: flag
         });

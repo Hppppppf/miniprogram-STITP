@@ -25,35 +25,7 @@ Page({
     latitude_user: 0,
     longitude_user: 0,
     polyline: [],
-    markers: [{
-      iconPath: "../../../images/foodLocation.png",
-      id: 2,
-      latitude: 32.108430,
-      longitude: 118.933370,
-      width: 30,
-      height: 30
-    }, {
-      iconPath: "../../../images/foodLocation.png",
-      id: 3,
-      latitude: 32.111720,
-      longitude: 118.933180,
-      width: 30,
-      height: 30
-    }, {
-      iconPath: "../../../images/foodLocation.png",
-      id: 4,
-      latitude: 32.117280,
-      longitude: 118.933580,
-      width: 30,
-      height: 30
-    }, {
-      iconPath: "../../../images/expressLocation.png",
-      id: 5,
-      latitude: 32.116340,
-      longitude: 118.935340,
-      width: 30,
-      height: 30
-    }],
+    markers: [],
     deliveryfee: 0,
     food_location: [false, false, false, false],
     locationList: '',
@@ -207,53 +179,9 @@ Page({
   takefood: function() {
 
   },
-  distance: function(a, b) {
-    var _this = this;
-    console.log(a)
-    //调用距离计算接口
-    qqmapsdk.calculateDistance({
-      //mode: 'driving',//可选值：'driving'（驾车）、'walking'（步行），不填默认：'walking',可不填
-      //from参数不填默认当前地址
-      //获取表单提交的经纬度并设置from和to参数（示例为string格式）
-      from: a, //若起点有数据则采用起点坐标，若为空默认当前地址
-      to: b, //终点坐标
-      success: function(res) { //成功后的回调
-        console.log(res);
-        var res = res.result;
-        var dis = [];
-        var totalDis = 0;
-        var flag = false;
-        for (var i = 0; i < res.elements.length; i++) {
-          dis.push(res.elements[i].distance); //将返回数据存入dis数组，
-          totalDis += res.elements[i].distance;
-          if (i > 0) {
-            flag = true
-            _this.setData({
-              tip:"跨店订单"
-            })
-          }else{
-            _this.setData({
-              tip: "订单"
-            })
-          }
-        }
-        _this.setData({ //设置并更新distance数据
-          distance: dis,
-          totalDistance: totalDis / 1000.0,
-          is_CrossStore: flag
-        });
-      },
-      fail: function(error) {
-        console.error(error);
-      },
-      complete: function(res) {
-        console.log(res);
-      }
-    });
-    return true
-  },
+
   showWay: function(a, b) {
-    console.log("调用腾讯地图SDK")
+    console.log("调用腾讯地图SDK"+a+b)
     var _this = this;
     //调用距离计算接口
     qqmapsdk.direction({
@@ -352,6 +280,7 @@ Page({
       distance: 0
     })
     var userLocation = String(this.data.latitude_user + "," + this.data.longitude_user)
+    var count = 0
     var _this = this
     //判断商品出发点
     db.collection('Order').where({
@@ -368,44 +297,102 @@ Page({
           tempFood_Location[3] = true
           locationList += '32.116340,118.935340;'
           _this.data.markers.push(tempMarkers[3])
+          count++
         } else {
           //食品
           db.collection('foods').where({
             _id: tempDataID
           }).get().then(res => {
-            console.log(res)
             if (res.data[0].location == "南一") {
               if (!tempFood_Location[0]) {
                 tempFood_Location[0] = true
                 locationList += '32.108430,118.933370;'
                 _this.data.markers.push(tempMarkers[0])
+                console.log("南一" + locationList)
+                count++
               }
             } else if (res.data[0].location == "南二") {
               if (!tempFood_Location[1]) {
                 tempFood_Location[1] = true
                 locationList += '32.111720,118.933180;'
                 _this.data.markers.push(tempMarkers[1])
+                console.log("南二" + locationList)
+                count++
               }
             } else if (res.data[0].location == "南三") {
               if (!tempFood_Location[2]) {
                 tempFood_Location[2] = true
                 locationList += '32.117280,118.933580;'
                 _this.data.markers.push(tempMarkers[2])
+                console.log("南三"+locationList)
+                count++
               }
             }
-            locationList = locationList.substr(0, locationList.length - 1)
-            _this.distance(userLocation, locationList)
           })
+          if (count == res.data[0].number) {
+            console.log(count)
+            _this.distance(userLocation, locationList)
+            _this.setData({
+              food_location: tempFood_Location,
+              markers: _this.data.markers,
+            })
+          }
         }
+        
+        
+        
+        
       });
-      this.setData({
-        food_location: tempFood_Location,
-        markers: this.data.markers,
-      })
     })
 
 
     //this.showWay(),
+  },
+  distance: function (a, b) {
+    console.log("调用腾讯地图SDK" + a + b)
+    var _this = this;
+    console.log(a)
+    //调用距离计算接口
+    qqmapsdk.calculateDistance({
+      //mode: 'driving',//可选值：'driving'（驾车）、'walking'（步行），不填默认：'walking',可不填
+      //from参数不填默认当前地址
+      //获取表单提交的经纬度并设置from和to参数（示例为string格式）
+      from: a, //若起点有数据则采用起点坐标，若为空默认当前地址
+      to: b.substr(0, b.length - 1), //终点坐标
+      success: function (res) { //成功后的回调
+        console.log(res);
+        var res = res.result;
+        var dis = [];
+        var totalDis = 0;
+        var flag = false;
+        for (var i = 0; i < res.elements.length; i++) {
+          dis.push(res.elements[i].distance); //将返回数据存入dis数组，
+          totalDis += res.elements[i].distance;
+          if (i > 0) {
+            flag = true
+            _this.setData({
+              tip: "跨店订单"
+            })
+          } else {
+            _this.setData({
+              tip: "订单"
+            })
+          }
+        }
+        _this.setData({ //设置并更新distance数据
+          distance: dis,
+          totalDistance: totalDis,
+          is_CrossStore: flag
+        });
+      },
+      fail: function (error) {
+        console.error(error);
+      },
+      complete: function (res) {
+        console.log(res);
+      }
+    });
+    return true
   },
   onShow: function() {
 

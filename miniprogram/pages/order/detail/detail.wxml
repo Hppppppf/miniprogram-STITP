@@ -33,7 +33,7 @@
     </view>
     <view class="weui-cell">
       <view class="weui-cell__bd">配送总距离</view>
-      <view class="weui-cell__ft">{{totalDistance}}KM</view>
+      <view class="weui-cell__ft">{{disFormat(totalDistance)}}</view>
     </view>
     <view class="weui-cell" wx:if="{{order_taken}}">
       <view class="weui-cell__bd">配送员信息</view>
@@ -116,7 +116,15 @@
   <view class="tips" wx:else>等待接单中</view>
 </block>
 
-
+<wxs module="disFormat">
+  module.exports = function(dis) {
+    if (dis<1000){
+      return dis+'M'
+    }else{
+      return parseFloat(dis/1000.0).toFixed(2)+'KM'
+    }
+  }
+</wxs>
 <wxs module="priceFormat">
   module.exports = function(price) {
     return '¥ ' + parseFloat(price).toFixed(2)
