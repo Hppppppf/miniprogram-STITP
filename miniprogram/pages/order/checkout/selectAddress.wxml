@@ -19,9 +19,6 @@
               </view>
             </view>
           </view>
-          <view class="location-modify" bindtap="modifyLocation" data-index="{{idx}}">
-            <image class="location-modifyimage" src="../../../images/edit.png"></image>
-          </view>
           <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{location.checked}}">
             <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
           </view>

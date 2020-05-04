@@ -154,12 +154,18 @@ Page({
           for (let j = 0; j < promise.data.length; j++) {
             arraypro.push(promise.data[j])
           }
-
+          const taken=[]
+          for(var i in arraypro){
+            if(arraypro[i].order_taken){
+              taken.push(arraypro[i])
+              arraypro.splice(i,1)
+            }
+          }
           console.log('arraypro=  ', arraypro)
-          //对数据进行排序，使最新的订单出现在最上面
+          //对数据进行排序，使最贵的订单出现在最上面
           var compare = function(obj1, obj2) {
-            var var1 = obj1.pay_time
-            var var2 = obj2.pay_time
+            var var1 = obj1.deliveryfee/obj1.totalDis
+            var var2 = obj2.deliveryfee/obj2.totalDis
             if (var1 < var2) {
               return 1
             } else if (var1 > var2) {
@@ -170,6 +176,21 @@ Page({
           }
           arraypro.sort(compare)
           console.log('SORTARRATPRO=', arraypro)
+          var  compare1 =function(obj1,obj2){
+            var var1=obj1.pay_time;
+            var var2=obj2.pay_time;
+            if (var1 < var2) {
+              return 1
+            } else if (var1 > var2) {
+              return -1
+            } else {
+              return 0
+            }
+          }
+          taken.sort(compare1)
+          for(var i in taken){
+            arraypro.push(taken[i])
+          }
           //将数据传递到页面视图
           that.setData({
             order: arraypro,

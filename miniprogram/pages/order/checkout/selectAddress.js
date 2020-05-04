@@ -44,14 +44,14 @@ Page({
       })
     })
   },
-
+/*
   modifyLocation(e) {
     console.log(e)
     wx.navigateTo({
       url: '/pages/record/location/setLocation/setLocation?index=' + e.currentTarget.dataset.index,
     })
   },
-
+*/
   addLocation: function(e) {
     wx.navigateTo({
       url: '/pages/userlogin/register?isAdd=' + true,
