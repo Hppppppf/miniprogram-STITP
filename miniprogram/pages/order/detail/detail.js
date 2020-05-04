@@ -54,13 +54,13 @@ Page({
       width: 30,
       height: 30
     }],
-    deliveryfee:0,
-    food_location:[false,false,false,false],
-    locationList:'',
-    distance:[],
-    totalDistance:0,
-    is_CrossStore:false,
-    tip:'',
+    deliveryfee: 0,
+    food_location: [false, false, false, false],
+    locationList: '',
+    distance: [],
+    totalDistance: 0,
+    is_CrossStore: false,
+    tip: '',
   },
 
   onLoad: function(options) {
@@ -116,10 +116,10 @@ Page({
           latitude_food: res.data[0].geoPoint[0][1],
           markers: this.data.markers,
 
-          deliveryfee:data.data[0].deliveryfee,
+          deliveryfee: data.data[0].deliveryfee,
         })
         this.calculateDis()
-          wx.hideLoading()
+        wx.hideLoading()
       })
       var fetchCode
       if (this.data.id < 10) {
@@ -138,7 +138,7 @@ Page({
         taken_time: this.data.taken_time,
         note: this.data.note,
         address: this.data.address,
-        deliveryfee:this.data.deliveryfee,
+        deliveryfee: this.data.deliveryfee,
       })
     })
 
@@ -153,7 +153,7 @@ Page({
   },
 
   getfood: function() {
-    var _that=this
+    var _that = this
     wx.showModal({
       title: '提示',
       content: '请务必收到货物后再确认！',
@@ -167,16 +167,27 @@ Page({
           db.collection('Order').where({
             order_id: _that.data.id
           }).get().then(res => {
-           wx.cloud.callFunction({
-             name:'is_taken',
-             data:{
-               _id:res.data[0]._id,
-               is_taken:_that.data.is_taken,
-               taken_time:_that.data.taken_time,
-             }
-           })
+            wx.cloud.callFunction({
+              name: 'is_taken',
+              data: {
+                _id: res.data[0]._id,
+                is_taken: _that.data.is_taken,
+                taken_time: _that.data.taken_time,
+              }
+            })
+            db.collection('Credit').where({
+              order_id: _that.data.id
+            }).get().then(res => {
+              wx.cloud.callFunction({
+                name: 'credit_get',
+                data: {
+                  _id: res.data[0]._id,
+                  order_id: _that.data.id
+                }
+              })
+            })
           })
-        }else if(res.cancel){
+        } else if (res.cancel) {
 
         }
       }
@@ -186,7 +197,7 @@ Page({
   takefood: function() {
 
   },
-  distance:function(a,b){
+  distance: function(a, b) {
     var _this = this;
     console.log(b)
     //调用距离计算接口
@@ -196,7 +207,7 @@ Page({
       //获取表单提交的经纬度并设置from和to参数（示例为string格式）
       from: a, //若起点有数据则采用起点坐标，若为空默认当前地址
       to: b, //终点坐标
-      success: function (res) {//成功后的回调
+      success: function(res) { //成功后的回调
         console.log(res);
         var res = res.result;
         var dis = [];
@@ -205,26 +216,26 @@ Page({
         for (var i = 0; i < res.elements.length; i++) {
           dis.push(res.elements[i].distance); //将返回数据存入dis数组，
           totalDis += res.elements[i].distance;
-          if (i>0){
-            flag=true
+          if (i > 0) {
+            flag = true
           }
         }
         _this.setData({ //设置并更新distance数据
           distance: dis,
-          totalDistance:totalDis/1000.0,
-          is_CrossStore:flag
+          totalDistance: totalDis / 1000.0,
+          is_CrossStore: flag
         });
       },
-      fail: function (error) {
+      fail: function(error) {
         console.error(error);
       },
-      complete: function (res) {
+      complete: function(res) {
         console.log(res);
       }
     });
     return true
   },
-  showWay: function(a,b) {
+  showWay: function(a, b) {
     console.log("调用腾讯地图SDK")
     var _this = this;
     //调用距离计算接口
@@ -288,7 +299,7 @@ Page({
       }
     });
   },
-  calculateDis:function(){
+  calculateDis: function() {
     let tempMarkers = [{
       iconPath: "../../../images/foodLocation.png",
       id: 2,
@@ -297,27 +308,27 @@ Page({
       width: 30,
       height: 30
     }, {
-        iconPath: "../../../images/foodLocation.png",
-        id: 3,
-        latitude: 32.111720, 
-        longitude: 118.933180,
-        width: 30,
-        height: 30
-      }, {
-        iconPath: "../../../images/foodLocation.png",
-        id: 4,
-        latitude: 32.117280, 
-        longitude: 118.933580,
-        width: 30,
-        height: 30
-      }, {
-        iconPath: "../../../images/expressLocation.png",
-        id: 5,
-        latitude: 32.116340,
-        longitude: 118.935340,
-        width: 30,
-        height: 30
-      }]
+      iconPath: "../../../images/foodLocation.png",
+      id: 3,
+      latitude: 32.111720,
+      longitude: 118.933180,
+      width: 30,
+      height: 30
+    }, {
+      iconPath: "../../../images/foodLocation.png",
+      id: 4,
+      latitude: 32.117280,
+      longitude: 118.933580,
+      width: 30,
+      height: 30
+    }, {
+      iconPath: "../../../images/expressLocation.png",
+      id: 5,
+      latitude: 32.116340,
+      longitude: 118.935340,
+      width: 30,
+      height: 30
+    }]
     var tempFood_Location = [false, false, false, false]
     var locationList = ''
     this.setData({
@@ -332,7 +343,7 @@ Page({
       this.setData({
         food_location: [false, false, false, false]
       })
-      Object.keys(res.data[0].order).forEach(function (key) {
+      Object.keys(res.data[0].order).forEach(function(key) {
         var tempDataID = res.data[0].order[key].dataID
         console.log(tempDataID)
         //快递
@@ -347,7 +358,7 @@ Page({
           }).get().then(res => {
             console.log(res)
             if (res.data[0].location == "南一") {
-              if(!tempFood_Location[0]){
+              if (!tempFood_Location[0]) {
                 tempFood_Location[0] = true
                 locationList += '32.108430,118.933370;'
                 _this.data.markers.push(tempMarkers[0])
@@ -380,7 +391,7 @@ Page({
     //this.showWay(),
   },
   onShow: function() {
-    
+
 
   },
 })

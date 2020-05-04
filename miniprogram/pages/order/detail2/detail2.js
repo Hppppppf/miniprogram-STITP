@@ -101,7 +101,7 @@ Page({
         order_id: this.data.id,
         credit_p: 0,
         credit_got: 0,
-        credit_total: 0,
+        orderPrice:0,
       }
     })
   },
