@@ -30,37 +30,6 @@ Page({
           }
         })
       }
-      /* //定义每次获取的条数
-       const MAX_LIMIT = 20
-       //先取出集合的总数
-       var total = 0
-       db.collection('Credit').where({
-         _openid: wx.getStorageSync('_OPENID')
-       }).count().then(res => {
-         //console.log('Count', res)
-         total = res.total;
-         console.log('Total', total)
-         //计算需要分几次取
-         const batchTimes = Math.ceil(total / MAX_LIMIT)
-         //承载所有读操作的promise的数组
-         const arraypro = []
-         //初次循环获取云端数据库的分次数的promise数组
-         for (let i = 0; i < batchTimes; i++) {
-           var promise = 0
-           db.collection('Credit').where({
-             _openid: wx.getStorageSync('_OPENID')
-           }).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get().then(res => {
-             //console.log('promiseRes', res)
-             promise = res
-             console.log('promise', promise)
-             //二次循环根据获取的promise数组的数据长度获取全部数据push到arraypro数组中
-             for (let j = 0; j < promise.data.length; j++) {
-               arraypro.push(promise.data[j])
-             }
-             console.log('arraypro=  ', arraypro)
-           })
-         }
-       })*/
       db.collection('CreditTotal').where({
         _openid: wx.getStorageSync('_OPENID')
       }).get().then(res => {

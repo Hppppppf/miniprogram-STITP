@@ -1,4 +1,5 @@
 /* pages/order/detail/detail.wxss */
+
 page {
   background: #f8f8f8;
 }
@@ -81,6 +82,10 @@ page {
   display: flex;
 }
 
+.order-item-price {
+  margin-right: 40rpx;
+}
+
 .order-item-image {
   width: 94rpx;
   height: 94rpx;
@@ -133,15 +138,16 @@ page {
   text-align: center;
   margin: 20rpx auto 40rpx;
   padding: 12rpx 20rpx;
-  background: #00D8A0;
+  background: #00d8a0;
   color: #fff;
   font-size: 36rpx;
 }
-.button-getfood{
+
+.button-getfood {
   width: 85%;
   height: 80rpx;
   text-align: center;
   background: #fff;
-  color: #00D8A0;
+  color: #00d8a0;
   font-size: 36rpx;
 }

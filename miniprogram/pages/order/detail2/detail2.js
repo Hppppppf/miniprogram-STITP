@@ -18,7 +18,7 @@ Page({
     latitude: 0,
     longitude: 0,
     food_arrival: false,
-
+    deliveryfee:0
     /*
       markers: [{
         //iconPath: "/resources/others.png",
@@ -74,6 +74,7 @@ Page({
           order_taken: data.data[0].order_taken,
           note: data.data[0].note,
           address: data.data[0].location,
+          deliveryfee:data.data[0].deliveryfee
         })
         wx.hideLoading()
       })
