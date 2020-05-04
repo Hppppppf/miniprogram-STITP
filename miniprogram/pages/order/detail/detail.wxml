@@ -13,7 +13,7 @@
   </view>
 </view>
 <!--地图容器-->
-<map id="myMap" style="width: 100%; height: 200px;" longitude="118.933762" latitude="32.116058" scale='14' subkey="AVABZ-EIPWP-7RTDK-L6UQ3-SHYET-V5B6V" polyline="{{polyline}}" markers="{{markers}}"></map>
+<map id="myMap" style="width: 100%; height: 200px;" longitude="118.93116" latitude="32.11536" scale='15'  subkey="AVABZ-EIPWP-7RTDK-L6UQ3-SHYET-V5B6V" polyline="{{polyline}}" markers="{{markers}}"></map>
 
 <view class="order">
   <view class="order-title">配送信息</view>

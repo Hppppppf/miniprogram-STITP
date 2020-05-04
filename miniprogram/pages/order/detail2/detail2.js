@@ -139,7 +139,7 @@ Page({
               const accuracyGet = res.accuracy
               _this.setData({
                 latitude_user: latitudeGet,
-                logitude_user: longitudeGet,
+                longitude_user: longitudeGet,
                 speed_user: 0.2,//speedGet,
               })
               _this.calculateDis(longitudeGet,latitudeGet)
@@ -344,7 +344,7 @@ Page({
       deliveryname: e.detail.value
     })
   },
-  calculateDis: function (logitude_user,latitude_user) {
+  calculateDis: function (longitude_user,latitude_user) {
     let tempMarkers = [{
       iconPath: "../../../images/foodLocation.png",
       id: 2,
@@ -379,7 +379,7 @@ Page({
     this.setData({
       distance: 0
     })
-    var userLocation = String(latitude_user + "," + logitude_user)
+    var userLocation = String(latitude_user + "," + longitude_user)
     var _this = this
     //判断商品出发点
     db.collection('Order').where({

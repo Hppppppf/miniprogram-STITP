@@ -21,9 +21,9 @@ Page({
     note: '',
     address: '',
     latitude_food: 0,
-    logitude_food: 0,
+    longitude_food: 0,
     latitude_user: 0,
-    logitude_user: 0,
+    longitude_user: 0,
     polyline: [],
     markers: [{
       iconPath: "../../../images/foodLocation.png",
@@ -110,9 +110,9 @@ Page({
           note: data.data[0].note,
           address: data.data[0].location,
           latitude_user: data.data[0].location.latitude,
-          logitude_user: data.data[0].location.longitude,
+          longitude_user: data.data[0].location.longitude,
 
-          logitude_food: res.data[0].geoPoint[0][0],
+          longitude_food: res.data[0].geoPoint[0][0],
           latitude_food: res.data[0].geoPoint[0][1],
           markers: this.data.markers,
 
@@ -259,8 +259,8 @@ Page({
     qqmapsdk.direction({
       mode: 'walking', //'walk'(步行路线规划)
       //from参数不填默认当前地址
-      from: String(this.data.latitude_food + ',' + this.data.logitude_food),
-      to: String(this.data.latitude_user + ',' + this.data.logitude_user),
+      from: String(this.data.latitude_food + ',' + this.data.longitude_food),
+      to: String(this.data.latitude_user + ',' + this.data.longitude_user),
       success: function(res) {
         console.log(res);
         var ret = res.result.routes[0];
@@ -351,7 +351,7 @@ Page({
     this.setData({
       distance: 0
     })
-    var userLocation = String(this.data.latitude_user + "," + this.data.logitude_user)
+    var userLocation = String(this.data.latitude_user + "," + this.data.longitude_user)
     var _this = this
     //判断商品出发点
     db.collection('Order').where({
