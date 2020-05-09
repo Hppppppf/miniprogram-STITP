@@ -1,12 +1,18 @@
-# 云开发 quickstart
+<h1 align="center">Welcome to miniprogram-STITP 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+</p>
 
-这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：
+> 基于微信小程序的货物和食品的本地化配送平台系统
 
-- 数据库：一个既可在小程序前端操作，也能在云函数中读写的 JSON 文档型数据库
-- 文件存储：在小程序前端直接上传/下载云端文件，在云开发控制台可视化管理
-- 云函数：在云端运行的代码，微信私有协议天然鉴权，开发者只需编写业务逻辑代码
+## Author
 
-## 参考文档
+👤 **Hppppppf,Chris Sine**
 
-- [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
 
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
