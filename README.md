@@ -22,21 +22,21 @@
 微信客户端
 
 正式版：
-![正式版小程序码](https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E7%99%BD%E8%89%B2%E7%89%88.png "正式版小程序码")
+![正式版小程序码](https://github.com/Hppppppf/miniprogram-STITP/master/README_images/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E7%99%BD%E8%89%B2%E7%89%88.png "正式版小程序码")
 
 体验版(完整版)：
-![体验版二维码](https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/o6CCv4ptmRRdVpW2zXYi37u1Q_JE.jpg "体验版二维码")
+![体验版二维码](https://github.com/Hppppppf/miniprogram-STITP/master/README_images/o6CCv4ptmRRdVpW2zXYi37u1Q_JE.jpg "体验版二维码")
 
 ```
 
 ## 体验
 
 ```sh
-![首页](https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/Screenshot_20200509-230137_WeChat.jpg "首页")
-![点菜页面](https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/Screenshot_20200509-230214_WeChat.jpg "点菜页面")
-![结算页面](https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/Screenshot_20200509-230225_WeChat.jpg "结算页面")
-![订单详情](https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/Screenshot_20200509-230242_WeChat.jpg "订单详情")
-![我的](https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/Screenshot_20200509-230252_WeChat.jpg "我的")
+![首页](https://github.com/Hppppppf/miniprogram-STITP/master/README_images/Screenshot_20200509-230137_WeChat.jpg "首页")
+![点菜页面](https://github.com/Hppppppf/miniprogram-STITP/master/README_images/Screenshot_20200509-230214_WeChat.jpg "点菜页面")
+![结算页面](https://github.com/Hppppppf/miniprogram-STITP/master/README_images/Screenshot_20200509-230225_WeChat.jpg "结算页面")
+![订单详情](https://github.com/Hppppppf/miniprogram-STITP/master/README_images/Screenshot_20200509-230242_WeChat.jpg "订单详情")
+![我的](https://github.com/Hppppppf/miniprogram-STITP/master/README_images/Screenshot_20200509-230252_WeChat.jpg "我的")
 ```
 
 ## 作者
