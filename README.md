@@ -10,10 +10,24 @@
 
 ### 🏠 [Homepage](https://github.com/Hppppppf/miniprogram-STITP)
 
+## Install
+
+```sh
+微信开发者工具(不低于v2.11.0)
+```
+
+## Usage
+
+```sh
+微信
+```
+
 ## Author
 
 👤 **Hppppppf,Chris Sine**
 
+* Website: https://github.com/Hppppppf,https://github.com/XCK1998
+* Github: [@Hppppppf,Chris Sine](https://github.com/Hppppppf,Chris Sine)
 
 ## Show your support
 
