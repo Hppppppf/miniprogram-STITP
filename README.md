@@ -1,12 +1,23 @@
-# 云开发 quickstart
+<h1 align="center">Welcome to 基于微信小程序的货物和食品的本地化配送平台系统 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <a href="https://github.com/Hppppppf/miniprogram-STITP/blob/master/%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%A7%84%E6%A0%BC%E8%AF%B4%E6%98%8E%E4%B9%A6.doc" target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+</p>
 
-这是云开发的快速启动指引，其中演示了如何上手使用云开发的三大基础能力：
+> 一款方便校园内食堂代排队、代取快递的微信小程序
 
-- 数据库：一个既可在小程序前端操作，也能在云函数中读写的 JSON 文档型数据库
-- 文件存储：在小程序前端直接上传/下载云端文件，在云开发控制台可视化管理
-- 云函数：在云端运行的代码，微信私有协议天然鉴权，开发者只需编写业务逻辑代码
+### 🏠 [Homepage](https://github.com/Hppppppf/miniprogram-STITP)
 
-## 参考文档
+## Author
 
-- [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
+👤 **Hppppppf,Chris Sine**
 
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
