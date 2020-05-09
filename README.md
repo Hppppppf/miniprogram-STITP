@@ -24,10 +24,9 @@
 
 ## Author
 
-👤 **Hppppppf,Chris Sine**
+👤 **Hppppppf and Chris Sine**
 
-* Website: https://github.com/Hppppppf,https://github.com/XCK1998
-* Github: [@Hppppppf,Chris Sine](https://github.com/Hppppppf,Chris Sine)
+* Github: [@Hppppppf,@Chris Sine]
 
 ## Show your support
 
