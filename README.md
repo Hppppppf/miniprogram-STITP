@@ -26,7 +26,9 @@
 
 👤 **Hppppppf and Chris Sine**
 
-* Github: [@Hppppppf,@Chris Sine]
+* Github: <br/>
+@Hppppppf https://github.com/Hppppppf<br/>
+@Chris Sine https://github.com/XCK1998
 
 ## Show your support
 
