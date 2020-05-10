@@ -23,9 +23,9 @@
 ```
 
 正式版：<br/>
-<img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E7%99%BD%E8%89%B2%E7%89%88.png" width="657" height="240" alt="正式版小程序码"/><br/>
+<img src="README_images/扫码_搜索联合传播样式-白色版 .png" width="400" height="150" alt="正式版小程序码"/><br/>
 体验版(完整版)：<br/>
-<img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/o6CCv4ptmRRdVpW2zXYi37u1Q_JE.jpg" width="200" height="200" alt="体验版二维码"/><br/>
+<img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/o6CCv4ptmRRdVpW2zXYi37u1Q_JE.jpg" width="150" height="150" alt="体验版二维码"/><br/>
 
 
 ## 体验
