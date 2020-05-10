@@ -8,7 +8,7 @@ Page({
    */
   data: {
     is_last: false,
-    whichorder: true,
+    whichorder: true,//我的订单：true; 全校订单:false
   },
 
   /**
