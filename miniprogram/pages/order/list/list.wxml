@@ -17,7 +17,8 @@
         <view>
           <text>共{{item.number}}件商品</text>
           <text class="list-item-price">{{priceFormat(item.orderPrice+item.deliveryfee)}}</text>
-          <text wx:if="{{((item.orderPrice+item.deliveryfee)/item.number)>20 && !whichorder}}">  推荐接单</text>
+          <!--text wx:if="{{((item.orderPrice+item.deliveryfee)/item.number)>20 && !whichorder}}">  推荐接单</text-->
+          <text wx:if="{{item.deliveryfee>=5&&!whichorder}}">高价订单</text>
         </view>
       </view>
     </view>

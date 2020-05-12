@@ -173,15 +173,7 @@ Page({
       title: '努力加载中'
     })
     var time = util.formatTime(new Date());
-    /*wx.getLocation({
-      success: function(res) {
-        db.collection('UserInfo').where({
-          _openid:wx.getStorageSync('_OPENID')
-        }).get().then(res=>{
-            //此处用于自动匹配已存地址。。。。还不知道咋写，先注释掉
-        })
-      },
-    })*/
+    
     db.collection('CartList').doc(wx.getStorageSync('_OPENID')).get().then(data => {
       db.collection('programData').get().then(res => {
         if (data.data.cartPrice > res.data[0].promotion[0]) {

@@ -9,16 +9,33 @@
 <!--开启点餐之旅 -->
 <view class="menu-bar">
   <view class="menu-block" bindtap="start">
- <view class="menu-start" open-type="getUserInfo" bindgetuserinfo="getUserInfo">开启点餐之旅→</view>
- </view>
+    <view class="menu-start" open-type="getUserInfo" bindgetuserinfo="getUserInfo">开启点餐之旅→</view>
+  </view>
 </view>
 <!-- 中间部分 -->
 <view class="ad-box">
-  <image src="{{ad}}" class="ad-image"></image>
+  <image src="{{ad}}" class="ad-image" bindtap="adgolist"></image>
 </view>
 <!-- 底部商品图 -->
-<view class="bottom-box">
+<!--view class="bottom-box">
   <view class="bottom-pic" wx:for="{{category}}" wx:key="*this">
     <image src="{{item}}" class="bottom-image"></image>
+  </view>
+</view-->
+<view class="bottom-box">
+  <view class="bottom-pic">
+    <image src="{{category[0]}}" class="bottom-image" bindtap="b0gol"></image>
+  </view>
+
+  <view class="bottom-pic">
+    <image src="{{category[1]}}" class="bottom-image" bindtap="b1gol"></image>
+  </view>
+
+  <view class="bottom-pic">
+    <image src="{{category[2]}}" class="bottom-image" bindtap="b2gol"></image>
+  </view>
+
+  <view class="bottom-pic">
+    <image src="{{category[3]}}" class="bottom-image" bindtap="b3gol"></image>
   </view>
 </view>

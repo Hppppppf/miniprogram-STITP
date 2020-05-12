@@ -10,6 +10,7 @@ Page({
     isPay: false, //用于判断用户是否进行了支付
     activeIndex: 0,
     tapIndex: 0,
+    index: 0,
     foodList: [],
     foodList2: [],
     cartList: {},
@@ -40,21 +41,46 @@ Page({
    */
   onLoad: function(options) {
     db.collection('programData').where({
-        _id: 'c0b4c39b-5e84-482f-bf27-57b8b8c900ab'
-      }).get().then(res => {
-        this.setData({
-          promotion: res.data[0].promotion,
-          foodList: res.data[0].locations
-        })
-      }),
-      db.collection('foods').where({
-        location: '南一'
-      }).get().then(res => {
-        this.setData({
-          foodList2: res.data
-        })
+      _id: 'c0b4c39b-5e84-482f-bf27-57b8b8c900ab'
+    }).get().then(res => {
+      this.setData({
+        promotion: res.data[0].promotion,
+        foodList: res.data[0].locations
       })
+      
+      if (options.activeIndex != null) {
+        var activeI = JSON.parse(options.activeIndex)
+        this.setData({
+          activeIndex: activeI,
+        })
+        if (activeI != 3) {
+          db.collection('foods').where({
+            location: this.data.foodList[activeI]
+          }).get().then(res => {
+            this.setData({
+              foodList2: res.data
+            })
+          })
+        } else {
+          db.collection('express').where({
+            category: this.data.foodList[activeI]
+          }).get().then(res => {
+            this.setData({
+              foodList2: res.data
+            })
+          })
+        }
+      } else {
 
+        db.collection('foods').where({
+          location: '南一'
+        }).get().then(res => {
+          this.setData({
+            foodList2: res.data
+          })
+        })
+      }
+    })
     //页面加载时，从云端获取用户上次购物车中的数据
     db.collection('CartList').where({
       _openid: wx.getStorageSync('_OPENID')
@@ -71,7 +97,9 @@ Page({
   },
   // 点击左侧菜单项选择
   selectMenu: function(e) {
-    let index = e.currentTarget.dataset.index
+    console.log('SelectMenu', e)
+    this.data.index = e.currentTarget.dataset.index
+    const index = this.data.index
     //console.log(index)
     this.setData({
       activeIndex: index
@@ -304,7 +332,7 @@ Page({
           cartPrice: this.data.cartPrice,
         }
       })
-    this.data. isPay=true
+      this.data.isPay = true
     }
   },
 

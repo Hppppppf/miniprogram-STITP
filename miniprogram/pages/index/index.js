@@ -7,9 +7,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    swiper: ["cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/banner_1.png", "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/banner_2.png", "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/banner_3.png"],
-    ad: "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/image_ad.png",
-    category: ["cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/bottom_1.png", "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/bottom_2.png", "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/bottom_3.png", "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/bottom_1.png"],
+    swiper: ["cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/banner1.png",
+      "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/banner2.png",
+      "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/banner3.png",
+      "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/banner4.png",
+      "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/banner5.png",
+      "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/banner6.png",
+      "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/banner7.png",
+    ],
+    ad: "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/ad3.png",
+    category: ["cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/bot4.png",
+     "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/bot3.png",
+      "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/bot2.png", 
+      "cloud://cloud-103-zifl9.636c-cloud-103-zifl9-1259648286/程序资源/bot5.png"],
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -119,6 +129,35 @@ Page({
     })
   },
 
+  adgolist: function() {
+    wx.navigateTo({
+      url: '../list/list',
+    })
+  },
+
+  b0gol: function() {
+    wx.navigateTo({
+      url: '../list/list?activeIndex=' + 0,
+    })
+  },
+
+  b1gol: function() {
+    wx.navigateTo({
+      url: '../list/list?activeIndex=' + 1,
+    })
+  },
+
+  b2gol: function() {
+    wx.navigateTo({
+      url: '../list/list?activeIndex=' + 2,
+    })
+  },
+
+  b3gol: function() {
+    wx.navigateTo({
+      url: '../list/list?activeIndex=' + 3,
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
