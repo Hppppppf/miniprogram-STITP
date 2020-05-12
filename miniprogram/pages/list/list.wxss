@@ -1,6 +1,6 @@
 /* pages/list/list.wxss */
 page {
-  display: flex;
+  display:flex;
   flex-direction: column;
   height: 100%;
 }
@@ -36,6 +36,7 @@ page {
   height: 100%;
   background: #fcfcfc;
   font-size: 28rpx;
+  display: block;
 }
 
 /* 隐藏滚动条 */
