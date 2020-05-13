@@ -1,6 +1,6 @@
 <!--pages/list/list.wxml-->
 <!-- 折扣信息区 -->
-<view class="discount" >
+<view class="discount">
   <text class="discount-txt">减</text>满{{promotion[0]}}元减{{promotion[1]}}元（在线支付专享）
 </view>
 <!-- 菜单区 -->
@@ -40,8 +40,8 @@
 </view>
 <!-- 满减优惠 -->
 <view class="promotion">
-  <label wx:if="{{promotion[0] - cartPrice > 0}}">满{{promotion[0]}}立减{{promotion[1]}}元，还差{{priceFormat(promotion[0] - cartPrice)}}元</label>
-  <label wx:else>已满{{promotion[0]}}元可减{{promotion[1]}}元</label>
+    <label wx:if="{{promotion[0] - cartPrice > 0}}">满{{promotion[0]}}立减{{promotion[1]}}元，还差{{priceFormat(promotion[0] - cartPrice)}}元</label>
+    <label wx:else>已满{{promotion[0]}}元可减{{promotion[1]}}元</label>
 </view>
 <!-- 底部固定 -->
 <view class="page__hd" style="position:fixed; bottom:0;width: 750rpx;">
@@ -63,26 +63,27 @@
     </view>
     <view class="operate-submit {{cartNumber !==0 ? 'operate-submit-activity' : ''}}" bindtap="order">选好了</view>
   </view>
-</view>
-<!-- 购物车 -->
-<view class="shopcart" wx:if="{{showCart}}">
-  <view class="shopcart-mask" bindtap="showCartList" wx:if="{{showCart}}"></view>
-  <view class="shopcart-wrap">
-    <view class="shopcart-head">
-      <view class="shopcart-head-title">已选商品</view>
-      <view class="shopcart-head-clean" bindtap="clearCartList">
-        <i class="iconfont"></i>清空购物车</view>
-    </view>
-    <view class="shopcart-list">
-      <view class="shopcart-item" wx:for="{{cartList}}" wx:key="id">
-        <view class="shopcart-item-name">{{item.name}}</view>
-        <view class="shopcart-item-price">
-          <view>{{priceFormat(item.price * item.number)}}</view>
-        </view>
-        <view class="shopcart-item-number">
-          <i class="iconfont shopcart-icon-dec" data-id="{{index}}" bindtap="cartNumberDec"></i>
-          <view>{{item.number}}</view>
-          <i class="iconfont shopcart-icon-add" data-id="{{index}}" bindtap="cartNumberAdd"></i>
+
+  <!-- 购物车 -->
+  <view class="shopcart" wx:if="{{showCart}}">
+    <view class="shopcart-mask" bindtap="showCartList" wx:if="{{showCart}}"></view>
+    <view class="shopcart-wrap">
+      <view class="shopcart-head">
+        <view class="shopcart-head-title">已选商品</view>
+        <view class="shopcart-head-clean" bindtap="clearCartList">
+          <i class="iconfont"></i>清空购物车</view>
+      </view>
+      <view class="shopcart-list">
+        <view class="shopcart-item" wx:for="{{cartList}}" wx:key="id">
+          <view class="shopcart-item-name">{{item.name}}</view>
+          <view class="shopcart-item-price">
+            <view>{{priceFormat(item.price * item.number)}}</view>
+          </view>
+          <view class="shopcart-item-number">
+            <i class="iconfont shopcart-icon-dec" data-id="{{index}}" bindtap="cartNumberDec"></i>
+            <view>{{item.number}}</view>
+            <i class="iconfont shopcart-icon-add" data-id="{{index}}" bindtap="cartNumberAdd"></i>
+          </view>
         </view>
       </view>
     </view>

@@ -1,6 +1,7 @@
 /* pages/list/list.wxss */
+
 page {
-  display:flex;
+  display: flex;
   flex-direction: column;
   height: 100%;
 }
@@ -27,6 +28,7 @@ page {
 .content {
   flex: 1;
   display: flex;
+  bottom: 150rpx;
 }
 
 /* 左侧菜单 */
@@ -113,7 +115,8 @@ page {
   color: #ff9c35;
   content: "\e728";
 }
-.food-item-opt-number{
+
+.food-item-opt-number {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -123,17 +126,20 @@ page {
 /* 满减区域 */
 
 .promotion {
+  position: fixed;
+  width: 100%;
   height: 40rpx;
   background: #ffcd9b;
   color: #fff7ec;
   font-size: 24rpx;
   text-align: center;
+  bottom: 115rpx;
 }
 
 /* 底部菜单操作 */
 
 .operate {
-  height: 110rpx;
+  height: 115rpx;
   display: flex;
 }
 
@@ -228,7 +234,7 @@ page {
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 149rpx;
+  bottom: 115rpx;
   right: 0;
   font-size: 28rpx;
 }
