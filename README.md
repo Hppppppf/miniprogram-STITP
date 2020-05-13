@@ -30,8 +30,8 @@
 
 ## 体验
 
-<img src="https://github.com/Hppppppf/miniprogram-STITP/master/README_images/Screenshot_20200513-094135_WeChat.jpg" width="240" height="480" alt="首页"/> <img src="https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/Screenshot_20200509-230208_WeChat.jpg" width="240" height="480" alt="菜单"/> <img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/Screenshot_20200509-230225_WeChat.jpg" width="240" height="480" alt="结算页面"/>
-<img src="https://github.com/Hppppppf/miniprogram-STITP/master/README_images/Screenshot_20200513-094956_WeChat.jpg" width="240" height="480" alt="全校订单"/> <img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/Screenshot_20200509-230242_WeChat.jpg" width="240" height="480" alt="订单详情"/> <img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/Screenshot_20200509-230252_WeChat.jpg" width="240" height="480" alt="我的"/>
+<img src="https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/Screenshot_20200513-094135_WeChat.jpg" width="240" height="480" alt="首页"/> <img src="https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/Screenshot_20200509-230208_WeChat.jpg" width="240" height="480" alt="菜单"/> <img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/Screenshot_20200509-230225_WeChat.jpg" width="240" height="480" alt="结算页面"/>
+<img src="https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/Screenshot_20200513-094956_WeChat.jpg" width="240" height="480" alt="全校订单"/> <img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/Screenshot_20200509-230242_WeChat.jpg" width="240" height="480" alt="订单详情"/> <img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/Screenshot_20200509-230252_WeChat.jpg" width="240" height="480" alt="我的"/>
 
 ## 作者
 
