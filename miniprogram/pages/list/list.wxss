@@ -9,6 +9,7 @@ page {
 /* 折扣信息区 */
 
 .discount {
+  position: fixed;
   width: 100%;
   height: 70rpx;
   line-height: 70rpx;
@@ -16,6 +17,7 @@ page {
   font-size: 28rpx;
   text-align: center;
   color: #999;
+  top:0rpx;
 }
 
 .discount-txt {
@@ -28,7 +30,6 @@ page {
 .content {
   flex: 1;
   display: flex;
-  bottom: 150rpx;
 }
 
 /* 左侧菜单 */
@@ -39,6 +40,7 @@ page {
   background: #fcfcfc;
   font-size: 28rpx;
   display: block;
+  margin-top: 70rpx;
 }
 
 /* 隐藏滚动条 */
@@ -68,6 +70,10 @@ page {
 }
 
 /* 右侧菜单 */
+.food{
+    margin-bottom: 155rpx;
+    margin-top: 50rpx;
+}
 
 .food-category {
   font-size: 24rpx;
