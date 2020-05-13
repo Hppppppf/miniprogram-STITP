@@ -18,6 +18,7 @@ page {
   text-align: center;
   color: #999;
   top:0rpx;
+  z-index: 100;
 }
 
 .discount-txt {
@@ -71,8 +72,8 @@ page {
 
 /* 右侧菜单 */
 .food{
-    margin-bottom: 155rpx;
-    margin-top: 50rpx;
+    margin-bottom: 77rpx;
+    margin-top: 35rpx;
 }
 
 .food-category {
