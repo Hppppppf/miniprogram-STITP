@@ -18,6 +18,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.showLoading({
+      title: '加载中...',
+    })
     db.collection('CreditPayTotal').where({
       _openid: wx.getStorageSync('_OPENID')
     }).get().then(res => {
@@ -58,7 +61,9 @@ Page({
           credit_trans: res.data[0].credit_transt,
         })
       })
+      wx.hideLoading()
     })
+
   },
 
   pageTo: function() {

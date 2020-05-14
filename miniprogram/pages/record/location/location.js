@@ -14,6 +14,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    wx.showLoading({
+      title: '加载中...',
+    })
     db.collection('UserInfo').where({
       _openid: wx.getStorageSync('_OPENID')
     }).get().then(res => {
@@ -27,6 +30,7 @@ Page({
           haveLocation: false
         })
       }
+      wx.hideLoading()
     })
 
   },
@@ -73,7 +77,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    console.log("下拉刷新")
+    this.onLoad()
+    setTimeout(function () {
+      wx.stopPullDownRefresh()
+    }, 1000) //延迟时间 这里是1秒
   },
 
   /**

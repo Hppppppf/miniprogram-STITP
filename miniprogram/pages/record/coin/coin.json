@@ -1,4 +1,5 @@
 {
-  "navigationBarTitleText": "提现",
-  "usingComponents": {}
+  "navigationBarTitleText": "积分",
+  "usingComponents": {},
+  "enablePullDownRefresh": true
 }
