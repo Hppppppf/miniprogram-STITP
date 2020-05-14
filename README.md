@@ -22,9 +22,7 @@
 微信客户端
 ```
 
-正式版：<br/>
-<img src="README_images/扫码_搜索联合传播样式-白色版 .png" width="400" height="150" alt="正式版小程序码"/><br/>
-体验版(完整版)：<br/>
+体验版：<br/>
 <img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/o6CCv4ptmRRdVpW2zXYi37u1Q_JE.jpg" width="150" height="150" alt="体验版二维码"/><br/>
 
 
