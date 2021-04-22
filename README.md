@@ -37,7 +37,7 @@
 
 * Github: <br/>
 @Hppppppf https://github.com/Hppppppf<br/>
-@Chris Sine https://github.com/FFtu-ChrisKun
+@Chris Sine  https://github.com/FFtu-ChrisKun
 
 ## Show your support
 
