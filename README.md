@@ -22,10 +22,6 @@
 微信客户端
 ```
 
-体验版：<br/>
-<img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/o6CCv4ptmRRdVpW2zXYi37u1Q_JE.jpg" width="150" height="150" alt="体验版二维码"/><br/>
-
-
 ## 体验
 
 <img src="https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/Screenshot_20200513-094135_WeChat.jpg" width="240" height="480" alt="首页"/> <img src="https://github.com/Hppppppf/miniprogram-STITP/blob/master/README_images/Screenshot_20200509-230208_WeChat.jpg" width="240" height="480" alt="菜单"/> <img src="https://github.com/Hppppppf/miniprogram-STITP/raw/master/README_images/Screenshot_20200509-230225_WeChat.jpg" width="240" height="480" alt="结算页面"/>
